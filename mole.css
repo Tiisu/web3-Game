@@ -1,0 +1,499 @@
+/* General Styling */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background: url("mario-bg.jpg") no-repeat center center/cover;
+    margin: 0;
+    padding: 20px;
+}
+
+
+.tittle{
+    font-family: 'Pixelify Sans';
+    font-weight: bold;
+    font-size: 70px;
+    text-shadow: 3px 3px rgb(165, 66, 49)
+}
+
+.game-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.game-area {
+    flex: 1;
+}
+
+/* Game Board */
+#board {
+    width: 550px;
+    height: 550px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    background: url("soil.png") no-repeat center center/cover;
+    border: 3px solid white;
+    border-radius: 25px;
+}
+
+/* Board Tiles */
+#board div {
+    width: 180px; 
+    height: 180px;
+    background: url("pipe.png") no-repeat center center/cover;
+}
+
+/* Images inside tiles */
+#board div img {
+    width: 100px;
+    height: 100px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+/* 🎨 Button Styling */
+button {
+    background-color: #ffcc00;
+    border: 3px solid #ff6600;
+    color: #8b0000;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 10px;
+}
+
+/* Hover Effect */
+button:hover {
+    background-color: #ff9900;
+    color: white;
+    border: 3px solid #ff4500;
+}
+
+/* Disabled Button Style */
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+
+
+/* ======================================================== */
+/* Updated Controls Position and Animation */
+/* ========================================================= */
+
+/* #controls {
+    position: absolute;
+    left: -180px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+} */
+
+
+.menu {
+    position: absolute;
+    margin-left: -15%;
+    top: 63%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu button {
+    background: url('wood.png') no-repeat center;
+    background-size: cover;
+    border: 3px solid #8B4513;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.menu button:hover {
+    transform: scale(1.1);
+}
+
+.menu button:active {
+    transform: scale(0.9);
+}
+
+
+
+/* ========================================================  */
+/* Game scoreboard Styling */
+/* ========================================================  */
+
+.scoreboard {
+    display: flex;
+    justify-content: space-between;
+    width: 64%;
+    margin: 2% auto;
+    padding: 10px;
+    background-color: rgba(0, 100, 143, 0.5);
+    border: 2px solid #0e6702;
+    border-radius: 10px;
+}
+
+.scoreboard div {
+    font-size: 1.2rem;
+    font-family: 'Pixelify Sans';
+}
+
+/* 🎭 Animations */
+@keyframes mole-pop {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+.mole {
+    animation: mole-pop 0.3s ease-out;
+}
+
+@keyframes plant-shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+.piranha {
+    animation: plant-shake 0.5s ease-in-out;
+}
+
+
+/* -- ========================================-- */
+/* Dashboard Styling */
+/* -- ========================================-- */
+
+.dashboard-container {
+    flex: 0 0 350px;
+    height: 520px;
+    width: 700px;
+    margin-top: 155px;
+    position: relative;
+    left: 170px;
+}
+
+#dashboard {
+    background: url('learder.png') no-repeat center;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Header Styling */
+#dashboard h2, #dashboard h3 {
+    color: #1f3c88;
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 3px solid #1f3c88;
+    padding-bottom: 8px;
+    font-size: 1.3em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#dashboard h2:hover, #dashboard h3:hover {
+    color: #ff6b6b;
+    border-bottom: 3px solid #ff6b6b;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    background: linear-gradient(135deg, #5b9bd5, #4a69bd);
+    padding: 14px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: white;
+}
+
+.stat-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+}
+
+.stat-label {
+    font-size: 0.85em;
+    color: #ddd;
+    margin-bottom: 3px;
+}
+
+.stat-value {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+}
+
+/* Achievements */
+.achievements {
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+.achievement {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    transition: transform 0.3s ease, background 0.3s ease;
+    font-size: 0.9em;
+}
+
+.achievement:hover {
+    transform: scale(1.05);
+}
+
+/* Unlocked Achievements */
+.achievement.unlocked {
+    background: linear-gradient(135deg, #ffcc00, #ff8c00);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 3px 10px rgba(255, 140, 0, 0.5);
+}
+
+.achievement.unlocked:nth-child(2) {
+    background: linear-gradient(135deg, #28a745, #218838);
+}
+
+.achievement.unlocked:nth-child(3) {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+}
+
+/* Leaderboard */
+.leaderboard {
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+#leaderboard {
+    list-style-position: inside;
+    padding: 0;
+}
+
+#leaderboard li {
+    background: linear-gradient(90deg, #f8f9fa, #e9ecef);
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    transition: transform 0.3s ease;
+}
+
+#leaderboard li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Leaderboard Top Ranks */
+#leaderboard li:nth-child(1) {
+    background: linear-gradient(90deg, #ffd700, #ffc107);
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+#leaderboard li:nth-child(2) {
+    background: linear-gradient(90deg, #c0c0c0, #adb5bd);
+    box-shadow: 0 0 12px rgba(192, 192, 192, 0.6);
+}
+
+#leaderboard li:nth-child(3) {
+    background: linear-gradient(90deg, #cd7f32, #b8734c);
+    box-shadow: 0 0 10px rgba(205, 127, 50, 0.6);
+}
+
+/* Button Styling */
+.button {
+    background: linear-gradient(135deg, #ff6b6b, #e63946);
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    font-size: 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ================================================= */
+/* Level System Styling */
+/* ==================================================== */
+
+.level-container {
+    background-color: rgba(0, 100, 143, 0.5);
+    border: 2px solid #0e6702;
+    border-radius: 10px;
+    padding: 8px 15px;
+    margin: 10px auto;
+    width: 14%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    color: white;
+}
+
+.level-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+}
+
+.level-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.level-progress {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.progress-bar-container {
+    height: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #27ae60, #2ecc71);
+    border-radius: 10px;
+    width: 0% ;
+    transition: width 0.5s ease-out;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+/* Level Up Notification */
+.level-up-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #f5a623, #e67e22);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.7);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    animation: level-up-anim 0.5s ease-out forwards;
+    font-family: 'Pixelify Sans';
+}
+
+.level-icon {
+    font-size: 2rem;
+}
+
+.level-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+@keyframes level-up-anim {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.fade-out {
+    animation: fade-out 1s ease-out forwards;
+}
+
+@keyframes fade-out {
+    0% { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, -70%); }
+}
+
+/* Points Earned Animation */
+.points-earned {
+    position: absolute;
+    color: #ffcc00;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    z-index: 100;
+    animation: float-up 3s ease-out forwards;
+}
+
+@keyframes float-up {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-50px); opacity: 0; }
+}
+
+/* Update stats item for highest level */
+.stat-item.highest-level {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+
