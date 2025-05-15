@@ -170,24 +170,23 @@ button:disabled {
   animation: mole-pop 0.3s ease-out;
 }
 
-@keyframes plant-shake {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(-5deg);
+@keyframes plant-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
   }
   50% {
-    transform: rotate(5deg);
+    transform: scale(1.1);
+    opacity: 1;
   }
-  75% {
-    transform: rotate(-5deg);
+  100% {
+    transform: scale(1);
   }
 }
 
 .piranha {
-  animation: plant-shake 0.5s ease-in-out;
+  animation: plant-pop 0.5s ease-in-out;
+  
 }
 
 /* -- ========================================-- */
@@ -224,10 +223,8 @@ button:disabled {
   margin-bottom: 15px;
   border-bottom: 3px solid #ffbaba;
   padding-bottom: 8px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: 'Sirin Stencil';
   font-size: 2.5rem;
-  font-weight: 700;
   text-shadow: 3px 3px rgb(165, 66);
   transition: all 0.3s ease;
 }

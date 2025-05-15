@@ -388,9 +388,10 @@ function setPlant() {
     if (currPlantTile) currPlantTile.innerHTML = "";
 
     let plant = document.createElement("img");
-    plant.src = "./images/piranha-plant.png";
+    plant.src = "./images/fanbase.png";
     plant.draggable = false;
     plant.classList.add("piranha");
+    plant.style.width = "110px";
 
     let tile = getRandomTile([currMoleTile1?.id, currMoleTile2?.id]);
 
