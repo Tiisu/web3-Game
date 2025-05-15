@@ -33,14 +33,11 @@
         <div id="board"></div>
 
         <!-- Game Controls -->
-        <div class="menu-container">
-          <div class="menu">
-            <button id="menu-btn">MENU</button>
-            <button id="start-btn">START</button>
-            <button id="pause-btn" disabled>PAUSE</button>
-            <button id="resume-btn" disabled>RESUME</button>
-            <button id="stop-btn" disabled>QUIT</button>
-          </div>
+        <div class="menu">
+          <button id="start-btn">START</button>
+          <button id="pause-btn" disabled>PAUSE</button>
+          <button id="resume-btn" disabled>RESUME</button>
+          <button id="stop-btn" disabled>QUIT</button>
         </div>
       </div>
 
@@ -97,29 +94,31 @@
       </div>
     </div>
 
+    <div id="toast" class="toast">Game Over! Your final score: 0</div>
+
+
     <!-- Level Display -->
-    <div>
-      <!-- <h2>LEVEL</h2> -->
-      <div class="level-container">
-        <div class="level-display">
-          <div>Level: <span id="level" class="level-number">1</span></div>
+
+    <!-- <h2>LEVEL</h2> -->
+    <div class="level-container">
+      <div class="level-display">
+        <div>Level: <span id="level" class="level-number">1</span></div>
+      </div>
+      <div class="level-progress">
+        <div class="progress-bar-container">
+          <div id="level-progress-bar" class="progress-bar"></div>
         </div>
-        <div class="level-progress">
-          <div class="progress-bar-container">
-            <div id="level-progress-bar" class="progress-bar"></div>
-          </div>
-          <div class="progress-text">
-            <span id="next-level-progress">0/100</span>
-          </div>
+        <div class="progress-text">
+          <span id="next-level-progress">0/100</span>
         </div>
       </div>
     </div>
 
     <!-- Audio -->
-    <audio id="mole-sound" src="coin.wav"></audio>
-    <audio id="plant-sound" src="ouch.mp3"></audio>
-    <audio id="gameover-sound" src="gameover.wav"></audio>
-    <audio id="achievement-sound" src="achievement.wav"></audio>
-    <audio id="background-music" src="background-music.mp3" loop></audio>
+    <audio id="mole-sound" src="audio/coin.wav"></audio>
+    <audio id="plant-sound" src="audio/ouch.mp3"></audio>
+    <audio id="gameover-sound" src="audio/gameover.wav"></audio>
+    <audio id="achievement-sound" src="audio/achievement.wav"></audio>
+    <audio id="background-music" src="audio/background-music.mp3" loop></audio>
   </body>
 </html>

@@ -296,10 +296,17 @@ function stopGame() {
     // Update leaderboard
     updateLeaderboard(score);
 
-    let minutesSurvived = (120 - timeLeft) / 60;
-    alert(`Game Over! Your final score: ${score}. You reached Level ${currentLevel}. You lasted ${minutesSurvived.toFixed(2)} minutes!`);
-    
-    location.reload();
+    // Show toast with simplified message
+    const toast = document.getElementById("toast");
+    toast.innerHTML = `<div style="font-size: 1.5rem; margin-bottom: 10px;">GAME OVER!</div>
+                      <div>Final Score: ${score}</div>`;
+    toast.className = "toast show";
+
+    // Hide toast after 3 seconds and reload
+    setTimeout(() => {
+        toast.className = "toast";
+        location.reload();
+    }, 3000);
 }
 
 function startTimer() {
@@ -354,12 +361,12 @@ function setMoles() {
     if (currMoleTile2) currMoleTile2.innerHTML = "";
 
     let mole1 = document.createElement("img");
-    mole1.src = "./mole-3.png";
+    mole1.src = "./images/mole-3.png";
     mole1.draggable = false;
     mole1.classList.add("mole");
 
     let mole2 = document.createElement("img");
-    mole2.src = "./mole-2.png";
+    mole2.src = "./images/mole-2.png";
     mole2.draggable = false;
     mole2.classList.add("mole");
 
@@ -381,7 +388,7 @@ function setPlant() {
     if (currPlantTile) currPlantTile.innerHTML = "";
 
     let plant = document.createElement("img");
-    plant.src = "./piranha-plant.png";
+    plant.src = "./images/piranha-plant.png";
     plant.draggable = false;
     plant.classList.add("piranha");
 
@@ -402,9 +409,9 @@ function selectTile() {
         // Base score values
         let pointsEarned = 0;
         
-        if (moleImg && moleImg.src.includes("mole-3.png")) {
+        if (moleImg && moleImg.src.includes("images/mole-3.png")) {
             pointsEarned = 20;
-        } else if (moleImg && moleImg.src.includes("mole-2.png")) {
+        } else if (moleImg && moleImg.src.includes("images/mole-2.png")) {
             pointsEarned = 10;
         }
         
@@ -476,3 +483,7 @@ function increaseDifficulty() {
     
     startIntervals();
 }
+
+
+
+
