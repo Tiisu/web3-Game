@@ -177,38 +177,135 @@ function showLevelUpNotification() {
     }, 2000);
 }
 
-window.onload = function() {
+window.onload = async function() {
+    // Initialize Web3 first
+    await initializeWeb3();
+
+    // Initialize game controls
     document.getElementById("start-btn").addEventListener("click", startGame);
     document.getElementById("pause-btn").addEventListener("click", pauseGame);
     document.getElementById("resume-btn").addEventListener("click", resumeGame);
     document.getElementById("stop-btn").addEventListener("click", stopGame);
 
     document.getElementById("highScore").innerText = localStorage.getItem("highScore") || 0;
-    
+
     // Initialize dashboard
     loadGameStats();
     updateLeaderboard(0);
-    
+
     // Initialize button states
     document.getElementById("pause-btn").disabled = true;
     document.getElementById("resume-btn").disabled = true;
     document.getElementById("stop-btn").disabled = true;
-    
+
     // Initialize background music
     backgroundMusic = document.getElementById("background-music");
     backgroundMusic.volume = 0.5; // Set music volume to 50%
-    
+
     // Initialize level display
     updateLevelDisplay();
+
+    // Setup Web3 event listeners
+    setupWeb3EventListeners();
 };
 
-function startGame() {
+// Initialize Web3 integration
+async function initializeWeb3() {
+    try {
+        const success = await web3Game.initialize();
+        if (success) {
+            console.log('✅ Web3 initialized successfully');
+            updateWeb3UI();
+        } else {
+            console.log('⚠️ Web3 initialization failed - running in local mode');
+        }
+    } catch (error) {
+        console.error('❌ Web3 initialization error:', error);
+    }
+}
+
+// Setup Web3 event listeners
+function setupWeb3EventListeners() {
+    // Connect wallet button
+    const connectBtn = document.getElementById('connect-wallet-btn');
+    if (connectBtn) {
+        connectBtn.addEventListener('click', async () => {
+            try {
+                const success = await web3Game.initialize();
+                if (success) {
+                    updateWeb3UI();
+                    checkPlayerRegistration();
+                }
+            } catch (error) {
+                console.error('Failed to connect wallet:', error);
+                alert('Failed to connect wallet. Please make sure MetaMask is installed and try again.');
+            }
+        });
+    }
+
+    // Register player button
+    const registerBtn = document.getElementById('register-btn');
+    if (registerBtn) {
+        registerBtn.addEventListener('click', async () => {
+            const username = document.getElementById('username-input').value.trim();
+            if (!username) {
+                showRegistrationStatus('Please enter a username', 'error');
+                return;
+            }
+
+            try {
+                registerBtn.disabled = true;
+                showRegistrationStatus('Registering player...', 'info');
+
+                await web3Game.registerPlayer(username);
+                showRegistrationStatus('Player registered successfully!', 'success');
+
+                setTimeout(() => {
+                    document.getElementById('registration-modal').style.display = 'none';
+                    updateWeb3UI();
+                }, 2000);
+            } catch (error) {
+                console.error('Registration failed:', error);
+                showRegistrationStatus('Registration failed: ' + error.message, 'error');
+                registerBtn.disabled = false;
+            }
+        });
+    }
+
+    // Refresh leaderboard button
+    const refreshBtn = document.getElementById('refresh-leaderboard-btn');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', async () => {
+            await refreshWeb3Data();
+        });
+    }
+
+    // Edit username button
+    const editUsernameBtn = document.getElementById('edit-username-btn');
+    if (editUsernameBtn) {
+        editUsernameBtn.addEventListener('click', () => {
+            const newUsername = prompt('Enter new username:');
+            if (newUsername && newUsername.trim()) {
+                updatePlayerUsername(newUsername.trim());
+            }
+        });
+    }
+}
+
+async function startGame() {
     if (!gameOver) {
+        // Check if player is registered for Web3 features
+        if (web3Game.isInitialized && !web3Game.isPlayerRegistered()) {
+            alert('Please register your player profile first to earn achievements and compete on the leaderboard!');
+            checkPlayerRegistration();
+            return;
+        }
+
         score = 0;
         timeLeft = 120;
         currentLevel = 1;
         pointsToNextLevel = basePointsToNextLevel;
-        
+
         updateTimerDisplay();
         updateScore();
         updateLevelDisplay();
@@ -220,9 +317,19 @@ function startGame() {
         document.getElementById("stop-btn").disabled = false;
 
         startTimer();
-        
+
         // Start background music
         playBackgroundMusic();
+
+        // Start Web3 game session if available
+        if (web3Game.isInitialized && web3Game.isPlayerRegistered()) {
+            try {
+                await web3Game.startGameSession();
+                console.log('🎮 Web3 game session started');
+            } catch (error) {
+                console.error('Failed to start Web3 game session:', error);
+            }
+        }
     }
 }
 
@@ -267,20 +374,33 @@ function resumeGame() {
     }
 }
 
-function stopGame() {
+async function stopGame() {
     gameOver = true;
     clearInterval(moleInterval);
     clearInterval(plantInterval);
     clearInterval(difficultyInterval);
     clearInterval(timerInterval);
-    
+
     // Stop background music
     pauseBackgroundMusic();
-    
+
     // Play game over sound
     playSound("gameover-sound");
 
-    // Update game statistics
+    // Complete Web3 game session if available
+    if (web3Game.isInitialized && web3Game.isPlayerRegistered() && web3Game.getCurrentGameId()) {
+        try {
+            await web3Game.completeGameSession(score, gameStats.molesHit, currentLevel);
+            console.log('🏆 Web3 game session completed');
+
+            // Update Web3 UI with new data
+            setTimeout(() => updateWeb3UI(), 1000);
+        } catch (error) {
+            console.error('Failed to complete Web3 game session:', error);
+        }
+    }
+
+    // Update local game statistics
     gameStats.gamesPlayed++;
     gameStats.totalScore += score;
     gameStats.totalCoins += score;
@@ -293,20 +413,25 @@ function stopGame() {
     }
     saveGameStats();
 
-    // Update leaderboard
+    // Update local leaderboard (for fallback)
     updateLeaderboard(score);
 
     // Show toast with simplified message
     const toast = document.getElementById("toast");
+    const web3Status = web3Game.isInitialized && web3Game.isPlayerRegistered() ?
+        '<div style="font-size: 0.9rem; color: #4CAF50;">✅ Saved to ApeChain</div>' :
+        '<div style="font-size: 0.9rem; color: #ff9800;">⚠️ Local game only</div>';
+
     toast.innerHTML = `<div style="font-size: 1.5rem; margin-bottom: 10px;">GAME OVER!</div>
-                      <div>Final Score: ${score}</div>`;
+                      <div>Final Score: ${score}</div>
+                      ${web3Status}`;
     toast.className = "toast show";
 
-    // Hide toast after 3 seconds and reload
+    // Hide toast after 4 seconds and reload
     setTimeout(() => {
         toast.className = "toast";
         location.reload();
-    }, 3000);
+    }, 4000);
 }
 
 function startTimer() {
@@ -477,12 +602,150 @@ function updateScore() {
   
 function increaseDifficulty() {
     if (gameOver || isPaused) return;
-    
+
     // Base difficulty increase
-    moleIntervalTime = Math.max(300, moleIntervalTime - 50); 
+    moleIntervalTime = Math.max(300, moleIntervalTime - 50);
     plantIntervalTime = Math.max(800, plantIntervalTime - 50);
-    
+
     startIntervals();
+}
+
+// Web3 Integration Helper Functions
+
+// Update Web3 UI elements
+function updateWeb3UI() {
+    Web3Config.updateUI();
+
+    const playerData = web3Game.getPlayerData();
+    const achievements = web3Game.getAchievements();
+    const leaderboard = web3Game.getLeaderboard();
+
+    // Update player info
+    if (playerData && playerData.isRegistered) {
+        const playerInfo = document.getElementById('web3-player-info');
+        const playerUsername = document.getElementById('player-username');
+        const playerRank = document.getElementById('player-rank');
+
+        if (playerInfo) playerInfo.style.display = 'block';
+        if (playerUsername) playerUsername.textContent = playerData.username;
+
+        // Update rank
+        web3Game.getPlayerRank().then(rank => {
+            if (playerRank) playerRank.textContent = rank || '-';
+        });
+
+        // Update stats with blockchain data
+        updateStatsWithWeb3Data(playerData);
+    }
+
+    // Update achievements
+    updateAchievementsUI(achievements);
+
+    // Update leaderboard
+    updateLeaderboardUI(leaderboard);
+}
+
+// Update stats with Web3 data
+function updateStatsWithWeb3Data(playerData) {
+    if (!playerData) return;
+
+    document.getElementById('games-played').textContent = playerData.totalGamesPlayed;
+    document.getElementById('total-score').textContent = playerData.totalScore;
+    document.getElementById('highest-score').textContent = playerData.highestScore;
+    document.getElementById('total-moles').textContent = playerData.totalMolesHit;
+
+    // Update NFT count
+    const nftCount = web3Game.getAchievements().length;
+    document.getElementById('nft-count').textContent = nftCount;
+
+    // Calculate average score
+    const avgScore = playerData.totalGamesPlayed > 0 ?
+        Math.round(playerData.totalScore / playerData.totalGamesPlayed) : 0;
+    document.getElementById('avg-score').textContent = avgScore;
+}
+
+// Update achievements UI
+function updateAchievementsUI(achievements) {
+    const achievementElements = document.querySelectorAll('.achievement[data-achievement]');
+
+    achievementElements.forEach(element => {
+        const achievementType = element.getAttribute('data-achievement');
+        const isUnlocked = achievements.includes(achievementType);
+
+        if (isUnlocked) {
+            element.classList.remove('locked');
+            element.classList.add('unlocked');
+            const nftBadge = element.querySelector('.nft-badge');
+            if (nftBadge) nftBadge.style.display = 'inline-block';
+        }
+    });
+}
+
+// Update leaderboard UI
+function updateLeaderboardUI(leaderboard) {
+    const leaderboardElement = document.getElementById('leaderboard');
+    if (!leaderboardElement || !leaderboard) return;
+
+    leaderboardElement.innerHTML = '';
+
+    leaderboard.slice(0, 10).forEach((entry, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div class="leaderboard-entry">
+                <span class="rank">#${index + 1}</span>
+                <span class="username">${entry.username}</span>
+                <span class="score">${entry.score}</span>
+            </div>
+        `;
+        leaderboardElement.appendChild(li);
+    });
+}
+
+// Check if player needs to register
+function checkPlayerRegistration() {
+    if (web3Game.isInitialized && !web3Game.isPlayerRegistered()) {
+        document.getElementById('registration-modal').style.display = 'flex';
+    }
+}
+
+// Show registration status
+function showRegistrationStatus(message, type) {
+    const statusElement = document.getElementById('registration-status');
+    if (statusElement) {
+        statusElement.textContent = message;
+        statusElement.className = `status-message ${type}`;
+    }
+}
+
+// Update player username
+async function updatePlayerUsername(newUsername) {
+    try {
+        await web3Game.updateUsername(newUsername);
+        updateWeb3UI();
+        alert('Username updated successfully!');
+    } catch (error) {
+        console.error('Failed to update username:', error);
+        alert('Failed to update username: ' + error.message);
+    }
+}
+
+// Refresh Web3 data
+async function refreshWeb3Data() {
+    if (!web3Game.isInitialized) return;
+
+    const loadingElement = document.getElementById('leaderboard-loading');
+    if (loadingElement) loadingElement.style.display = 'block';
+
+    try {
+        await web3Game.loadPlayerData();
+        await web3Game.loadAchievements();
+        await web3Game.loadLeaderboard();
+        updateWeb3UI();
+    } catch (error) {
+        console.error('Failed to refresh Web3 data:', error);
+    } finally {
+        if (loadingElement) loadingElement.style.display = 'none';
+    }
 }
 
 

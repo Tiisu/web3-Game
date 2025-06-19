@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whac a Mole</title>
+    <link rel="stylesheet" href="mole.css" />
+    <link rel="stylesheet" href="web3-styles.css" />
+
+    <!-- Ethers.js for Web3 integration -->
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+
+    <!-- Web3 integration scripts -->
+    <script src="web3-config.js"></script>
+    <script src="web3-integration.js"></script>
+    <script src="mole.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pixelify+Sans:wght@400..700&family=Play:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sirin+Stencil&family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Web3 Connection UI -->
+    <div id="web3-connection" class="web3-connection">
+      <button id="connect-wallet-btn" class="connect-wallet-btn">
+        🦍 Connect Wallet to Play on ApeChain
+      </button>
+      <div id="wallet-info" class="wallet-info" style="display: none;">
+        <div class="wallet-status">
+          <span class="wallet-icon">🔗</span>
+          <span id="account-display">Not Connected</span>
+          <span class="network-badge">ApeChain</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player Registration Modal -->
+    <div id="registration-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h2>Welcome to Web3 Whac-A-Mole!</h2>
+        <p>Register your player profile to start earning achievements and competing on the leaderboard.</p>
+        <div class="registration-form">
+          <input type="text" id="username-input" placeholder="Enter your username" maxlength="32">
+          <button id="register-btn" class="register-btn">Register Player</button>
+        </div>
+        <div id="registration-status" class="status-message"></div>
+      </div>
+    </div>
+
+    <div class="game-container">
+      <div class="game-area">
+        <h1><span class="tittle">WHAC-A-MOLE</span></h1>
+
+        <div class="scoreboard">
+          <div>Score 🏅: <span id="score">0</span></div>
+          <div>High Score: <span id="highScore">0</span></div>
+          <div>Time: <span id="time">120</span>s</div>
+        </div>
+
+        <!-- 3x3 -->
+        <div id="board"></div>
+
+        <!-- Game Controls -->
+        <div class="menu">
+          <button id="start-btn">START</button>
+          <button id="pause-btn" disabled>PAUSE</button>
+          <button id="resume-btn" disabled>RESUME</button>
+          <button id="stop-btn" disabled>QUIT</button>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div class="dashboard-container">
+        <div id="dashboard">
+          <h2>Player Stats</h2>
+
+          <!-- Web3 Player Info -->
+          <div id="web3-player-info" class="web3-player-info" style="display: none;">
+            <div class="player-header">
+              <span class="player-username" id="player-username">Player</span>
+              <button id="edit-username-btn" class="edit-btn">✏️</button>
+            </div>
+            <div class="player-rank">
+              <span>Rank: #</span><span id="player-rank">-</span>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-label">Games Played</div>
+              <div id="games-played" class="stat-value">0</div>
+              <div class="stat-source blockchain">On-Chain</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Total Score</div>
+              <div id="total-score" class="stat-value">0</div>
+              <div class="stat-source blockchain">On-Chain</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Highest Score</div>
+              <div id="highest-score" class="stat-value">0</div>
+              <div class="stat-source blockchain">On-Chain</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Avg Score</div>
+              <div id="avg-score" class="stat-value">0</div>
+              <div class="stat-source local">Local</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Moles Hit</div>
+              <div id="total-moles" class="stat-value">0</div>
+              <div class="stat-source blockchain">On-Chain</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">NFT Achievements</div>
+              <div id="nft-count" class="stat-value">0</div>
+              <div class="stat-source blockchain">On-Chain</div>
+            </div>
+          </div>
+
+          <div class="achievements">
+            <h3>NFT Achievements 🏆</h3>
+            <div id="achievements-list">
+              <div class="achievement locked" id="beginner" data-achievement="BEGINNER">
+                <span class="achievement-icon">🎯</span>
+                <span class="achievement-text">Beginner: Score 1,000+ points</span>
+                <span class="nft-badge" style="display: none;">NFT</span>
+              </div>
+              <div class="achievement locked" id="pro" data-achievement="PRO">
+                <span class="achievement-icon">🏆</span>
+                <span class="achievement-text">Pro: Score 5,000+ points</span>
+                <span class="nft-badge" style="display: none;">NFT</span>
+              </div>
+              <div class="achievement locked" id="master" data-achievement="MASTER">
+                <span class="achievement-icon">👑</span>
+                <span class="achievement-text">Master: Score 10,000+ points</span>
+                <span class="nft-badge" style="display: none;">NFT</span>
+              </div>
+              <div class="achievement locked" id="regular" data-achievement="REGULAR">
+                <span class="achievement-icon">🎮</span>
+                <span class="achievement-text">Regular: Play 10+ games</span>
+                <span class="nft-badge" style="display: none;">NFT</span>
+              </div>
+              <div class="achievement locked" id="veteran" data-achievement="VETERAN">
+                <span class="achievement-icon">⭐</span>
+                <span class="achievement-text">Veteran: Play 100+ games</span>
+                <span class="nft-badge" style="display: none;">NFT</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="leaderboard">
+            <h3>Global Leaderboard 🌍</h3>
+            <div class="leaderboard-header">
+              <span class="blockchain-badge">On ApeChain</span>
+              <button id="refresh-leaderboard-btn" class="refresh-btn">🔄</button>
+            </div>
+            <ol id="leaderboard"></ol>
+            <div id="leaderboard-loading" class="loading" style="display: none;">
+              Loading blockchain data...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast">Game Over! Your final score: 0</div>
+
+    <!-- Level Display -->
+
+    <!-- <h2>LEVEL</h2> -->
+    <div class="level-container">
+      <div class="level-display">
+        <div>Level: <span id="level" class="level-number">1</span></div>
+      </div>
+      <div class="level-progress">
+        <div class="progress-bar-container">
+          <div id="level-progress-bar" class="progress-bar"></div>
+        </div>
+        <div class="progress-text">
+          <span id="next-level-progress">0/100</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="mole-sound" src="audio/coin.wav"></audio>
+    <audio id="plant-sound" src="audio/ouch.mp3"></audio>
+    <audio id="gameover-sound" src="audio/gameover.wav"></audio>
+    <audio id="achievement-sound" src="audio/achievement.wav"></audio>
+    <audio id="background-music" src="audio/background-music.mp3" loop></audio>
+  </body>
+</html>
