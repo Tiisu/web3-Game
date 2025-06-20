@@ -1,0 +1,200 @@
+/* Achievements List Styles */
+
+.achievements {
+  margin-bottom: 30px;
+}
+
+.achievements h3 {
+  color: white;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.achievements-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.achievements-list {
+  display: grid;
+  gap: 12px;
+}
+
+.achievement {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.achievement.locked {
+  opacity: 0.6;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.achievement.unlocked {
+  opacity: 1;
+  border-color: rgba(76, 175, 80, 0.5);
+  background: rgba(76, 175, 80, 0.1);
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.2);
+}
+
+.achievement-icon {
+  font-size: 2rem;
+  min-width: 50px;
+  text-align: center;
+}
+
+.achievement-content {
+  flex: 1;
+}
+
+.achievement-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.achievement-name {
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.nft-badge {
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.achievement-description {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.achievement-progress {
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #45a049);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.achievement-rarity {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.rarity-badge {
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.rarity-badge.common {
+  background: #9e9e9e;
+  color: white;
+}
+
+.rarity-badge.rare {
+  background: #2196F3;
+  color: white;
+}
+
+.rarity-badge.epic {
+  background: #9c27b0;
+  color: white;
+}
+
+.rarity-badge.legendary {
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: white;
+}
+
+.achievements-placeholder {
+  text-align: center;
+  padding: 30px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.achievements-placeholder p {
+  margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .achievement {
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .achievement-icon {
+    font-size: 1.5rem;
+    min-width: 40px;
+  }
+  
+  .achievement-name {
+    font-size: 1rem;
+  }
+  
+  .achievement-description {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .achievement {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+  
+  .achievement-icon {
+    font-size: 2rem;
+    min-width: auto;
+  }
+  
+  .achievement-content {
+    width: 100%;
+  }
+  
+  .achievement-header {
+    justify-content: center;
+  }
+  
+  .achievement-rarity {
+    justify-content: center;
+  }
+}
