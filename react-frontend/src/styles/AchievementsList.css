@@ -1,13 +1,20 @@
 /* Achievements List Styles */
 
 .achievements {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  flex-shrink: 0;
 }
 
 .achievements h3 {
-  color: white;
+  color: #fff;
+  text-align: center;
   margin-bottom: 15px;
-  font-size: 1.5rem;
+  border-bottom: 3px solid #ffbaba;
+  padding-bottom: 8px;
+  font-family: 'Sirin Stencil';
+  font-size: 2.5rem;
+  text-shadow: 3px 3px rgb(165, 66);
+  transition: all 0.3s ease;
 }
 
 .achievements-loading {
@@ -27,29 +34,37 @@
 .achievement {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 15px;
-  border-radius: 12px;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.05);
+  gap: 10px;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  transition: transform 0.3s ease, background 0.3s ease;
+  font-size: 0.9em;
 }
 
-.achievement.locked {
-  opacity: 0.6;
-  border-color: rgba(255, 255, 255, 0.1);
+.achievement:hover {
+  transform: scale(1.05);
 }
 
 .achievement.unlocked {
-  opacity: 1;
-  border-color: rgba(76, 175, 80, 0.5);
-  background: rgba(76, 175, 80, 0.1);
-  box-shadow: 0 0 15px rgba(76, 175, 80, 0.2);
+  background: linear-gradient(135deg, #ffcc00, #ff8c00);
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 3px 10px rgba(255, 140, 0, 0.5);
+}
+
+.achievement.unlocked:nth-child(2) {
+  background: linear-gradient(135deg, #28a745, #218838);
+}
+
+.achievement.unlocked:nth-child(3) {
+  background: linear-gradient(135deg, #007bff, #0056b3);
 }
 
 .achievement-icon {
-  font-size: 2rem;
-  min-width: 50px;
+  font-size: 1.2rem;
+  min-width: 30px;
   text-align: center;
 }
 
@@ -64,25 +79,22 @@
   margin-bottom: 5px;
 }
 
-.achievement-name {
-  color: white;
-  font-weight: bold;
-  font-size: 1.1rem;
+.achievement-text {
+  font-size: 0.95rem;
 }
 
 .nft-badge {
   background: linear-gradient(135deg, #ff6b35, #f7931e);
   color: white;
-  padding: 2px 8px;
+  padding: 2px 6px;
   border-radius: 8px;
   font-size: 10px;
   font-weight: bold;
+  margin-left: 8px;
 }
 
-.achievement-description {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-  margin-bottom: 10px;
+.achievement.unlocked .nft-badge {
+  display: inline-block !important;
 }
 
 .achievement-progress {

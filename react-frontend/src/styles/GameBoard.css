@@ -1,86 +1,133 @@
-/* Game Board Styles */
+/* === ENHANCED GAME BOARD STYLES === */
 
 .game-board {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: 550px;
+  height: 550px;
   margin: 0 auto;
+  background: url("../../public/images/soil.png") no-repeat center center/cover;
+  border-radius: 25px;
+  padding: 0;
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(255, 107, 53, 0.1);
+  border: 3px solid white;
+  transition: all var(--transition-normal);
+}
+
+.game-board:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl), 0 0 60px rgba(255, 107, 53, 0.2);
 }
 
 .board-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .board-cell {
   position: relative;
   cursor: pointer;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: transform 0.1s ease;
+  width: 180px;
+  height: 180px;
+  background: url("../../public/images/pipe.png") no-repeat center center/cover;
+  transition: all var(--transition-normal);
 }
 
 .board-cell:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(255, 107, 53, 0.3);
+  border-color: rgba(255, 107, 53, 0.4);
 }
 
 .board-cell.has-mole {
   cursor: pointer;
+  animation: cellGlow 0.5s ease-in-out;
 }
 
+@keyframes cellGlow {
+  0%, 100% {
+    box-shadow: var(--shadow-md);
+  }
+  50% {
+    box-shadow: var(--shadow-lg), 0 0 25px rgba(255, 107, 53, 0.5);
+  }
+}
+
+/* === MOLE HOLES (Simplified to match original) === */
 .hole {
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, #2d1810 30%, #1a0f08 70%);
-  border-radius: 50%;
   position: relative;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.hole-inner {
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  width: 80%;
-  height: 80%;
-  background: radial-gradient(circle, #1a0f08 20%, #0d0704 80%);
-  border-radius: 50%;
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.9);
-}
-
+/* === MOLE CHARACTERS === */
 .mole {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80%;
+  width: 100px;
+  height: 100px;
   opacity: 0;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   z-index: 10;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .mole.visible {
   opacity: 1;
-  animation: molePopUp 0.3s ease-out;
+  animation: mole-pop 0.3s ease-out;
 }
 
-@keyframes molePopUp {
+.mole:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 107, 53, 0.6));
+}
+
+.mole:active {
+  transform: translate(-50%, -50%) scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+@keyframes mole-pop {
   0% {
-    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    transform: translate(-50%, -50%) scale(0);
     opacity: 0;
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.2) rotate(5deg);
+    transform: translate(-50%, -50%) scale(1.1);
     opacity: 1;
   }
   100% {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.piranha {
+  animation: plant-pop 0.5s ease-in-out;
+}
+
+@keyframes plant-pop {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
     opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
@@ -88,7 +135,14 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.6));
+  transition: all var(--transition-fast);
+}
+
+.mole:hover .mole-image {
+  filter:
+    drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.6))
+    drop-shadow(0 0 15px rgba(255, 107, 53, 0.4));
 }
 
 .points-indicator {
@@ -146,40 +200,45 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 785px) {
   .game-board {
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+    margin-bottom: 2.3rem;
+    margin-top: 1.5rem;
   }
-  
-  .board-grid {
-    gap: 8px;
-  }
-  
-  .points-indicator {
-    width: 25px;
-    height: 25px;
-    font-size: 10px;
-    top: -8px;
-    right: -8px;
-  }
-}
 
-@media (max-width: 480px) {
-  .game-board {
-    width: 250px;
-    height: 250px;
+  .board-cell {
+    width: 33.33%;
+    height: 0;
+    padding-bottom: 33.33%;
+    position: relative;
+    background-size: 100% 100%;
   }
-  
-  .board-grid {
-    gap: 5px;
+
+  .board-cell .mole {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    animation: mobile-pop 0.3s ease-out;
   }
-  
-  .overlay-content h2 {
-    font-size: 1.2rem;
-  }
-  
-  .overlay-content p {
-    font-size: 0.9rem;
+
+  @keyframes mobile-pop {
+    0% {
+      transform: scale(0) translate(-50%, -50%);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.1) translate(-50%, -50%);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1) translate(-50%, -50%);
+    }
   }
 }

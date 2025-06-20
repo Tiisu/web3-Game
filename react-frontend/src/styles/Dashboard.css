@@ -1,19 +1,25 @@
 /* Dashboard Styles */
 
 .dashboard-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  flex: 0 0 350px;
+  height: 500px;
+  width: 700px;
+  margin: 20px auto;
+  transform: translateY(170px);
+  position: relative;
 }
 
 .dashboard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 25px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: url("../../public/images/learder.png") no-repeat center;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
 .dashboard-header {
@@ -24,9 +30,15 @@
 }
 
 .dashboard-header h2 {
-  color: white;
-  margin: 0;
-  font-size: 1.8rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 15px;
+  border-bottom: 3px solid #ffbaba;
+  padding-bottom: 8px;
+  font-family: 'Sirin Stencil';
+  font-size: 2.5rem;
+  text-shadow: 3px 3px rgb(165, 66);
+  transition: all 0.3s ease;
 }
 
 .refresh-btn {
@@ -96,32 +108,37 @@
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .stat-item {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 15px;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #5b9bd5, #4a69bd);
+  padding: 14px;
+  border-radius: 10px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: white;
+}
+
+.stat-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
 }
 
 .stat-label {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-  margin-bottom: 8px;
+  font-size: 1em;
+  color: #ddd;
   font-weight: bold;
+  margin-bottom: 8px;
 }
 
 .stat-value {
-  color: white;
-  font-size: 1.8rem;
+  font-size: 1.2em;
   font-weight: bold;
-  margin-bottom: 5px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 .stat-source {
@@ -141,63 +158,24 @@
   color: white;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 15px;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  
-  .dashboard {
-    padding: 20px;
-  }
-  
-  .dashboard-header h2 {
-    font-size: 1.5rem;
-  }
-  
-  .stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 12px;
-  }
-  
-  .stat-item {
-    padding: 12px;
-  }
-  
-  .stat-value {
-    font-size: 1.5rem;
-  }
-  
-  .web3-player-info {
-    padding: 12px;
-  }
-  
-  .player-username {
-    font-size: 16px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 480px) {
-  .dashboard-header {
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  
-  .stat-item {
-    padding: 10px;
-  }
-  
-  .stat-value {
-    font-size: 1.3rem;
-  }
-  
-  .stat-label {
-    font-size: 0.8rem;
+/* Responsive Design */
+@media (max-width: 785px) {
+  .dashboard-container {
+    width: 90%;
+    height: auto;
+    margin: 20px auto;
+    margin-top: -30px;
   }
 }

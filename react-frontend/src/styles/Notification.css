@@ -24,12 +24,22 @@
 
 .notification-achievement {
   border-left-color: #4CAF50;
-  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(69, 160, 73, 0.1));
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+  animation: slideIn 0.5s ease-out;
 }
 
 .notification-leaderboard {
   border-left-color: #667eea;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+  animation: slideIn 0.5s ease-out;
 }
 
 .notification-success {
@@ -44,7 +54,7 @@
 
 .notification-content {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
 }
 
@@ -89,6 +99,17 @@
 
 .notification-close:hover {
   color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* Responsive Design */

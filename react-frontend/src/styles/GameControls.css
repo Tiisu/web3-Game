@@ -1,83 +1,47 @@
 /* Game Controls Styles */
 
 .game-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 15px;
-  margin: 20px 0;
+  width: 100%;
+  max-width: 500px;
 }
 
 .control-buttons {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: contents;
 }
 
 .control-btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 25px;
-  font-size: 16px;
+  background: url("../../public/images/wood.png") no-repeat center;
+  background-size: cover;
+  border: 3px solid #8b4513;
+  color: white;
+  font-size: 20px;
   font-weight: bold;
+  padding: 15px 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 100px;
-  justify-content: center;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.control-btn:hover {
+  transform: scale(1.1);
+}
+
+.control-btn:active {
+  transform: scale(0.9);
 }
 
 .control-btn:disabled {
-  opacity: 0.6;
+  background-color: gray;
   cursor: not-allowed;
   transform: none;
-}
-
-.start-btn {
-  background: linear-gradient(135deg, #4CAF50, #45a049);
-  color: white;
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-}
-
-.start-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-}
-
-.pause-btn {
-  background: linear-gradient(135deg, #ff9800, #f57c00);
-  color: white;
-  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
-}
-
-.pause-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
-}
-
-.resume-btn {
-  background: linear-gradient(135deg, #2196F3, #1976D2);
-  color: white;
-  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-}
-
-.resume-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
-}
-
-.stop-btn {
-  background: linear-gradient(135deg, #f44336, #d32f2f);
-  color: white;
-  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
-}
-
-.stop-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
 }
 
 .connection-status {
@@ -122,34 +86,15 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .control-buttons {
+@media (max-width: 785px) {
+  .game-controls {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 400px;
     gap: 10px;
   }
-  
-  .control-btn {
-    padding: 10px 20px;
-    font-size: 14px;
-    min-width: 80px;
-  }
-  
-  .status-indicator {
-    padding: 6px 12px;
-  }
-  
-  .status-text {
-    font-size: 11px;
-  }
-}
 
-@media (max-width: 480px) {
-  .control-buttons {
-    flex-direction: column;
-    width: 100%;
-    max-width: 200px;
-  }
-  
   .control-btn {
-    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
   }
 }

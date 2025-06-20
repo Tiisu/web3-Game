@@ -2,7 +2,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: url("../../public/images/mario-bg.jpg") no-repeat center center/cover;
   margin: 0;
   padding: 20px;
 }
@@ -33,7 +33,7 @@ body {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  background: radial-gradient(circle, #2d1810 30%, #1a0f08 70%);
+  background: url("../../public/images/soil.png") no-repeat center center/cover;
   border: 3px solid white;
   border-radius: 25px;
 }
@@ -42,7 +42,7 @@ body {
 #board div {
   width: 180px;
   height: 180px;
-  background: radial-gradient(circle, #2d1810 30%, #1a0f08 70%);
+  background: url("../../public/images/pipe.png") no-repeat center center/cover;
 }
 
 /* Images inside tiles */
@@ -108,7 +108,7 @@ button:disabled {
 }
 
 .menu button {
-  background: linear-gradient(135deg, #8b4513, #654321);
+  background: url("../../public/images/wood.png") no-repeat center;
   background-size: cover;
   border: 3px solid #8b4513;
   color: white;
@@ -203,8 +203,7 @@ button:disabled {
 }
 
 #dashboard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: url("../../public/images/learder.png") no-repeat center;
   border-radius: 15px;
   padding: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);

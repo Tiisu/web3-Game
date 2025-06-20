@@ -1,7 +1,8 @@
 /* Leaderboard Styles */
 
 .leaderboard {
-  margin-bottom: 20px;
+  margin-top: auto;
+  padding-top: 15px;
 }
 
 .leaderboard-header {
@@ -12,9 +13,15 @@
 }
 
 .leaderboard-header h3 {
-  color: white;
-  margin: 0;
-  font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 15px;
+  border-bottom: 3px solid #ffbaba;
+  padding-bottom: 8px;
+  font-family: 'Sirin Stencil';
+  font-size: 2.5rem;
+  text-shadow: 3px 3px rgb(165, 66);
+  transition: all 0.3s ease;
 }
 
 .leaderboard-controls {
@@ -41,38 +48,44 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-.leaderboard-content {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
 .leaderboard-list {
-  list-style: none;
+  list-style-position: inside;
   padding: 0;
-  margin: 0;
 }
 
 .leaderboard-entry {
+  background: linear-gradient(90deg, #f8f9fa, #e9ecef);
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 10px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 12px 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.leaderboard-entry:last-child {
-  border-bottom: none;
+  font-size: 0.9em;
+  transition: transform 0.3s ease;
 }
 
 .leaderboard-entry:hover {
-  background: rgba(255, 255, 255, 0.05);
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.leaderboard-entry.current-player {
-  background: rgba(76, 175, 80, 0.1);
-  border-left: 4px solid #4CAF50;
+/* Leaderboard Top Ranks */
+.leaderboard-entry:nth-child(1) {
+  background: linear-gradient(90deg, #ffd700, #ffc107);
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.leaderboard-entry:nth-child(2) {
+  background: linear-gradient(90deg, #c0c0c0, #adb5bd);
+  box-shadow: 0 0 12px rgba(192, 192, 192, 0.6);
+}
+
+.leaderboard-entry:nth-child(3) {
+  background: linear-gradient(90deg, #cd7f32, #b8734c);
+  box-shadow: 0 0 10px rgba(205, 127, 50, 0.6);
 }
 
 .entry-rank {
@@ -161,72 +174,8 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .leaderboard-header {
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-  }
-  
-  .leaderboard-controls {
-    justify-content: center;
-  }
-  
-  .leaderboard-entry {
-    padding: 10px 12px;
-  }
-  
-  .entry-rank {
-    min-width: 40px;
-  }
-  
-  .rank-icon {
-    font-size: 1rem;
-  }
-  
-  .entry-player {
-    margin-left: 10px;
-  }
-  
-  .player-name {
-    font-size: 0.9rem;
-  }
-  
-  .player-address {
-    font-size: 0.7rem;
-  }
-  
-  .entry-score {
-    min-width: 80px;
-  }
-  
-  .score-value {
-    font-size: 1rem;
-  }
-  
-  .current-player-indicator {
-    position: static;
-    transform: none;
-    margin-left: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .leaderboard-entry {
-    flex-direction: column;
-    text-align: center;
-    padding: 15px;
-    gap: 8px;
-  }
-  
-  .entry-rank,
-  .entry-player,
-  .entry-score {
-    min-width: auto;
-    margin: 0;
-  }
-  
-  .current-player-indicator {
-    margin: 0;
+@media (max-width: 785px) {
+  .leaderboard {
+    display: none;
   }
 }

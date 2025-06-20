@@ -44,64 +44,77 @@ const GameContainer: React.FC = () => {
       {/* Main Game Area */}
       <div className="game-area">
         <h1><span className="title">WHAC-A-MOLE</span></h1>
-        
-        {/* Game Board */}
-        <GameBoard />
-        
-        {/* Game Controls */}
-        <GameControls />
-        
-        {/* Game Info Display */}
-        <div className="game-info">
-          <div className="score-display">
-            <span className="score-label">Score:</span>
-            <span className="score-value" id="score">{gameState.score}</span>
-          </div>
-          
-          <div className="timer-display">
-            <span className="timer-label">Time:</span>
-            <span className="timer-value" id="timer">
-              {Math.floor(gameState.timeLeft / 60)}:{(gameState.timeLeft % 60).toString().padStart(2, '0')}
-            </span>
-          </div>
-          
-          <div className="level-display">
-            <span className="level-label">Level:</span>
-            <span className="level-value" id="level">{gameState.currentLevel}</span>
-          </div>
-        </div>
 
-        {/* High Score Display */}
-        <div className="high-score-container">
-          <div className="high-score">
-            <span className="high-score-label">High Score:</span>
-            <span className="high-score-value" id="highScore">
-              {web3State.playerData?.highestScore || 0}
-            </span>
-          </div>
-        </div>
+        {/* Game Layout Grid */}
+        <div className="game-layout">
+          {/* Left Sidebar */}
+          <div className="game-sidebar-left">
+            <Dashboard />
 
-        {/* Level Progress Bar */}
-        <div className="level-progress-container">
-          <div className="level-progress-bar">
-            <div 
-              className="level-progress-fill" 
-              style={{
-                width: `${Math.min((gameState.score / gameState.pointsToNextLevel) * 100, 100)}%`
-              }}
-            ></div>
+            {/* High Score Display */}
+            <div className="high-score-container">
+              <div className="high-score">
+                <span className="high-score-label">High Score:</span>
+                <span className="high-score-value" id="highScore">
+                  {web3State.playerData?.highestScore || 0}
+                </span>
+              </div>
+            </div>
           </div>
-          <div className="level-progress-text">
-            {gameState.currentLevel < 5 ? 
-              `${gameState.score} / ${gameState.pointsToNextLevel} to next level` :
-              'Max Level Reached!'
-            }
+
+          {/* Main Game Board Section */}
+          <div className="game-board-section">
+            {/* Game Info Display */}
+            <div className="game-info">
+              <div className="score-display">
+                <span className="score-label">Score</span>
+                <span className="score-value" id="score">{gameState.score}</span>
+              </div>
+
+              <div className="timer-display">
+                <span className="timer-label">Time</span>
+                <span className="timer-value" id="timer">
+                  {Math.floor(gameState.timeLeft / 60)}:{(gameState.timeLeft % 60).toString().padStart(2, '0')}
+                </span>
+              </div>
+
+              <div className="level-display">
+                <span className="level-label">Level</span>
+                <span className="level-value" id="level">{gameState.currentLevel}</span>
+              </div>
+            </div>
+
+            {/* Game Board */}
+            <GameBoard />
+
+            {/* Game Controls */}
+            <GameControls />
+
+            {/* Level Progress Bar */}
+            <div className="level-progress-container">
+              <div className="level-progress-bar">
+                <div
+                  className="level-progress-fill"
+                  style={{
+                    width: `${Math.min((gameState.score / gameState.pointsToNextLevel) * 100, 100)}%`
+                  }}
+                ></div>
+              </div>
+              <div className="level-progress-text">
+                {gameState.currentLevel < 5 ?
+                  `${gameState.score} / ${gameState.pointsToNextLevel} to next level` :
+                  'Max Level Reached!'
+                }
+              </div>
+            </div>
+          </div>
+
+          {/* Right Sidebar */}
+          <div className="game-sidebar-right">
+            {/* Additional components can go here */}
           </div>
         </div>
       </div>
-
-      {/* Dashboard */}
-      <Dashboard />
 
       {/* Notifications */}
       <NotificationContainer />
