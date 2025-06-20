@@ -7,20 +7,22 @@ import '../styles/LandingPage.css';
 interface LandingPageProps {
   onStartTrial: () => void;
   onConnectWallet: () => void;
+  onNavigateToGame: () => void;
   trialUsed: boolean;
 }
 
-const LandingPage: React.FC<LandingPageProps> = ({ 
-  onStartTrial, 
-  onConnectWallet, 
-  trialUsed 
+const LandingPage: React.FC<LandingPageProps> = ({
+  onStartTrial,
+  onConnectWallet,
+  onNavigateToGame,
+  trialUsed
 }) => {
   const { web3State, isLoading } = useWeb3();
 
   const handleGetStarted = () => {
     if (web3State.isConnected) {
       // User is connected, navigate to game
-      return;
+      onNavigateToGame();
     } else if (!trialUsed) {
       // Allow trial play
       onStartTrial();

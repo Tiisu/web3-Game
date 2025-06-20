@@ -91,7 +91,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       case 'trial_active':
         return true;
       case 'connected_unregistered':
-        return false; // Must register first
+        return true; // Allow navigation to game - registration modal will handle the flow
       case 'trial_used':
         return false; // Must connect wallet
       default:

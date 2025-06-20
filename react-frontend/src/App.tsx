@@ -14,7 +14,8 @@ const AppRouter: React.FC = () => {
   const {
     currentView,
     startTrialGame,
-    hasUsedTrial
+    hasUsedTrial,
+    navigateToGame
   } = useAppContext();
 
   const { connect } = useWeb3();
@@ -41,6 +42,7 @@ const AppRouter: React.FC = () => {
       <LandingPage
         onStartTrial={handleStartTrial}
         onConnectWallet={handleConnectWallet}
+        onNavigateToGame={navigateToGame}
         trialUsed={hasUsedTrial}
       />
     );
