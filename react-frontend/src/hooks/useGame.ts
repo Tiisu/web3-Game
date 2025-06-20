@@ -54,11 +54,11 @@ export const useGame = () => {
   // Initialize audio
   useEffect(() => {
     const sounds = {
-      'hit-sound': '/audio/hit.mp3',
-      'miss-sound': '/audio/miss.mp3',
-      'gameover-sound': '/audio/gameover.mp3',
-      'levelup-sound': '/audio/levelup.mp3',
-      'background-music': '/audio/background.mp3'
+      'hit-sound': '/audio/coin.wav',
+      'miss-sound': '/audio/ouch.mp3',
+      'gameover-sound': '/audio/gameover.wav',
+      'levelup-sound': '/audio/levelup.wav',
+      'background-music': '/audio/background-music.mp3'
     };
 
     Object.entries(sounds).forEach(([key, src]) => {
