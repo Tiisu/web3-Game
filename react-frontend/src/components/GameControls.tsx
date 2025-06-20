@@ -7,10 +7,12 @@ import '../styles/GameControls.css';
 
 const GameControls: React.FC = () => {
   const { gameState, startGame, pauseGame, resumeGame, stopGame } = useGameContext();
-  const { web3State, isLoading } = useWeb3();
+  const { web3State, isLoading, pendingTransaction } = useWeb3();
 
+  // Disable controls if loading, unregistered, or pending transaction
   const isDisabled = isLoading ||
-    (web3State.isConnected && web3State.playerData && !web3State.playerData.isRegistered) || false;
+    (web3State.isConnected && web3State.playerData && !web3State.playerData.isRegistered) ||
+    !!pendingTransaction;
 
   const handleStart = async () => {
     if (isDisabled) return;
@@ -41,7 +43,12 @@ const GameControls: React.FC = () => {
             onClick={handleStart}
             disabled={isDisabled}
           >
-            {isLoading ? (
+            {pendingTransaction ? (
+              <>
+                <span className="loading-spinner"></span>
+                {pendingTransaction.type === 'gameStart' ? 'Sign Transaction...' : 'Processing...'}
+              </>
+            ) : isLoading ? (
               <>
                 <span className="loading-spinner"></span>
                 Starting...
@@ -87,6 +94,16 @@ const GameControls: React.FC = () => {
           </>
         )}
       </div>
+
+      {/* Transaction status indicator */}
+      {pendingTransaction && (
+        <div className="transaction-status">
+          <div className="status-indicator pending-transaction">
+            <span className="status-icon">⏳</span>
+            <span className="status-text">{pendingTransaction.message}</span>
+          </div>
+        </div>
+      )}
 
       {/* Connection status indicator */}
       {web3State.isConnected && (

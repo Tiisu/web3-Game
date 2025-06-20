@@ -35,6 +35,12 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Transaction state management
+  const [pendingTransaction, setPendingTransaction] = useState<{
+    type: 'registration' | 'gameStart' | 'gameComplete';
+    message: string;
+  } | null>(null);
+
   // Connect wallet
   const connect = useCallback(async (): Promise<boolean> => {
     try {
@@ -57,7 +63,13 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     setAchievements([]);
     setLeaderboard([]);
     setCurrentGameId(null);
+    setPendingTransaction(null); // Clear any pending transactions
   }, [disconnectWallet]);
+
+  // Clear pending transaction (utility function)
+  const clearPendingTransaction = useCallback(() => {
+    setPendingTransaction(null);
+  }, []);
 
   // Register player
   const registerPlayer = useCallback(async (username: string): Promise<void> => {
@@ -67,14 +79,20 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
 
     setIsLoading(true);
     setError(null);
+    setPendingTransaction({
+      type: 'registration',
+      message: 'Please sign the transaction to register your player profile...'
+    });
 
     try {
       await gameContract.registerPlayer(username);
+      setPendingTransaction(null);
       addSuccessNotification(SUCCESS_MESSAGES.PLAYER_REGISTERED);
-      
+
       // Refresh player data
       await refreshData();
     } catch (err: any) {
+      setPendingTransaction(null);
       setError(err.message);
       addErrorNotification(err.message);
       throw err;
@@ -91,13 +109,19 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
 
     setIsLoading(true);
     setError(null);
+    setPendingTransaction({
+      type: 'gameStart',
+      message: 'Please sign the transaction to start your game session...'
+    });
 
     try {
       const gameId = await gameContract.startGameSession();
       setCurrentGameId(gameId);
+      setPendingTransaction(null);
       addSuccessNotification(SUCCESS_MESSAGES.GAME_SESSION_STARTED);
       return gameId;
     } catch (err: any) {
+      setPendingTransaction(null);
       setError(err.message);
       addErrorNotification(err.message);
       throw err;
@@ -229,8 +253,10 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     startGameSession,
     completeGameSession,
     refreshData,
+    clearPendingTransaction,
     isLoading: combinedLoading,
-    error: combinedError
+    error: combinedError,
+    pendingTransaction
   };
 
   return (
