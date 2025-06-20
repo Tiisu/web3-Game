@@ -99,6 +99,21 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     }
   }, [stopLocalGame, web3State, completeGameSession, gameState, addErrorNotification]);
 
+  // Force cleanup game state - used when trial ends
+  const forceCleanupGame = useCallback(async () => {
+    try {
+      console.log('🧹 Force cleaning up game state');
+      // Stop the game if it's running
+      if (gameState.isPlaying) {
+        await stopLocalGame();
+      }
+      // Reset game state
+      resetGame();
+    } catch (error) {
+      console.error('Failed to force cleanup game:', error);
+    }
+  }, [gameState.isPlaying, stopLocalGame, resetGame]);
+
   const contextValue: GameContextType = {
     gameState,
     gameStats,
@@ -109,6 +124,7 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     stopGame,
     handleMoleClick,
     resetGame,
+    forceCleanupGame,
     settings,
     updateSettings
   };

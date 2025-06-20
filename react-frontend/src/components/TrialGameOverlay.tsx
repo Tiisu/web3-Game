@@ -1,6 +1,6 @@
 // Trial Game Overlay Component - Shows trial-specific UI elements
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAppContext } from '../contexts/AppContext';
 import { useWeb3 } from '../contexts/Web3Context';
 import { useGameContext } from '../contexts/GameContext';
@@ -9,10 +9,24 @@ import '../styles/TrialGameOverlay.css';
 const TrialGameOverlay: React.FC = () => {
   const { userAccessLevel, endCurrentGame } = useAppContext();
   const { connect } = useWeb3();
-  const { gameState } = useGameContext();
+  const { gameState, forceCleanupGame } = useGameContext();
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
   const [finalMolesHit, setFinalMolesHit] = useState(0);
+
+  // Handle trial end cleanup
+  const handleTrialEnd = useCallback(async () => {
+    try {
+      // Force cleanup the game state first
+      await forceCleanupGame();
+      // Then end the trial
+      await endCurrentGame();
+    } catch (error) {
+      console.error('Failed to end trial properly:', error);
+      // Fallback to just ending the trial
+      await endCurrentGame();
+    }
+  }, [forceCleanupGame, endCurrentGame]);
 
   // Detect when trial game ends
   useEffect(() => {
@@ -22,12 +36,10 @@ const TrialGameOverlay: React.FC = () => {
       setFinalMolesHit(gameState.molesHit);
       setShowGameOverModal(true);
 
-      // End the trial after a short delay
-      setTimeout(() => {
-        endCurrentGame();
-      }, 500);
+      // Don't auto-dismiss the modal - let user control when to proceed
+      // The modal will stay open until user clicks a button
     }
-  }, [gameState.gameOver, gameState.score, userAccessLevel, endCurrentGame, gameState.molesHit]);
+  }, [gameState.gameOver, gameState.score, userAccessLevel, gameState.molesHit]);
 
   // Only show overlay for trial users
   if (userAccessLevel !== 'trial_active') {
@@ -35,11 +47,19 @@ const TrialGameOverlay: React.FC = () => {
   }
 
   const handleConnectWallet = async () => {
-    await connect();
+    try {
+      const success = await connect();
+      if (success) {
+        // If wallet connection is successful, clean up and end trial
+        await handleTrialEnd();
+      }
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+    }
   };
 
-  const handleEndTrial = () => {
-    endCurrentGame();
+  const handleEndTrial = async () => {
+    await handleTrialEnd();
   };
 
   return (
@@ -70,6 +90,9 @@ const TrialGameOverlay: React.FC = () => {
             <h2 className="trial-modal-title">🎯 Trial Complete!</h2>
             <p className="trial-modal-subtitle">
               Great job! You've completed your free trial game.
+            </p>
+            <p className="trial-modal-subtitle" style={{ fontSize: '0.9rem', marginTop: '0.5rem', color: '#4CAF50' }}>
+              Choose your next step below to continue your Web3 gaming journey!
             </p>
           </div>
 

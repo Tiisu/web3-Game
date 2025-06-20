@@ -1,5 +1,5 @@
 import React from 'react';
-import { Web3Provider } from './contexts/Web3Context';
+import { Web3Provider, useWeb3 } from './contexts/Web3Context';
 import { GameProvider } from './contexts/GameContext';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { AppProvider, useAppContext } from './contexts/AppContext';
@@ -17,13 +17,23 @@ const AppRouter: React.FC = () => {
     hasUsedTrial
   } = useAppContext();
 
+  const { connect } = useWeb3();
+
   const handleStartTrial = () => {
     startTrialGame();
   };
 
   const handleConnectWallet = async () => {
-    // This will be handled by the authentication flow
-    // The user will be prompted to connect wallet
+    try {
+      const success = await connect();
+      if (success) {
+        console.log('✅ Wallet connected successfully');
+      } else {
+        console.warn('❌ Wallet connection failed');
+      }
+    } catch (error) {
+      console.error('❌ Wallet connection error:', error);
+    }
   };
 
   if (currentView === 'landing') {

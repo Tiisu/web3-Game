@@ -1,6 +1,6 @@
 // App Context for managing overall application state and navigation
 
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 import { useTrialAccess } from '../hooks/useTrialAccess';
 import { useWeb3 } from './Web3Context';
 
@@ -20,7 +20,9 @@ interface AppContextType {
   navigateToGame: () => void;
   navigateToLanding: () => void;
   startTrialGame: () => void;
-  endCurrentGame: () => void;
+  endCurrentGame: () => Promise<void>;
+  cleanupGameState: () => void;
+  registerGameCleanup: (cleanupFn: () => Promise<void>) => void;
   // Trial access methods
   hasUsedTrial: boolean;
   isTrialActive: boolean;
@@ -46,6 +48,7 @@ interface AppProviderProps {
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [currentView, setCurrentView] = useState<AppView>('landing');
   const { web3State } = useWeb3();
+  const gameCleanupRef = useRef<(() => Promise<void>) | null>(null);
   const {
     hasUsedTrial,
     isTrialActive,
@@ -119,25 +122,53 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     }
   }, [userAccessLevel, canStartTrial, startTrial]);
 
+  // Register game cleanup function from GameContext
+  const registerGameCleanup = useCallback((cleanupFn: () => Promise<void>) => {
+    gameCleanupRef.current = cleanupFn;
+  }, []);
+
+  // Clean up game state - force stop any running game
+  const cleanupGameState = useCallback(async () => {
+    console.log('🧹 Cleaning up game state');
+    if (gameCleanupRef.current) {
+      try {
+        await gameCleanupRef.current();
+      } catch (error) {
+        console.error('Failed to cleanup game state:', error);
+      }
+    }
+  }, []);
+
   // End current game
-  const endCurrentGame = useCallback(() => {
+  const endCurrentGame = useCallback(async () => {
     if (userAccessLevel === 'trial_active') {
+      // Clean up game state first
+      await cleanupGameState();
       incrementTrialGames();
       endTrial();
       // Navigate back to landing after trial ends
       setCurrentView('landing');
     }
     // For registered users, they can continue playing
-  }, [userAccessLevel, incrementTrialGames, endTrial]);
+  }, [userAccessLevel, incrementTrialGames, endTrial, cleanupGameState]);
 
-  // Auto-navigate based on user state changes
+  // Auto-navigate based on user state changes and enforce trial limitations
   useEffect(() => {
     // If user becomes fully registered while on landing, they can stay or go to game
     // If user's trial ends, navigate back to landing
     if (userAccessLevel === 'trial_used' && currentView === 'game') {
       setCurrentView('landing');
     }
-  }, [userAccessLevel, currentView]);
+
+    // Enforce trial limitations on page load/refresh
+    // If user has used trial but is not connected, and they're trying to access game, redirect to landing
+    if ((userAccessLevel === 'trial_used' || userAccessLevel === 'trial_available') &&
+        currentView === 'game' &&
+        !web3State.isConnected) {
+      console.log('🚫 Redirecting to landing: trial limitations enforced');
+      setCurrentView('landing');
+    }
+  }, [userAccessLevel, currentView, web3State.isConnected]);
 
   // Debug logging
   useEffect(() => {
@@ -170,6 +201,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     navigateToLanding,
     startTrialGame,
     endCurrentGame,
+    cleanupGameState,
+    registerGameCleanup,
     hasUsedTrial,
     isTrialActive,
     canStartTrial,

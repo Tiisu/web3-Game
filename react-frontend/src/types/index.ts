@@ -289,6 +289,7 @@ export interface GameContextType {
   stopGame: () => Promise<void>;
   handleMoleClick: (position: number) => void;
   resetGame: () => void;
+  forceCleanupGame: () => Promise<void>;
   settings: GameSettings;
   updateSettings: (settings: Partial<GameSettings>) => void;
 }
