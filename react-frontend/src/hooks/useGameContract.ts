@@ -22,9 +22,9 @@ export const useGameContract = (account: string | null) => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const addresses = getCurrentContractAddresses();
-      
-      if (!addresses.GAME_CONTRACT) {
-        console.warn('Game contract address not configured');
+
+      if (!addresses.GAME_CONTRACT || addresses.GAME_CONTRACT === '') {
+        console.warn('Game contract address not configured - Web3 features disabled');
         return null;
       }
 

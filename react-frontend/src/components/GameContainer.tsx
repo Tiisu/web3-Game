@@ -16,9 +16,17 @@ const GameContainer: React.FC = () => {
   const { gameState } = useGameContext();
 
   // Check if player needs to register
-  const needsRegistration = web3State.isConnected && 
-                           web3State.account && 
+  const needsRegistration = web3State.isConnected &&
+                           web3State.account &&
                            (!web3State.playerData || !web3State.playerData.isRegistered);
+
+  // Debug logging
+  console.log('GameContainer Debug:', {
+    isConnected: web3State.isConnected,
+    account: web3State.account,
+    playerData: web3State.playerData,
+    needsRegistration
+  });
 
   return (
     <div className="game-container">

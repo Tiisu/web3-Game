@@ -22,9 +22,9 @@ export const useNFTContract = (account: string | null): UseNFTContractReturn => 
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const addresses = getCurrentContractAddresses();
-      
-      if (!addresses.NFT_CONTRACT) {
-        console.warn('NFT contract address not configured');
+
+      if (!addresses.NFT_CONTRACT || addresses.NFT_CONTRACT === '') {
+        console.warn('NFT contract address not configured - Web3 features disabled');
         return null;
       }
 

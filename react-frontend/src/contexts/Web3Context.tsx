@@ -146,17 +146,41 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     setError(null);
 
     try {
-      // Load player data
-      const playerDataResult = await gameContract.getPlayerData(web3State.account);
-      setPlayerData(playerDataResult);
+      // Load player data - handle unregistered players gracefully
+      try {
+        const playerDataResult = await gameContract.getPlayerData(web3State.account);
+        setPlayerData(playerDataResult);
+      } catch (playerErr: any) {
+        console.log('Player not registered yet or failed to load player data:', playerErr.message);
+        // Set default player data for unregistered player
+        setPlayerData({
+          address: web3State.account,
+          username: '',
+          totalGamesPlayed: 0,
+          totalScore: 0,
+          highestScore: 0,
+          totalMolesHit: 0,
+          registrationTime: new Date(),
+          isRegistered: false
+        });
+      }
 
-      // Load achievements
-      const achievementsResult = await nftContract.getPlayerAchievements(web3State.account);
-      setAchievements(achievementsResult);
+      // Only load achievements and leaderboard if we have a valid contract connection
+      try {
+        const achievementsResult = await nftContract.getPlayerAchievements(web3State.account);
+        setAchievements(achievementsResult);
+      } catch (achievementErr: any) {
+        console.log('Failed to load achievements:', achievementErr.message);
+        setAchievements([]);
+      }
 
-      // Load leaderboard
-      const leaderboardResult = await gameContract.getLeaderboard();
-      setLeaderboard(leaderboardResult);
+      try {
+        const leaderboardResult = await gameContract.getLeaderboard();
+        setLeaderboard(leaderboardResult);
+      } catch (leaderboardErr: any) {
+        console.log('Failed to load leaderboard:', leaderboardErr.message);
+        setLeaderboard([]);
+      }
 
     } catch (err: any) {
       console.error('Failed to refresh Web3 data:', err);
@@ -171,7 +195,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     if (web3State.isConnected && web3State.account) {
       refreshData();
     }
-  }, [web3State.isConnected, web3State.account, refreshData]);
+  }, [web3State.isConnected, web3State.account]); // Removed refreshData from dependencies to prevent infinite loop
 
   // Set up contract event listeners
   useEffect(() => {

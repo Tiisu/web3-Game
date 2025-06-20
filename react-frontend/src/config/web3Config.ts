@@ -28,15 +28,15 @@ export const NETWORKS: Record<string, NetworkConfig> = {
   }
 };
 
-// Contract addresses (will be updated after deployment)
+// Contract addresses (updated after deployment)
 export const CONTRACT_ADDRESSES: Web3Config = {
   TESTNET: {
-    GAME_CONTRACT: '', // Will be filled after deployment
-    NFT_CONTRACT: ''   // Will be filled after deployment
+    GAME_CONTRACT: '0x46C2F2E4AcA4048ad1E05D9B5569B5634d04B039', // WhacAMoleGame on ApeChain Testnet
+    NFT_CONTRACT: '0x8FE458859F01eAcb7dfB40d2B44eF6Ae24cA907F'    // WhacAMoleNFT on ApeChain Testnet
   },
   MAINNET: {
-    GAME_CONTRACT: '', // Will be filled after deployment
-    NFT_CONTRACT: ''   // Will be filled after deployment
+    GAME_CONTRACT: '', // Will be filled after mainnet deployment
+    NFT_CONTRACT: ''   // Will be filled after mainnet deployment
   }
 };
 
