@@ -7,11 +7,15 @@ import '../styles/PlayerRegistration.css';
 interface PlayerRegistrationProps {
   isOpen: boolean;
   onClose: () => void;
+  onComplete?: () => void;
+  embedded?: boolean;
 }
 
 const PlayerRegistration: React.FC<PlayerRegistrationProps> = ({
   isOpen,
-  onClose
+  onClose,
+  onComplete,
+  embedded = false
 }) => {
   const { registerPlayer, isLoading } = useWeb3();
   const [username, setUsername] = useState('');
@@ -34,11 +38,18 @@ const PlayerRegistration: React.FC<PlayerRegistrationProps> = ({
       setStatus({ message: 'Registering player...', type: 'info' });
       await registerPlayer(username.trim());
       setStatus({ message: 'Player registered successfully!', type: 'success' });
-      
-      // Close modal after successful registration
-      setTimeout(() => {
-        onClose();
-      }, 2000);
+
+      // Call onComplete callback if provided
+      if (onComplete) {
+        setTimeout(() => {
+          onComplete();
+        }, 1500);
+      } else {
+        // Close modal after successful registration
+        setTimeout(() => {
+          onClose();
+        }, 2000);
+      }
     } catch (error: any) {
       setStatus({ 
         message: `Registration failed: ${error.message}`, 
@@ -56,71 +67,79 @@ const PlayerRegistration: React.FC<PlayerRegistrationProps> = ({
 
   if (!isOpen) return null;
 
+  const content = (
+    <div className="modal-content">
+      <h2>Welcome to Web3 Whac-A-Mole!</h2>
+      <p>
+        Register your player profile to start earning achievements and
+        competing on the leaderboard.
+      </p>
+
+      <form onSubmit={handleSubmit} className="registration-form">
+        <div className="input-group">
+          <input
+            type="text"
+            value={username}
+            onChange={handleUsernameChange}
+            placeholder="Enter your username"
+            maxLength={32}
+            disabled={isLoading}
+            className="username-input"
+            autoFocus
+          />
+          <div className="character-count">
+            {username.length}/32
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          className={`register-btn ${isLoading ? 'loading' : ''}`}
+          disabled={isLoading || !username.trim()}
+        >
+          {isLoading ? (
+            <>
+              <span className="loading-spinner"></span>
+              Registering...
+            </>
+          ) : (
+            'Register Player'
+          )}
+        </button>
+      </form>
+
+      {status && (
+        <div className={`status-message ${status.type}`}>
+          {status.message}
+        </div>
+      )}
+
+      <div className="registration-info">
+        <h3>What you'll get:</h3>
+        <ul>
+          <li>🏆 NFT achievements for milestones</li>
+          <li>📊 Permanent game statistics</li>
+          <li>🌍 Global leaderboard ranking</li>
+          <li>⛓️ Blockchain-verified scores</li>
+        </ul>
+      </div>
+
+      <div className="gas-info">
+        <small>
+          ⛽ Registration requires a small gas fee (~$0.01-0.05 APE)
+        </small>
+      </div>
+    </div>
+  );
+
+  if (embedded) {
+    return content;
+  }
+
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <div className="modal-content">
-          <h2>Welcome to Web3 Whac-A-Mole!</h2>
-          <p>
-            Register your player profile to start earning achievements and 
-            competing on the leaderboard.
-          </p>
-          
-          <form onSubmit={handleSubmit} className="registration-form">
-            <div className="input-group">
-              <input
-                type="text"
-                value={username}
-                onChange={handleUsernameChange}
-                placeholder="Enter your username"
-                maxLength={32}
-                disabled={isLoading}
-                className="username-input"
-                autoFocus
-              />
-              <div className="character-count">
-                {username.length}/32
-              </div>
-            </div>
-            
-            <button 
-              type="submit"
-              className={`register-btn ${isLoading ? 'loading' : ''}`}
-              disabled={isLoading || !username.trim()}
-            >
-              {isLoading ? (
-                <>
-                  <span className="loading-spinner"></span>
-                  Registering...
-                </>
-              ) : (
-                'Register Player'
-              )}
-            </button>
-          </form>
-
-          {status && (
-            <div className={`status-message ${status.type}`}>
-              {status.message}
-            </div>
-          )}
-
-          <div className="registration-info">
-            <h3>What you'll get:</h3>
-            <ul>
-              <li>🏆 NFT achievements for milestones</li>
-              <li>📊 Permanent game statistics</li>
-              <li>🌍 Global leaderboard ranking</li>
-              <li>⛓️ Blockchain-verified scores</li>
-            </ul>
-          </div>
-
-          <div className="gas-info">
-            <small>
-              ⛽ Registration requires a small gas fee (~$0.01-0.05 APE)
-            </small>
-          </div>
-        </div>
+        {content}
       </div>
     </div>
   );

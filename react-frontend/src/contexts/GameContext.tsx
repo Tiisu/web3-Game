@@ -66,12 +66,12 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     }
   }, [startLocalGame, web3State, startGameSession, addErrorNotification]);
 
-  // Enhanced stop game with Web3 integration
+  // Enhanced stop game with Web3 integration and trial handling
   const stopGame = useCallback(async () => {
     try {
       // Complete Web3 game session if available
-      if (web3State.isConnected && 
-          web3State.playerData?.isRegistered && 
+      if (web3State.isConnected &&
+          web3State.playerData?.isRegistered &&
           web3State.currentGameId) {
         try {
           await completeGameSession(
@@ -89,6 +89,10 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
 
       // Stop local game
       await stopLocalGame();
+
+      // Handle trial game completion
+      // This will be handled by the AppContext through the TrialGameOverlay
+
     } catch (error) {
       console.error('Failed to stop game:', error);
       addErrorNotification('Failed to complete game. Please try again.');

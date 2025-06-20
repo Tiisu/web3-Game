@@ -2,8 +2,51 @@ import React from 'react';
 import { Web3Provider } from './contexts/Web3Context';
 import { GameProvider } from './contexts/GameContext';
 import { NotificationProvider } from './contexts/NotificationContext';
+import { AppProvider, useAppContext } from './contexts/AppContext';
+import LandingPage from './components/LandingPage';
 import GameContainer from './components/GameContainer';
+import AccessControl from './components/AccessControl';
+import TrialGameOverlay from './components/TrialGameOverlay';
 import './App.css';
+
+// Main App Router Component
+const AppRouter: React.FC = () => {
+  const {
+    currentView,
+    startTrialGame,
+    hasUsedTrial
+  } = useAppContext();
+
+  const handleStartTrial = () => {
+    startTrialGame();
+  };
+
+  const handleConnectWallet = async () => {
+    // This will be handled by the authentication flow
+    // The user will be prompted to connect wallet
+  };
+
+  if (currentView === 'landing') {
+    return (
+      <LandingPage
+        onStartTrial={handleStartTrial}
+        onConnectWallet={handleConnectWallet}
+        trialUsed={hasUsedTrial}
+      />
+    );
+  }
+
+  if (currentView === 'game') {
+    return (
+      <AccessControl>
+        <GameContainer />
+        <TrialGameOverlay />
+      </AccessControl>
+    );
+  }
+
+  return null;
+};
 
 function App() {
   return (
@@ -11,7 +54,9 @@ function App() {
       <Web3Provider>
         <GameProvider>
           <NotificationProvider>
-            <GameContainer />
+            <AppProvider>
+              <AppRouter />
+            </AppProvider>
           </NotificationProvider>
         </GameProvider>
       </Web3Provider>
