@@ -69,65 +69,130 @@ const PlayerRegistration: React.FC<PlayerRegistrationProps> = ({
 
   const content = (
     <div className="modal-content">
-      <h2>Welcome to Web3 Whac-A-Mole!</h2>
-      <p>
-        Register your player profile to start earning achievements and
-        competing on the leaderboard.
-      </p>
+      {/* Header Section */}
+      <div className="registration-header">
+        <div className="header-icon">
+          <div className="icon-container">
+            <span className="main-icon">🎮</span>
+            <div className="icon-glow"></div>
+          </div>
+        </div>
+        <h2 className="registration-title">
+          Welcome to Web3 Whac-A-Mole!
+        </h2>
+        <p className="registration-subtitle">
+          Create your player profile to unlock the full Web3 gaming experience
+        </p>
+      </div>
 
+      {/* Registration Form */}
       <form onSubmit={handleSubmit} className="registration-form">
-        <div className="input-group">
-          <input
-            type="text"
-            value={username}
-            onChange={handleUsernameChange}
-            placeholder="Enter your username"
-            maxLength={32}
-            disabled={isLoading}
-            className="username-input"
-            autoFocus
-          />
-          <div className="character-count">
-            {username.length}/32
+        <div className="form-section">
+          <label className="input-label">Choose Your Username</label>
+          <div className="input-group">
+            <div className="input-wrapper">
+              <span className="input-icon">👤</span>
+              <input
+                type="text"
+                value={username}
+                onChange={handleUsernameChange}
+                placeholder="Enter your gaming username"
+                maxLength={32}
+                disabled={isLoading}
+                className="username-input"
+                autoFocus
+              />
+              <div className="character-count">
+                <span className={username.length > 25 ? 'warning' : ''}>
+                  {username.length}/32
+                </span>
+              </div>
+            </div>
+            <div className="input-hint">
+              This will be your identity on the leaderboard and in achievements
+            </div>
           </div>
         </div>
 
         <button
           type="submit"
-          className={`register-btn ${isLoading ? 'loading' : ''}`}
+          className={`register-btn ${isLoading ? 'loading' : ''} ${!username.trim() ? 'disabled' : ''}`}
           disabled={isLoading || !username.trim()}
         >
           {isLoading ? (
             <>
-              <span className="loading-spinner"></span>
-              Registering...
+              <div className="loading-spinner"></div>
+              <span>Creating Profile...</span>
             </>
           ) : (
-            'Register Player'
+            <>
+              <span className="btn-icon">🚀</span>
+              <span>Create Player Profile</span>
+            </>
           )}
         </button>
       </form>
 
+      {/* Status Message */}
       {status && (
         <div className={`status-message ${status.type}`}>
-          {status.message}
+          <div className="status-icon">
+            {status.type === 'success' && '✅'}
+            {status.type === 'error' && '❌'}
+            {status.type === 'info' && '⏳'}
+          </div>
+          <span className="status-text">{status.message}</span>
         </div>
       )}
 
-      <div className="registration-info">
-        <h3>What you'll get:</h3>
-        <ul>
-          <li>🏆 NFT achievements for milestones</li>
-          <li>📊 Permanent game statistics</li>
-          <li>🌍 Global leaderboard ranking</li>
-          <li>⛓️ Blockchain-verified scores</li>
-        </ul>
+      {/* Benefits Section */}
+      <div className="benefits-section">
+        <h3 className="benefits-title">
+          <span className="title-icon">✨</span>
+          Unlock Web3 Features
+        </h3>
+        <div className="benefits-grid">
+          <div className="benefit-item">
+            <div className="benefit-icon">🏆</div>
+            <div className="benefit-content">
+              <h4>NFT Achievements</h4>
+              <p>Earn unique NFTs for game milestones</p>
+            </div>
+          </div>
+          <div className="benefit-item">
+            <div className="benefit-icon">📊</div>
+            <div className="benefit-content">
+              <h4>Permanent Stats</h4>
+              <p>Blockchain-verified game statistics</p>
+            </div>
+          </div>
+          <div className="benefit-item">
+            <div className="benefit-icon">🌍</div>
+            <div className="benefit-content">
+              <h4>Global Leaderboard</h4>
+              <p>Compete with players worldwide</p>
+            </div>
+          </div>
+          <div className="benefit-item">
+            <div className="benefit-icon">⛓️</div>
+            <div className="benefit-content">
+              <h4>Verified Scores</h4>
+              <p>Tamper-proof score tracking</p>
+            </div>
+          </div>
+        </div>
       </div>
 
+      {/* Gas Fee Info */}
       <div className="gas-info">
-        <small>
-          ⛽ Registration requires a small gas fee (~$0.01-0.05 APE)
-        </small>
+        <div className="gas-icon">⛽</div>
+        <div className="gas-content">
+          <span className="gas-title">One-time Setup Fee</span>
+          <span className="gas-amount">~$0.01-0.05 APE</span>
+        </div>
+        <div className="gas-description">
+          Required for blockchain registration
+        </div>
       </div>
     </div>
   );
