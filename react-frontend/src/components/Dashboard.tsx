@@ -1,6 +1,6 @@
 // Dashboard component with stats, achievements, and leaderboard
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useWeb3 } from '../contexts/Web3Context';
 import { useGameContext } from '../contexts/GameContext';
 import AchievementsList from './AchievementsList';
@@ -10,10 +10,29 @@ import '../styles/Dashboard.css';
 const Dashboard: React.FC = () => {
   const { web3State, refreshData, isLoading } = useWeb3();
   const { gameStats } = useGameContext();
+  const lastRefreshRef = useRef<number>(0);
 
   const handleRefresh = async () => {
     await refreshData();
   };
+
+  // Auto-refresh dashboard when Web3 state changes (but not too frequently)
+  useEffect(() => {
+    const now = Date.now();
+    const timeSinceLastRefresh = now - lastRefreshRef.current;
+
+    // Only auto-refresh if it's been at least 2 seconds since last refresh
+    // and we have connected account with player data
+    if (web3State.isConnected &&
+        web3State.account &&
+        web3State.playerData?.isRegistered &&
+        timeSinceLastRefresh > 2000) {
+
+      console.log('🔄 Dashboard auto-refreshing due to Web3 state change...');
+      lastRefreshRef.current = now;
+      refreshData();
+    }
+  }, [web3State.playerData?.totalGamesPlayed, web3State.playerData?.totalScore, web3State.playerData?.highestScore, web3State.achievements.length, web3State.leaderboard.length, refreshData, web3State.isConnected, web3State.account]);
 
   // Use Web3 data if available, otherwise fall back to local stats
   const displayStats = web3State.playerData ? {
