@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useGameContext } from '../contexts/GameContext';
+import FloatingPoints from './FloatingPoints';
 import '../styles/GameBoard.css';
 
 const GameBoard: React.FC = () => {
@@ -21,6 +22,9 @@ const GameBoard: React.FC = () => {
 
   return (
     <div className="game-board">
+      {/* Floating Points Animation */}
+      <FloatingPoints gameState={gameState} moles={moles} />
+
       <div className="board-grid">
         {gridPositions.map(position => {
           const mole = getMoleAtPosition(position);

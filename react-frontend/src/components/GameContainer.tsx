@@ -1,19 +1,23 @@
 // Main game container component
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import WalletConnection from './WalletConnection';
 import PlayerRegistration from './PlayerRegistration';
 import GameBoard from './GameBoard';
 import Dashboard from './Dashboard';
 import GameControls from './GameControls';
 import NotificationContainer from './NotificationContainer';
+import GameOverModal from './GameOverModal';
 import { useWeb3 } from '../contexts/Web3Context';
 import { useGameContext } from '../contexts/GameContext';
 import '../styles/GameContainer.css';
 
 const GameContainer: React.FC = () => {
   const { web3State, clearPendingTransaction, clearCurrentGameId } = useWeb3();
-  const { gameState, resetGame, forceCleanupGame } = useGameContext();
+  const { gameState, resetGame, forceCleanupGame, startGame } = useGameContext();
+
+  // Game Over Modal state
+  const [showGameOverModal, setShowGameOverModal] = useState(false);
 
   // Check if player needs to register
   const needsRegistration = web3State.isConnected &&
@@ -53,13 +57,41 @@ const GameContainer: React.FC = () => {
     initializeGameContainer();
   }, []); // Only run on mount
 
+  // Handle game over state to show modal
+  useEffect(() => {
+    if (gameState.gameOver && !gameState.isPlaying && gameState.score > 0) {
+      // Show game over modal after a short delay to allow for sound effects
+      const timer = setTimeout(() => {
+        setShowGameOverModal(true);
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [gameState.gameOver, gameState.isPlaying, gameState.score]);
+
+  // Handle Play Again
+  const handlePlayAgain = async () => {
+    setShowGameOverModal(false);
+    // Small delay to allow modal to close smoothly
+    setTimeout(async () => {
+      await startGame();
+    }, 300);
+  };
+
+  // Handle Close Modal
+  const handleCloseModal = () => {
+    setShowGameOverModal(false);
+    resetGame();
+  };
+
   // Debug logging
   console.log('GameContainer Debug:', {
     isConnected: web3State.isConnected,
     account: web3State.account,
     playerData: web3State.playerData,
     needsRegistration,
-    gameIsPlaying: gameState.isPlaying
+    gameIsPlaying: gameState.isPlaying,
+    showGameOverModal
   });
 
   return (
@@ -107,7 +139,10 @@ const GameContainer: React.FC = () => {
 
               <div className="timer-display">
                 <span className="timer-label">Time</span>
-                <span className="timer-value" id="timer">
+                <span
+                  className={`timer-value ${gameState.timeLeft <= 10 && gameState.isPlaying ? 'timer-warning' : ''}`}
+                  id="timer"
+                >
                   {Math.floor(gameState.timeLeft / 60)}:{(gameState.timeLeft % 60).toString().padStart(2, '0')}
                 </span>
               </div>
@@ -115,6 +150,14 @@ const GameContainer: React.FC = () => {
               <div className="level-display">
                 <span className="level-label">Level</span>
                 <span className="level-value" id="level">{gameState.currentLevel}</span>
+              </div>
+
+              <div className="streak-display">
+                <span className="streak-label">Streak</span>
+                <span className={`streak-value ${gameState.currentStreak >= 5 ? 'streak-bonus' : ''}`}>
+                  {gameState.currentStreak}
+                  {gameState.currentStreak >= 5 && <span className="streak-fire">🔥</span>}
+                </span>
               </div>
             </div>
 
@@ -153,16 +196,12 @@ const GameContainer: React.FC = () => {
       {/* Notifications */}
       <NotificationContainer />
 
-      {/* Game Over Toast */}
-      <div id="toast" className="toast">
-        <div style={{ fontSize: '1.5rem', marginBottom: '10px' }}>GAME OVER!</div>
-        <div>Final Score: {gameState.score}</div>
-        {web3State.isConnected && web3State.playerData?.isRegistered ? (
-          <div style={{ fontSize: '0.9rem', color: '#4CAF50' }}>✅ Saved to ApeChain</div>
-        ) : (
-          <div style={{ fontSize: '0.9rem', color: '#ff9800' }}>⚠️ Local game only</div>
-        )}
-      </div>
+      {/* Game Over Modal */}
+      <GameOverModal
+        isVisible={showGameOverModal}
+        onPlayAgain={handlePlayAgain}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };

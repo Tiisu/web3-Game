@@ -15,7 +15,9 @@ export const useGame = () => {
     isPaused: false,
     molesHit: 0,
     plantsHit: 0,
-    isPlaying: false
+    isPlaying: false,
+    currentStreak: 0,
+    bestStreak: 0
   });
 
   // Game statistics
@@ -229,22 +231,35 @@ export const useGame = () => {
         ...prev,
         gameOver: true,
         isPlaying: false,
-        plantsHit: prev.plantsHit + 1
+        plantsHit: prev.plantsHit + 1,
+        currentStreak: 0 // Reset streak on plant hit
       }));
       return;
     }
 
-    // Hit mole - add score
+    // Hit mole - add score and update streak
     playSound('hit-sound');
     const currentLevelConfig = GAME_CONFIG.LEVEL_CONFIG[gameState.currentLevel - 1];
     const multiplier = currentLevelConfig?.multiplier || 1;
     const points = Math.round(clickedMole.points * multiplier);
 
-    setGameState(prev => ({
-      ...prev,
-      score: prev.score + points,
-      molesHit: prev.molesHit + 1
-    }));
+    setGameState(prev => {
+      const newStreak = prev.currentStreak + 1;
+      const newBestStreak = Math.max(prev.bestStreak, newStreak);
+
+      // Bonus points for streaks
+      let bonusPoints = 0;
+      if (newStreak >= 5) bonusPoints = Math.floor(points * 0.5); // 50% bonus for 5+ streak
+      if (newStreak >= 10) bonusPoints = Math.floor(points * 1.0); // 100% bonus for 10+ streak
+
+      return {
+        ...prev,
+        score: prev.score + points + bonusPoints,
+        molesHit: prev.molesHit + 1,
+        currentStreak: newStreak,
+        bestStreak: newBestStreak
+      };
+    });
   }, [gameState.gameOver, gameState.isPaused, gameState.currentLevel, moles, playSound]);
 
   // Start game
@@ -258,7 +273,9 @@ export const useGame = () => {
       isPaused: false,
       molesHit: 0,
       plantsHit: 0,
-      isPlaying: true
+      isPlaying: true,
+      currentStreak: 0,
+      bestStreak: 0
     });
 
     setMoles([]);
@@ -320,7 +337,7 @@ export const useGame = () => {
   const resetGame = useCallback(() => {
     clearAllIntervals();
     pauseBackgroundMusic();
-    
+
     setGameState({
       score: 0,
       timeLeft: GAME_CONFIG.DURATION,
@@ -330,7 +347,9 @@ export const useGame = () => {
       isPaused: false,
       molesHit: 0,
       plantsHit: 0,
-      isPlaying: false
+      isPlaying: false,
+      currentStreak: 0,
+      bestStreak: 0
     });
     
     setMoles([]);
@@ -346,9 +365,24 @@ export const useGame = () => {
   // Auto-stop game when time runs out
   useEffect(() => {
     if (gameState.timeLeft === 0 && gameState.isPlaying) {
-      stopGame();
+      // Play game over sound before stopping
+      playSound('gameover-sound');
+
+      // Add a visual flash effect to indicate time's up
+      const gameBoard = document.querySelector('.game-board');
+      if (gameBoard) {
+        gameBoard.classList.add('time-up-flash');
+        setTimeout(() => {
+          gameBoard.classList.remove('time-up-flash');
+        }, 1000);
+      }
+
+      // Stop the game with a small delay to ensure sound plays and flash is visible
+      setTimeout(() => {
+        stopGame();
+      }, 200);
     }
-  }, [gameState.timeLeft, gameState.isPlaying, stopGame]);
+  }, [gameState.timeLeft, gameState.isPlaying, stopGame, playSound]);
 
   // Cleanup on unmount
   useEffect(() => {

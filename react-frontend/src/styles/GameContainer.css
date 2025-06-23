@@ -111,7 +111,8 @@
 
 .score-display,
 .timer-display,
-.level-display {
+.level-display,
+.streak-display {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,7 +122,8 @@
 
 .score-label,
 .timer-label,
-.level-label {
+.level-label,
+.streak-label {
   font-size: var(--text-sm);
   color: var(--neutral-gray);
   font-weight: var(--font-medium);
@@ -131,12 +133,66 @@
 
 .score-value,
 .timer-value,
-.level-value {
+.level-value,
+.streak-value {
   font-size: var(--text-2xl);
   color: var(--neutral-darker);
   font-weight: var(--font-bold);
   font-family: var(--font-gaming);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-normal);
+}
+
+/* Timer Warning Animation */
+.timer-warning {
+  color: #e74c3c !important;
+  animation: timerPulse 1s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(231, 76, 60, 0.6), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes timerPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.3);
+  }
+}
+
+/* Streak Bonus Animation */
+.streak-bonus {
+  color: var(--primary-orange) !important;
+  animation: streakPulse 0.8s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(255, 107, 53, 0.6), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.streak-fire {
+  margin-left: var(--space-1);
+  animation: fireFlicker 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes streakPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes fireFlicker {
+  0% {
+    transform: scale(1) rotate(-2deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.1) rotate(2deg);
+    opacity: 1;
+  }
 }
 
 /* High Score Display */

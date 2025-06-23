@@ -46,6 +46,8 @@ export interface GameState {
   molesHit: number;
   plantsHit: number;
   isPlaying: boolean;
+  currentStreak: number;
+  bestStreak: number;
 }
 
 export interface GameStats {
