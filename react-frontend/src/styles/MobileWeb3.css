@@ -1,0 +1,416 @@
+/* === MOBILE WEB3 OPTIMIZATION === */
+/* Optimized Web3 interactions for mobile devices */
+
+/* === MOBILE-FIRST TOUCH TARGETS === */
+@media (max-width: 768px) {
+  /* Ensure all interactive elements meet minimum touch target size (44px) */
+  .connect-wallet-btn,
+  .web3-status-badge,
+  .notification-close,
+  .onboarding-btn,
+  .control-btn {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Enhanced touch feedback */
+  .connect-wallet-btn:active,
+  .web3-status-badge:active,
+  .onboarding-btn:active,
+  .control-btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease-out;
+  }
+
+  /* === MOBILE WALLET CONNECTION === */
+  .web3-connection {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    margin-bottom: var(--space-4);
+    display: flex;
+    justify-content: center;
+  }
+
+  .connect-wallet-btn {
+    width: 100%;
+    max-width: 320px;
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--text-lg);
+    border-radius: var(--radius-xl);
+  }
+
+  .wallet-info {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: var(--space-4);
+    border-radius: var(--radius-xl);
+  }
+
+  .wallet-status {
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: stretch;
+  }
+
+  .web3-status-badge {
+    width: 100%;
+    justify-content: center;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* === MOBILE NOTIFICATIONS === */
+  .notification-container {
+    top: var(--space-2);
+    right: var(--space-2);
+    left: var(--space-2);
+    max-width: none;
+  }
+
+  .notification {
+    margin-bottom: var(--space-2);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+
+  .notification-content {
+    gap: var(--space-3);
+  }
+
+  .notification-icon {
+    font-size: var(--text-xl);
+    min-width: 24px;
+  }
+
+  .notification-title {
+    font-size: var(--text-base);
+  }
+
+  .notification-message {
+    font-size: var(--text-sm);
+  }
+
+  .notification-close {
+    min-width: 32px;
+    min-height: 32px;
+    font-size: var(--text-base);
+  }
+
+  /* === MOBILE TRANSACTION FLOW === */
+  .web3-transaction-progress {
+    min-width: auto;
+    width: calc(100vw - var(--space-8));
+    max-width: 400px;
+    padding: var(--space-6);
+    margin: var(--space-4);
+  }
+
+  .transaction-steps {
+    padding: var(--space-4) 0;
+    gap: var(--space-2);
+  }
+
+  .transaction-step {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .step-icon {
+    width: 32px;
+    height: 32px;
+    font-size: var(--text-sm);
+  }
+
+  .step-label {
+    font-size: 10px;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  /* === MOBILE ONBOARDING === */
+  .onboarding-container {
+    margin: var(--space-2);
+    max-width: none;
+    width: calc(100vw - var(--space-4));
+  }
+
+  .onboarding-content {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .onboarding-progress {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
+
+  .progress-step {
+    flex: 1;
+    min-width: 60px;
+  }
+
+  .progress-step:not(:last-child) {
+    margin-right: 0;
+  }
+
+  .progress-icon {
+    width: 40px;
+    height: 40px;
+    font-size: var(--text-lg);
+  }
+
+  .progress-line {
+    display: none; /* Hide connecting lines on mobile */
+  }
+
+  .step-title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .step-description {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-4);
+  }
+
+  .onboarding-actions {
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .onboarding-btn {
+    width: 100%;
+    padding: var(--space-4);
+    font-size: var(--text-base);
+  }
+
+  /* === MOBILE STATUS INDICATORS === */
+  .web3-status-indicator {
+    position: relative;
+    margin: var(--space-4) auto;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .status-panel {
+    width: 100%;
+    padding: var(--space-4);
+  }
+
+  .quick-stats {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .stat-item {
+    flex: 1;
+    min-width: 80px;
+  }
+
+  /* === MOBILE GAME CONTROLS === */
+  .game-controls {
+    max-width: 100%;
+    padding: 0 var(--space-2);
+  }
+
+  .control-btn {
+    padding: var(--space-4) var(--space-3);
+    font-size: var(--text-base);
+    min-height: 50px;
+  }
+
+  .game-status-indicators {
+    margin-top: var(--space-3);
+  }
+
+  .game-status-indicators .web3-status-badge {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  /* === MOBILE STATUS BAR === */
+  .web3-status-bar {
+    padding: var(--space-2);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .status-bar-left,
+  .status-bar-center,
+  .status-bar-right {
+    flex: 1;
+    min-width: 0;
+    gap: var(--space-2);
+  }
+
+  .status-bar-center {
+    order: 3;
+    width: 100%;
+    margin-top: var(--space-2);
+  }
+
+  .network-indicator .network-name,
+  .player-indicator .player-name {
+    display: none;
+  }
+
+  .transaction-indicator {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .transaction-indicator .transaction-text {
+    display: none;
+  }
+}
+
+/* === SMALL MOBILE DEVICES === */
+@media (max-width: 480px) {
+  .connect-wallet-btn {
+    font-size: var(--text-base);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .wallet-info {
+    padding: var(--space-3);
+  }
+
+  .notification {
+    padding: var(--space-3);
+  }
+
+  .notification-title {
+    font-size: var(--text-sm);
+  }
+
+  .notification-message {
+    font-size: var(--text-xs);
+  }
+
+  .web3-transaction-progress {
+    padding: var(--space-4);
+  }
+
+  .transaction-title {
+    font-size: var(--text-lg);
+  }
+
+  .transaction-message {
+    font-size: var(--text-sm);
+  }
+
+  .onboarding-content {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .step-icon-large {
+    font-size: 3rem;
+  }
+
+  .step-title {
+    font-size: var(--text-lg);
+  }
+
+  .step-description {
+    font-size: var(--text-sm);
+  }
+
+  .features-preview {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .feature-item {
+    padding: var(--space-3);
+  }
+
+  .control-btn {
+    font-size: var(--text-sm);
+    padding: var(--space-3);
+    min-height: 44px;
+  }
+}
+
+/* === MOBILE LANDSCAPE OPTIMIZATION === */
+@media (max-width: 768px) and (orientation: landscape) {
+  .onboarding-container {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .onboarding-content {
+    padding: var(--space-4);
+  }
+
+  .onboarding-progress {
+    margin-bottom: var(--space-4);
+  }
+
+  .step-content {
+    margin-bottom: var(--space-4);
+  }
+
+  .step-icon-large {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .step-title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .step-description {
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-3);
+  }
+}
+
+/* === TOUCH DEVICE OPTIMIZATIONS === */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .connect-wallet-btn:hover,
+  .web3-status-badge:hover,
+  .onboarding-btn:hover,
+  .control-btn:hover {
+    transform: none;
+    box-shadow: inherit;
+  }
+
+  /* Enhanced active states for touch feedback */
+  .connect-wallet-btn:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+
+  .web3-status-badge:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  .onboarding-btn:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+
+  .control-btn:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  /* Increase tap target sizes for better accessibility */
+  .notification-close {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .onboarding-close {
+    min-width: 48px;
+    min-height: 48px;
+  }
+}

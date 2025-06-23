@@ -12,20 +12,41 @@ import { useGameContext } from '../contexts/GameContext';
 import '../styles/GameContainer.css';
 
 const GameContainer: React.FC = () => {
-  const { web3State } = useWeb3();
-  const { gameState } = useGameContext();
+  const { web3State, clearPendingTransaction } = useWeb3();
+  const { gameState, resetGame, forceCleanupGame } = useGameContext();
 
   // Check if player needs to register
   const needsRegistration = web3State.isConnected &&
                            web3State.account &&
                            (!web3State.playerData || !web3State.playerData.isRegistered);
 
+  // Ensure game is in stopped state when component mounts
+  useEffect(() => {
+    const initializeGameContainer = async () => {
+      // Force cleanup any running game state to ensure clean start
+      if (gameState.isPlaying) {
+        console.log('🛑 Game was running when GameContainer mounted, forcing cleanup');
+        await forceCleanupGame();
+      } else {
+        // Even if not playing, reset to ensure clean state
+        resetGame();
+      }
+
+      // Clear any pending Web3 transactions to ensure clean UI state
+      clearPendingTransaction();
+      console.log('🧹 GameContainer initialized with clean state');
+    };
+
+    initializeGameContainer();
+  }, []); // Only run on mount
+
   // Debug logging
   console.log('GameContainer Debug:', {
     isConnected: web3State.isConnected,
     account: web3State.account,
     playerData: web3State.playerData,
-    needsRegistration
+    needsRegistration,
+    gameIsPlaying: gameState.isPlaying
   });
 
   return (

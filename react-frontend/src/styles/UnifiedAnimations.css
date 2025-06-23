@@ -1,0 +1,374 @@
+/* === UNIFIED ANIMATION SYSTEM === */
+/* Cohesive animation language that bridges game mechanics and Web3 interactions */
+
+/* === CORE ANIMATION PRINCIPLES === */
+:root {
+  /* Animation Timing Functions */
+  --ease-game: cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy game feel */
+  --ease-web3: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth blockchain */
+  --ease-ui: cubic-bezier(0.4, 0, 0.2, 1); /* Material design */
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Elastic bounce */
+  
+  /* Animation Durations */
+  --duration-instant: 0.1s;
+  --duration-fast: 0.2s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.5s;
+  --duration-slower: 0.8s;
+  --duration-web3: 0.4s;
+}
+
+/* === GAME-THEMED ENTRANCE ANIMATIONS === */
+@keyframes gameEnter {
+  0% {
+    transform: scale(0.3) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes gameExit {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.3) rotate(10deg);
+    opacity: 0;
+  }
+}
+
+@keyframes gamePop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* === WEB3 TRANSACTION ANIMATIONS === */
+@keyframes web3Connect {
+  0% {
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+    box-shadow: 0 0 0 0 var(--primary-orange-glow);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.05);
+    opacity: 0.8;
+    box-shadow: 0 0 0 10px transparent;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 var(--primary-orange-glow);
+  }
+}
+
+@keyframes web3Disconnect {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    transform: scale(0.95);
+    opacity: 0.7;
+    filter: hue-rotate(180deg);
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes web3Processing {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: rotate(90deg) scale(1.1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) scale(1);
+    opacity: 0.8;
+  }
+  75% {
+    transform: rotate(270deg) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* === ACHIEVEMENT & CELEBRATION ANIMATIONS === */
+@keyframes achievementUnlock {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+    filter: brightness(0.5);
+  }
+  25% {
+    transform: scale(0.5) rotate(-90deg);
+    opacity: 0.5;
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.3) rotate(0deg);
+    opacity: 0.8;
+    filter: brightness(1.5);
+  }
+  75% {
+    transform: scale(0.9) rotate(10deg);
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+@keyframes celebrationBurst {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 var(--web3-success-glow);
+  }
+  25% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 10px var(--web3-success-glow);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 20px transparent;
+  }
+  75% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 15px var(--web3-success-glow);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 var(--web3-success-glow);
+  }
+}
+
+@keyframes leaderboardClimb {
+  0% {
+    transform: translateY(50px) scale(0.8);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(20px) scale(0.9);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(5px) scale(1.05);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* === INTERACTIVE FEEDBACK ANIMATIONS === */
+@keyframes buttonPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes buttonHover {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow: var(--shadow-md);
+  }
+  100% {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes successGlow {
+  0% {
+    box-shadow: 0 0 5px var(--web3-success-glow);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--web3-success-glow), 0 0 30px var(--web3-success-glow);
+  }
+  100% {
+    box-shadow: 0 0 5px var(--web3-success-glow);
+  }
+}
+
+/* === LOADING & PROGRESS ANIMATIONS === */
+@keyframes loadingPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes progressFill {
+  0% {
+    width: 0%;
+    opacity: 0.5;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes spinGlow {
+  0% {
+    transform: rotate(0deg);
+    filter: drop-shadow(0 0 5px var(--primary-orange-glow));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px var(--primary-orange-glow));
+  }
+  100% {
+    transform: rotate(360deg);
+    filter: drop-shadow(0 0 5px var(--primary-orange-glow));
+  }
+}
+
+/* === UTILITY ANIMATION CLASSES === */
+.animate-game-enter {
+  animation: gameEnter var(--duration-normal) var(--ease-game);
+}
+
+.animate-game-exit {
+  animation: gameExit var(--duration-fast) var(--ease-game);
+}
+
+.animate-game-pop {
+  animation: gamePop var(--duration-fast) var(--ease-elastic);
+}
+
+.animate-web3-connect {
+  animation: web3Connect var(--duration-web3) var(--ease-web3);
+}
+
+.animate-web3-disconnect {
+  animation: web3Disconnect var(--duration-normal) var(--ease-web3);
+}
+
+.animate-web3-processing {
+  animation: web3Processing 2s var(--ease-ui) infinite;
+}
+
+.animate-achievement-unlock {
+  animation: achievementUnlock var(--duration-slower) var(--ease-elastic);
+}
+
+.animate-celebration-burst {
+  animation: celebrationBurst var(--duration-slow) var(--ease-game);
+}
+
+.animate-leaderboard-climb {
+  animation: leaderboardClimb var(--duration-web3) var(--ease-web3);
+}
+
+.animate-button-press {
+  animation: buttonPress var(--duration-instant) var(--ease-ui);
+}
+
+.animate-button-hover {
+  animation: buttonHover var(--duration-fast) var(--ease-ui);
+}
+
+.animate-error-shake {
+  animation: errorShake var(--duration-slow) var(--ease-ui);
+}
+
+.animate-success-glow {
+  animation: successGlow 2s var(--ease-ui) infinite;
+}
+
+.animate-loading-pulse {
+  animation: loadingPulse 2s var(--ease-ui) infinite;
+}
+
+.animate-spin-glow {
+  animation: spinGlow 2s linear infinite;
+}
+
+/* === HOVER & INTERACTION STATES === */
+.interactive-element {
+  transition: all var(--duration-fast) var(--ease-ui);
+  cursor: pointer;
+}
+
+.interactive-element:hover {
+  animation: buttonHover var(--duration-fast) var(--ease-ui) forwards;
+}
+
+.interactive-element:active {
+  animation: buttonPress var(--duration-instant) var(--ease-ui);
+}
+
+.interactive-element:disabled {
+  animation: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* === RESPONSIVE ANIMATION PREFERENCES === */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --duration-fast: 0.15s;
+    --duration-normal: 0.25s;
+    --duration-slow: 0.4s;
+    --duration-web3: 0.3s;
+  }
+}

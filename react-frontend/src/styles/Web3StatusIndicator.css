@@ -1,0 +1,414 @@
+/* === WEB3 STATUS INDICATOR SYSTEM === */
+/* Cohesive status indicators that blend with game UI */
+
+/* === MAIN STATUS INDICATOR === */
+.web3-status-indicator {
+  position: fixed;
+  z-index: var(--z-sticky);
+  animation: web3FadeInUp 0.5s var(--ease-web3);
+}
+
+.web3-status-indicator.top-right {
+  top: var(--space-5);
+  right: var(--space-5);
+}
+
+.web3-status-indicator.bottom-left {
+  bottom: var(--space-5);
+  left: var(--space-5);
+}
+
+.web3-status-indicator.bottom-right {
+  bottom: var(--space-5);
+  right: var(--space-5);
+}
+
+.web3-status-indicator.inline {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+}
+
+.status-panel {
+  background: var(--bg-card-gaming);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-gaming), 0 0 30px var(--secondary-purple-glow);
+  border: 2px solid var(--secondary-purple-glow);
+  min-width: 320px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.status-panel::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--secondary-purple), var(--primary-orange), var(--accent-green-bright));
+  border-radius: calc(var(--radius-xl) + 2px);
+  z-index: -1;
+  animation: statusGlow 4s linear infinite;
+}
+
+@keyframes statusGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.status-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* === STATUS HEADER === */
+.status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-title {
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  font-size: var(--text-lg);
+  color: var(--primary-orange-neon);
+  text-shadow: 0 0 10px var(--primary-orange-glow);
+  animation: titlePulse 3s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% {
+    text-shadow: 0 0 10px var(--primary-orange-glow);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--primary-orange-glow), 0 0 30px var(--primary-orange-glow);
+  }
+}
+
+.status-loading {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-orange-neon);
+  box-shadow: 0 0 10px var(--primary-orange-neon);
+  animation: enhancedLoadingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes enhancedLoadingPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px var(--primary-orange-neon);
+  }
+  50% {
+    transform: scale(1.3);
+    box-shadow: 0 0 20px var(--primary-orange-neon);
+  }
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* === STATUS ITEMS === */
+.status-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.status-detail {
+  font-size: var(--text-sm);
+  color: var(--neutral-gray);
+  margin-left: var(--space-6);
+  font-style: italic;
+}
+
+/* === QUICK STATS === */
+.quick-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.stat-icon {
+  font-size: var(--text-lg);
+}
+
+.stat-value {
+  font-family: var(--font-gaming);
+  font-weight: var(--font-bold);
+  font-size: var(--text-base);
+  color: var(--primary-orange);
+}
+
+.stat-label {
+  font-size: var(--text-xs);
+  color: var(--neutral-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* === COMPACT STATUS === */
+.web3-status-compact {
+  position: fixed;
+  z-index: var(--z-sticky);
+  animation: web3FadeInUp 0.3s var(--ease-web3);
+}
+
+.web3-status-compact.top-right {
+  top: var(--space-4);
+  right: var(--space-4);
+}
+
+.web3-status-compact.bottom-left {
+  bottom: var(--space-4);
+  left: var(--space-4);
+}
+
+.web3-status-compact.bottom-right {
+  bottom: var(--space-4);
+  right: var(--space-4);
+}
+
+/* === MINI STATUS === */
+.web3-mini-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  transition: all var(--transition-web3);
+  border: 1px solid transparent;
+}
+
+.web3-mini-status.connected {
+  background: var(--btn-success-gradient);
+  color: white;
+  box-shadow: var(--shadow-gaming), 0 0 15px var(--web3-success-glow);
+  border: 1px solid var(--accent-green-neon);
+  animation: connectedPulse 3s ease-in-out infinite;
+}
+
+@keyframes connectedPulse {
+  0%, 100% {
+    box-shadow: var(--shadow-gaming), 0 0 15px var(--web3-success-glow);
+  }
+  50% {
+    box-shadow: var(--shadow-gaming-hover), 0 0 25px var(--web3-success-glow);
+  }
+}
+
+.web3-mini-status.pending {
+  background: linear-gradient(135deg, var(--web3-pending), var(--web3-pending-light));
+  color: white;
+  box-shadow: 0 2px 8px var(--web3-pending-glow);
+  border: 1px solid var(--accent-yellow-neon);
+  animation: pendingPulse 2s ease-in-out infinite;
+}
+
+@keyframes pendingPulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.web3-mini-status.warning {
+  background: linear-gradient(135deg, var(--web3-pending), var(--web3-pending-light));
+  color: white;
+  box-shadow: 0 2px 8px var(--web3-pending-glow);
+  border: 1px solid var(--accent-red-bright);
+  animation: warningBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes warningBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.web3-mini-status.local {
+  background: var(--neutral-light);
+  color: var(--neutral-gray);
+  border-color: var(--neutral-light-gray);
+}
+
+.mini-icon {
+  font-size: var(--text-base);
+}
+
+.mini-text {
+  font-size: var(--text-sm);
+}
+
+/* === STATUS BAR === */
+.web3-status-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: var(--z-sticky);
+  animation: web3SlideInUp 0.5s var(--ease-web3);
+}
+
+.status-bar-left,
+.status-bar-center,
+.status-bar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.status-bar-center {
+  justify-content: center;
+}
+
+.status-bar-right {
+  justify-content: flex-end;
+}
+
+.network-indicator,
+.player-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--neutral-gray);
+}
+
+.network-icon,
+.player-icon {
+  font-size: var(--text-base);
+}
+
+.transaction-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--web3-pending);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+.transaction-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  animation: web3Pulse 2s infinite;
+}
+
+/* === SLIDE UP ANIMATION === */
+@keyframes web3SlideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .web3-status-indicator {
+    position: relative;
+    margin: var(--space-4) auto;
+  }
+  
+  .status-panel {
+    min-width: auto;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .quick-stats {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  
+  .stat-item {
+    min-width: 80px;
+  }
+  
+  .web3-status-bar {
+    padding: var(--space-2);
+  }
+  
+  .status-bar-left,
+  .status-bar-center,
+  .status-bar-right {
+    gap: var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .status-panel {
+    padding: var(--space-3);
+  }
+  
+  .quick-stats {
+    justify-content: space-around;
+  }
+  
+  .network-indicator .network-name,
+  .player-indicator .player-name {
+    display: none;
+  }
+  
+  .transaction-indicator .transaction-text {
+    display: none;
+  }
+}

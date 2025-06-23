@@ -5,7 +5,6 @@ import { GameContextType } from '../types';
 import { useGame } from '../hooks/useGame';
 import { useWeb3 } from './Web3Context';
 import { useNotifications } from '../hooks/useNotifications';
-import { ERROR_MESSAGES } from '../config/web3Config';
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
@@ -36,7 +35,7 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     updateSettings
   } = useGame();
 
-  const { web3State, startGameSession, completeGameSession } = useWeb3();
+  const { web3State, startGameSession, completeGameSession, clearPendingTransaction } = useWeb3();
   const { addErrorNotification } = useNotifications();
 
   // Enhanced start game with Web3 integration
@@ -48,31 +47,55 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
         return;
       }
 
-      // For connected and registered users, require Web3 transaction confirmation before starting local game
+      // For connected and registered users, try Web3 transaction but allow fallback to local game
       if (web3State.isConnected && web3State.playerData?.isRegistered) {
         try {
-          // CRITICAL: Start Web3 game session FIRST and wait for confirmation
-          await startGameSession();
+          // Try to start Web3 game session with timeout
+          console.log('🎮 Attempting to start Web3 game session...');
+
+          // Create a timeout promise that rejects after 30 seconds
+          const timeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Transaction timeout - taking too long to confirm')), 30000);
+          });
+
+          // Race between the actual transaction and the timeout
+          await Promise.race([
+            startGameSession(),
+            timeoutPromise
+          ]);
+
           console.log('🎮 Web3 game session started successfully');
 
-          // Only start local game AFTER Web3 transaction is confirmed
+          // Start local game after Web3 transaction is confirmed
           await startLocalGame();
         } catch (error: any) {
           console.error('Failed to start Web3 game session:', error);
 
+          // Clear any pending transaction state to reset UI
+          clearPendingTransaction();
+
           // Check if user rejected the transaction
           if (error.message && (error.message.includes('User rejected') || error.message.includes('user rejected') || error.code === 4001)) {
-            addErrorNotification(ERROR_MESSAGES.USER_REJECTED + ' You must sign the transaction to start playing.');
+            addErrorNotification('Transaction cancelled. You can still play locally, but your score won\'t be saved to the blockchain.');
+            // Allow local game to start even if user rejects transaction
+            await startLocalGame();
           } else if (error.message && (error.message.includes('insufficient funds') || error.code === -32603)) {
-            addErrorNotification(ERROR_MESSAGES.INSUFFICIENT_FUNDS);
+            addErrorNotification('Insufficient funds for transaction. Playing in local mode.');
+            // Allow local game to start with insufficient funds
+            await startLocalGame();
           } else if (error.message && error.message.includes('network')) {
-            addErrorNotification(ERROR_MESSAGES.NETWORK_ERROR);
+            addErrorNotification('Network error. Playing in local mode.');
+            // Allow local game to start with network issues
+            await startLocalGame();
+          } else if (error.message && error.message.includes('timeout')) {
+            addErrorNotification('Transaction is taking too long. Playing in local mode.');
+            // Allow local game to start if transaction times out
+            await startLocalGame();
           } else {
-            addErrorNotification(`${ERROR_MESSAGES.GAME_SESSION_FAILED}: ${error.message || 'Unknown error'}`);
+            addErrorNotification(`Web3 transaction failed: ${error.message || 'Unknown error'}. Playing in local mode.`);
+            // Allow local game to start for any other Web3 errors
+            await startLocalGame();
           }
-
-          // Do NOT start local game if Web3 transaction fails for registered users
-          return;
         }
       } else {
         // For unconnected users or trial users, start local game directly
@@ -82,7 +105,7 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
       console.error('Failed to start game:', error);
       addErrorNotification('Failed to start game. Please try again.');
     }
-  }, [startLocalGame, web3State, startGameSession, addErrorNotification]);
+  }, [startLocalGame, web3State, startGameSession, clearPendingTransaction, addErrorNotification]);
 
   // Enhanced stop game with Web3 integration and trial handling
   const stopGame = useCallback(async () => {
