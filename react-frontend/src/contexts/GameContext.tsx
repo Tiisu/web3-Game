@@ -39,7 +39,10 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
   const { addErrorNotification } = useNotifications();
 
   // Enhanced start game with Web3 integration
-  const startGame = useCallback(async () => {
+  const startGame = useCallback(async (source = 'button') => {
+    if (source !== 'button') {
+      console.warn('[DEBUG] startGame() called from', source, '— this should only be called from the START button!');
+    }
     try {
       // Check if player is registered for Web3 features
       if (web3State.isConnected && web3State.playerData && !web3State.playerData.isRegistered) {

@@ -12,7 +12,7 @@ import { useGameContext } from '../contexts/GameContext';
 import '../styles/GameContainer.css';
 
 const GameContainer: React.FC = () => {
-  const { web3State, clearPendingTransaction } = useWeb3();
+  const { web3State, clearPendingTransaction, clearCurrentGameId } = useWeb3();
   const { gameState, resetGame, forceCleanupGame } = useGameContext();
 
   // Check if player needs to register
@@ -34,7 +34,20 @@ const GameContainer: React.FC = () => {
 
       // Clear any pending Web3 transactions to ensure clean UI state
       clearPendingTransaction();
-      console.log('🧹 GameContainer initialized with clean state');
+
+      // Clear any existing game ID to prevent auto-start behavior
+      if (web3State.currentGameId) {
+        console.log('🛑 Found existing game ID, clearing it:', web3State.currentGameId);
+        clearCurrentGameId();
+      }
+
+      // Log current Web3 state for debugging
+      console.log('🧹 GameContainer initialized with clean state', {
+        currentGameId: web3State.currentGameId,
+        isPlaying: gameState.isPlaying,
+        isConnected: web3State.isConnected,
+        isRegistered: web3State.playerData?.isRegistered
+      });
     };
 
     initializeGameContainer();

@@ -7,11 +7,14 @@ import '../styles/GameControls.css';
 
 const GameControls: React.FC = () => {
   const { gameState, startGame, pauseGame, resumeGame, stopGame } = useGameContext();
-  const { web3State, isLoading, pendingTransaction } = useWeb3();
+  const { web3State, pendingTransaction } = useWeb3();
 
-  // Disable controls if loading, unregistered, or pending transaction
-  const isDisabled = isLoading ||
-    (web3State.isConnected && web3State.playerData && !web3State.playerData.isRegistered) ||
+  // Only show loading state for game-specific operations (when there's an actual pending transaction)
+  const isGameStartLoading = pendingTransaction?.type === 'gameStart';
+  const isGameStopLoading = pendingTransaction?.type === 'gameComplete';
+
+  // Disable controls if unregistered or pending transaction
+  const isDisabled = (web3State.isConnected && web3State.playerData && !web3State.playerData.isRegistered) ||
     !!pendingTransaction;
 
   const handleStart = async () => {
@@ -43,15 +46,10 @@ const GameControls: React.FC = () => {
             onClick={handleStart}
             disabled={isDisabled}
           >
-            {pendingTransaction ? (
+            {isGameStartLoading ? (
               <>
                 <span className="loading-spinner"></span>
-                {pendingTransaction.type === 'gameStart' ? 'Sign Transaction...' : 'Processing...'}
-              </>
-            ) : isLoading ? (
-              <>
-                <span className="loading-spinner"></span>
-                Starting...
+                Sign Transaction...
               </>
             ) : (
               'START'
@@ -82,7 +80,7 @@ const GameControls: React.FC = () => {
               onClick={handleStop}
               disabled={isDisabled}
             >
-              {isLoading ? (
+              {isGameStopLoading ? (
                 <>
                   <span className="loading-spinner"></span>
                   Stopping...

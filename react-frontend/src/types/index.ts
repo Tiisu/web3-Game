@@ -276,6 +276,7 @@ export interface Web3ContextType {
   completeGameSession: (gameId: number, score: number, molesHit: number, level: number) => Promise<void>;
   refreshData: () => Promise<void>;
   clearPendingTransaction: () => void;
+  clearCurrentGameId: () => void;
   isLoading: boolean;
   error: string | null;
   pendingTransaction: {

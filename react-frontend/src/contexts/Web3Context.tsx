@@ -72,6 +72,12 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     setPendingTransaction(null);
   }, []);
 
+  // Clear current game ID (utility function)
+  const clearCurrentGameId = useCallback(() => {
+    setCurrentGameId(null);
+    console.log('🧹 Cleared current game ID');
+  }, []);
+
   // Register player
   const registerPlayer = useCallback(async (username: string): Promise<void> => {
     if (!web3State.account) {
@@ -409,6 +415,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     completeGameSession,
     refreshData,
     clearPendingTransaction,
+    clearCurrentGameId,
     isLoading: combinedLoading,
     error: combinedError,
     pendingTransaction
