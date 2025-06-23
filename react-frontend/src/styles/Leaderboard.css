@@ -2,25 +2,25 @@
 
 .leaderboard {
   margin-top: auto;
-  padding-top: 15px;
+  padding-top: 16px;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .leaderboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .leaderboard-header h3 {
   color: #fff;
-  text-align: center;
-  margin-bottom: 15px;
-  border-bottom: 3px solid #ffbaba;
-  padding-bottom: 8px;
-  font-family: 'Sirin Stencil';
-  font-size: 2.5rem;
-  text-shadow: 3px 3px rgb(165, 66);
+  text-align: left;
+  margin: 0;
+  font-family: var(--font-gaming);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
@@ -31,12 +31,15 @@
 }
 
 .blockchain-badge {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: bold;
+  background: rgba(76, 175, 80, 0.3);
+  color: #4CAF50;
+  border: 1px solid rgba(76, 175, 80, 0.5);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .leaderboard-loading {
@@ -54,84 +57,98 @@
 }
 
 .leaderboard-entry {
-  background: linear-gradient(90deg, #f8f9fa, #e9ecef);
-  margin: 5px 0;
-  padding: 8px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  margin: 4px 0;
+  padding: 8px 10px;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.9em;
-  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
 }
 
 .leaderboard-entry:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+  border-color: rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Leaderboard Top Ranks */
 .leaderboard-entry:nth-child(1) {
-  background: linear-gradient(90deg, #ffd700, #ffc107);
-  color: #000;
-  font-weight: bold;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.1));
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
 }
 
 .leaderboard-entry:nth-child(2) {
-  background: linear-gradient(90deg, #c0c0c0, #adb5bd);
-  box-shadow: 0 0 12px rgba(192, 192, 192, 0.6);
+  background: linear-gradient(135deg, rgba(192, 192, 192, 0.3), rgba(192, 192, 192, 0.1));
+  border-color: rgba(192, 192, 192, 0.5);
+  box-shadow: 0 4px 15px rgba(192, 192, 192, 0.2);
 }
 
 .leaderboard-entry:nth-child(3) {
-  background: linear-gradient(90deg, #cd7f32, #b8734c);
-  box-shadow: 0 0 10px rgba(205, 127, 50, 0.6);
+  background: linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(205, 127, 50, 0.1));
+  border-color: rgba(205, 127, 50, 0.5);
+  box-shadow: 0 4px 15px rgba(205, 127, 50, 0.2);
 }
 
 .entry-rank {
-  min-width: 50px;
+  min-width: 40px;
   text-align: center;
 }
 
 .rank-icon {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .entry-player {
   flex: 1;
-  margin-left: 15px;
+  margin-left: 12px;
+  min-width: 0;
 }
 
 .player-name {
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  font-size: 0.85rem;
   margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .player-address {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.7rem;
   font-family: 'Courier New', monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .entry-score {
   text-align: right;
-  min-width: 100px;
+  min-width: 80px;
 }
 
 .score-value {
-  color: white;
-  font-weight: bold;
-  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  font-size: 0.9rem;
   margin-bottom: 2px;
+  font-family: var(--font-gaming);
 }
 
 .score-time {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.7rem;
 }
 
 .current-player-indicator {

@@ -1,0 +1,535 @@
+/* === ENHANCED FEEDBACK SYSTEM === */
+
+.feedback-system {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 2000;
+  overflow: hidden;
+}
+
+.feedback-system.screen-shake {
+  animation: screenShake 0.3s ease-in-out;
+}
+
+/* === FEEDBACK EVENTS === */
+.feedback-event {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2001;
+}
+
+/* Hit Feedback */
+.hit-feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: hitFeedbackFloat 1.5s ease-out forwards;
+}
+
+.hit-icon {
+  font-size: var(--text-2xl);
+  animation: hitIconBounce 0.5s ease-out;
+}
+
+.hit-value {
+  font-family: var(--font-gaming);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: #4CAF50;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: hitValueRise 1.5s ease-out forwards;
+}
+
+/* Miss Feedback */
+.miss-feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: missFeedbackFade 1s ease-out forwards;
+}
+
+.miss-icon {
+  font-size: var(--text-xl);
+  animation: missIconShake 0.5s ease-out;
+}
+
+.miss-text {
+  font-family: var(--font-gaming);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: #e74c3c;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: missTextFade 1s ease-out forwards;
+}
+
+/* Combo Feedback */
+.combo-feedback {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: comboFeedbackExplode 2s ease-out forwards;
+}
+
+.combo-icon {
+  font-size: var(--text-4xl);
+  animation: comboIconSpin 1s ease-out;
+}
+
+.combo-text {
+  font-family: var(--font-gaming);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: #ff6b35;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  animation: comboTextGlow 2s ease-out forwards;
+}
+
+.combo-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.combo-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #ff6b35, #ffab00);
+  border-radius: 50%;
+  animation: comboParticleExplode 1.5s ease-out forwards;
+  animation-delay: var(--delay);
+}
+
+/* Achievement Feedback */
+.achievement-feedback {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: achievementFeedbackRise 3s ease-out forwards;
+}
+
+.achievement-icon {
+  font-size: var(--text-4xl);
+  animation: achievementIconFloat 2s ease-in-out infinite;
+}
+
+.achievement-text {
+  font-family: var(--font-gaming);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: #ffd700;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  animation: achievementTextShine 3s ease-out forwards;
+}
+
+.achievement-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.3), transparent 70%);
+  border-radius: 50%;
+  animation: achievementGlowPulse 3s ease-out forwards;
+}
+
+/* Web3 Feedback */
+.web3-success-feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(69, 160, 73, 0.9));
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+  animation: web3FeedbackSlide 2s ease-out forwards;
+}
+
+.web3-icon {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-1);
+}
+
+.web3-text {
+  font-family: var(--font-gaming);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: white;
+  text-align: center;
+  margin-bottom: var(--space-2);
+}
+
+.web3-progress {
+  width: 100px;
+}
+
+.web3-progress .progress-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.web3-progress .progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff, #e8f5e8);
+  animation: web3ProgressFill 2s ease-out infinite;
+}
+
+.web3-error-feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.9), rgba(192, 57, 43, 0.9));
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+  animation: web3ErrorShake 0.5s ease-out;
+}
+
+.error-icon {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-1);
+}
+
+.error-text {
+  font-family: var(--font-gaming);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: white;
+  text-align: center;
+}
+
+/* === GLOBAL SCREEN EFFECTS === */
+.combo-screen-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.combo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1), transparent 70%);
+  animation: comboOverlayPulse 2s ease-in-out infinite;
+}
+
+.combo-particles-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.bg-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ff6b35;
+  border-radius: 50%;
+  left: var(--x);
+  top: var(--y);
+  animation: bgParticleFloat 3s ease-out infinite;
+  animation-delay: var(--delay);
+}
+
+/* Time Critical Effect */
+.time-critical-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.critical-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(231, 76, 60, 0.1), transparent 70%);
+  animation: criticalOverlayFlash 1s ease-in-out infinite;
+}
+
+.critical-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 4px solid rgba(231, 76, 60, 0.3);
+  animation: criticalPulseExpand 1s ease-in-out infinite;
+}
+
+/* Web3 Transaction Overlay */
+.web3-transaction-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+.transaction-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 107, 53, 0.3);
+}
+
+.transaction-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 107, 53, 0.3);
+  border-top: 3px solid var(--primary-orange);
+  border-radius: 50%;
+  animation: transactionSpin 1s linear infinite;
+}
+
+.transaction-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.transaction-title {
+  font-family: var(--font-gaming);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--neutral-darker);
+  margin-bottom: var(--space-1);
+}
+
+.transaction-message {
+  font-size: var(--text-sm);
+  color: var(--neutral-gray);
+  font-weight: var(--font-medium);
+}
+
+/* === RIPPLE EFFECT === */
+.feedback-ripple {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.4), transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: rippleExpand 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+/* === ANIMATIONS === */
+@keyframes screenShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+@keyframes hitFeedbackFloat {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-50px) scale(0.8); }
+}
+
+@keyframes hitIconBounce {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes hitValueRise {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-30px); }
+}
+
+@keyframes missFeedbackFade {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.8); }
+}
+
+@keyframes missIconShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes missTextFade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes comboFeedbackExplode {
+  0% { opacity: 1; transform: scale(0.5); }
+  20% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+@keyframes comboIconSpin {
+  0% { transform: rotate(0deg) scale(0.5); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes comboTextGlow {
+  0% {
+    opacity: 1;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transform: scale(0.8);
+  }
+  50% {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 20px #ff6b35;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transform: scale(1);
+  }
+}
+
+@keyframes comboParticleExplode {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) translate(var(--random-x, 50px), var(--random-y, -50px));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) translate(var(--random-x, 100px), var(--random-y, -100px));
+  }
+}
+
+@keyframes achievementFeedbackRise {
+  0% { opacity: 1; transform: translateY(0) scale(0.8); }
+  20% { opacity: 1; transform: translateY(-20px) scale(1.1); }
+  80% { opacity: 1; transform: translateY(-40px) scale(1); }
+  100% { opacity: 0; transform: translateY(-60px) scale(0.9); }
+}
+
+@keyframes achievementIconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes achievementTextShine {
+  0% {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 30px #ffd700, 0 0 40px #ffd700;
+  }
+  100% {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes achievementGlowPulse {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+}
+
+@keyframes web3FeedbackSlide {
+  0% { opacity: 0; transform: translateX(100px); }
+  20% { opacity: 1; transform: translateX(0); }
+  80% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(-100px); }
+}
+
+@keyframes web3ProgressFill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes web3ErrorShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+@keyframes comboOverlayPulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes bgParticleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0);
+  }
+}
+
+@keyframes criticalOverlayFlash {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes criticalPulseExpand {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes transactionSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes rippleExpand {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(4);
+  }
+}

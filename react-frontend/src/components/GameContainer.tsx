@@ -109,66 +109,86 @@ const GameContainer: React.FC = () => {
 
       {/* Main Game Area */}
       <div className="game-area">
-        <h1><span className="title">WHAC-A-MOLE</span></h1>
+        {/* Game Header */}
+        <div className="game-header">
+          <h1><span className="title">WHAC-A-MOLE</span></h1>
 
-        {/* Game Layout Grid */}
-        <div className="game-layout">
-          {/* Left Sidebar */}
-          <div className="game-sidebar-left">
-            <Dashboard />
-
-            {/* High Score Display */}
-            <div className="high-score-container">
-              <div className="high-score">
-                <span className="high-score-label">High Score:</span>
-                <span className="high-score-value" id="highScore">
+          {/* High Score Display */}
+          <div className="high-score-display">
+            <div className="high-score-card">
+              <div className="high-score-icon">🏆</div>
+              <div className="high-score-content">
+                <div className="high-score-label">High Score</div>
+                <div className="high-score-value">
                   {web3State.playerData?.highestScore || 0}
-                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Game Stats Bar */}
+        <div className="game-stats-bar">
+          <div className="stat-card score-card">
+            <div className="stat-icon">🎯</div>
+            <div className="stat-content">
+              <div className="stat-label">Score</div>
+              <div className="stat-value">{gameState.score.toLocaleString()}</div>
+            </div>
+          </div>
+
+          <div className="stat-card timer-card">
+            <div className="stat-icon">⏰</div>
+            <div className="stat-content">
+              <div className="stat-label">Time</div>
+              <div className={`stat-value ${gameState.timeLeft <= 10 && gameState.isPlaying ? 'timer-warning' : ''}`}>
+                {Math.floor(gameState.timeLeft / 60)}:{(gameState.timeLeft % 60).toString().padStart(2, '0')}
               </div>
             </div>
           </div>
 
-          {/* Main Game Board Section */}
-          <div className="game-board-section">
-            {/* Game Info Display */}
-            <div className="game-info">
-              <div className="score-display">
-                <span className="score-label">Score</span>
-                <span className="score-value" id="score">{gameState.score}</span>
-              </div>
+          <div className="stat-card level-card">
+            <div className="stat-icon">📊</div>
+            <div className="stat-content">
+              <div className="stat-label">Level</div>
+              <div className="stat-value">{gameState.currentLevel}</div>
+            </div>
+          </div>
 
-              <div className="timer-display">
-                <span className="timer-label">Time</span>
-                <span
-                  className={`timer-value ${gameState.timeLeft <= 10 && gameState.isPlaying ? 'timer-warning' : ''}`}
-                  id="timer"
-                >
-                  {Math.floor(gameState.timeLeft / 60)}:{(gameState.timeLeft % 60).toString().padStart(2, '0')}
-                </span>
-              </div>
-
-              <div className="level-display">
-                <span className="level-label">Level</span>
-                <span className="level-value" id="level">{gameState.currentLevel}</span>
-              </div>
-
-              <div className="streak-display">
-                <span className="streak-label">Streak</span>
-                <span className={`streak-value ${gameState.currentStreak >= 5 ? 'streak-bonus' : ''}`}>
-                  {gameState.currentStreak}
-                  {gameState.currentStreak >= 5 && <span className="streak-fire">🔥</span>}
-                </span>
+          <div className="stat-card streak-card">
+            <div className="stat-icon">🔥</div>
+            <div className="stat-content">
+              <div className="stat-label">Streak</div>
+              <div className={`stat-value ${gameState.currentStreak >= 5 ? 'streak-bonus' : ''}`}>
+                {gameState.currentStreak}
+                {gameState.currentStreak >= 5 && <span className="streak-fire">🔥</span>}
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Game Board */}
+        {/* Main Game Section */}
+        <div className="main-game-section">
+          {/* Left Panel - Dashboard */}
+          <div className="game-panel left-panel">
+            <Dashboard />
+          </div>
+
+          {/* Center Panel - Game Board */}
+          <div className="game-panel center-panel">
             <GameBoard />
-
-            {/* Game Controls */}
-            <GameControls />
 
             {/* Level Progress Bar */}
             <div className="level-progress-container">
+              <div className="level-progress-header">
+                <span className="progress-label">Level Progress</span>
+                <span className="progress-info">
+                  {gameState.currentLevel < 5 ?
+                    `${gameState.score} / ${gameState.pointsToNextLevel}` :
+                    'Max Level!'
+                  }
+                </span>
+              </div>
               <div className="level-progress-bar">
                 <div
                   className="level-progress-fill"
@@ -177,19 +197,18 @@ const GameContainer: React.FC = () => {
                   }}
                 ></div>
               </div>
-              <div className="level-progress-text">
-                {gameState.currentLevel < 5 ?
-                  `${gameState.score} / ${gameState.pointsToNextLevel} to next level` :
-                  'Max Level Reached!'
-                }
-              </div>
             </div>
           </div>
 
-          {/* Right Sidebar */}
-          <div className="game-sidebar-right">
-            {/* Additional components can go here */}
+          {/* Right Panel - Future Features */}
+          <div className="game-panel right-panel">
+            {/* Placeholder for future features */}
           </div>
+        </div>
+
+        {/* Game Controls */}
+        <div className="game-controls-section">
+          <GameControls />
         </div>
       </div>
 

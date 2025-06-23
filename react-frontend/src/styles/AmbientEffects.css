@@ -1,0 +1,684 @@
+/* === AMBIENT GAMING ATMOSPHERE EFFECTS === */
+
+.ambient-effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* === BACKGROUND GRADIENT === */
+.ambient-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 107, 53, 0.03) 0%,
+    rgba(138, 43, 226, 0.02) 50%,
+    rgba(255, 193, 7, 0.01) 100%
+  );
+  animation: ambientGradientShift 20s ease-in-out infinite;
+}
+
+/* === FLOATING PARTICLES === */
+.ambient-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ambient-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.6), transparent);
+  border-radius: 50%;
+  animation: ambientParticleFloat 15s linear infinite;
+}
+
+/* === LIGHT RAYS === */
+.light-rays {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+}
+
+.light-ray {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 107, 53, 0.1),
+    transparent
+  );
+  transform-origin: 50% 0%;
+  transform: translate(-50%, 0) rotate(var(--angle));
+  animation: lightRayRotate 30s linear infinite;
+  animation-delay: var(--delay);
+}
+
+/* === GAMING AURA === */
+.gaming-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.aura-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid;
+  animation: auraRingPulse 4s ease-in-out infinite;
+}
+
+.aura-ring.primary {
+  width: 300px;
+  height: 300px;
+  margin: -150px 0 0 -150px;
+  border-color: rgba(255, 107, 53, 0.2);
+  animation-delay: 0s;
+}
+
+.aura-ring.secondary {
+  width: 500px;
+  height: 500px;
+  margin: -250px 0 0 -250px;
+  border-color: rgba(138, 43, 226, 0.15);
+  animation-delay: 1.3s;
+}
+
+.aura-ring.tertiary {
+  width: 700px;
+  height: 700px;
+  margin: -350px 0 0 -350px;
+  border-color: rgba(255, 193, 7, 0.1);
+  animation-delay: 2.6s;
+}
+
+/* === ENERGY PULSES === */
+.energy-pulses {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.energy-pulse {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  margin-left: calc(var(--size) / -2);
+  margin-top: calc(var(--size) / -2);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: 50%;
+  animation: energyPulseExpand 3s ease-out infinite;
+  animation-delay: var(--delay);
+}
+
+/* === COMBO ATMOSPHERE === */
+.combo-atmosphere {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.fire-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.fire-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #ff6b35, #ff9500);
+  border-radius: 50%;
+  left: var(--x);
+  top: var(--y);
+  animation: fireParticleRise var(--duration) ease-out infinite;
+  animation-delay: var(--delay);
+}
+
+.combo-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.combo-ring {
+  width: 400px;
+  height: 400px;
+  margin: -200px 0 0 -200px;
+  border: 2px solid rgba(255, 107, 53, 0.4);
+  border-radius: 50%;
+  animation: comboRingRotate 2s linear infinite;
+}
+
+.combo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  margin: -300px 0 0 -300px;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.1), transparent 70%);
+  border-radius: 50%;
+  animation: comboGlowPulse 1.5s ease-in-out infinite;
+}
+
+/* === SUPER COMBO ATMOSPHERE === */
+.super-combo-atmosphere {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.lightning-effects {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.lightning-bolt {
+  position: absolute;
+  width: 2px;
+  height: 200px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 193, 7, 0.8),
+    transparent
+  );
+  transform-origin: 50% 0%;
+  transform: rotate(var(--angle));
+  animation: lightningFlash 0.5s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+.energy-storm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.storm-center {
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
+  background: radial-gradient(circle, rgba(255, 193, 7, 0.6), transparent);
+  border-radius: 50%;
+  animation: stormCenterPulse 0.3s ease-in-out infinite;
+}
+
+.storm-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.storm-ring {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  margin-left: calc(var(--size) / -2);
+  margin-top: calc(var(--size) / -2);
+  border: 2px solid rgba(255, 193, 7, 0.4);
+  border-radius: 50%;
+  animation: stormRingExpand 1s ease-out infinite;
+  animation-delay: var(--delay);
+}
+
+/* === TIME CRITICAL ATMOSPHERE === */
+.time-critical-atmosphere {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.warning-pulses {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.warning-pulse {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  margin-left: calc(var(--size) / -2);
+  margin-top: calc(var(--size) / -2);
+  border: 2px solid rgba(231, 76, 60, 0.4);
+  border-radius: 50%;
+  animation: warningPulseExpand 1s ease-out infinite;
+  animation-delay: var(--delay);
+}
+
+.critical-vignette-ambient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 60%,
+    rgba(231, 76, 60, 0.1) 100%
+  );
+  animation: criticalVignetteFlash 1s ease-in-out infinite;
+}
+
+/* === PAUSE ATMOSPHERE === */
+.pause-atmosphere {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.pause-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+}
+
+.pause-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.pause-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  left: var(--x);
+  top: var(--y);
+  animation: pauseParticleFloat 8s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+/* === CORNER DECORATIONS === */
+.corner-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.corner-decoration {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(255, 107, 53, 0.1);
+  pointer-events: none;
+}
+
+.corner-decoration.top-left {
+  top: var(--space-4);
+  left: var(--space-4);
+  border-right: none;
+  border-bottom: none;
+  border-radius: var(--radius-lg) 0 0 0;
+}
+
+.corner-decoration.top-right {
+  top: var(--space-4);
+  right: var(--space-4);
+  border-left: none;
+  border-bottom: none;
+  border-radius: 0 var(--radius-lg) 0 0;
+}
+
+.corner-decoration.bottom-left {
+  bottom: var(--space-4);
+  left: var(--space-4);
+  border-right: none;
+  border-top: none;
+  border-radius: 0 0 0 var(--radius-lg);
+}
+
+.corner-decoration.bottom-right {
+  bottom: var(--space-4);
+  right: var(--space-4);
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) 0;
+}
+
+/* === BACKGROUND PATTERN === */
+.background-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.3;
+}
+
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  width: 100%;
+  height: 100%;
+  gap: var(--space-8);
+  padding: var(--space-8);
+}
+
+.pattern-dot {
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.2), transparent);
+  border-radius: 50%;
+  justify-self: center;
+  align-self: center;
+  animation: patternDotPulse 6s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+/* === ANIMATIONS === */
+@keyframes ambientGradientShift {
+  0%, 100% {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 107, 53, 0.03) 0%,
+      rgba(138, 43, 226, 0.02) 50%,
+      rgba(255, 193, 7, 0.01) 100%
+    );
+  }
+  33% {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(138, 43, 226, 0.03) 0%,
+      rgba(255, 193, 7, 0.02) 50%,
+      rgba(255, 107, 53, 0.01) 100%
+    );
+  }
+  66% {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 193, 7, 0.03) 0%,
+      rgba(255, 107, 53, 0.02) 50%,
+      rgba(138, 43, 226, 0.01) 100%
+    );
+  }
+}
+
+@keyframes ambientParticleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(10vh) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+}
+
+@keyframes lightRayRotate {
+  0% { transform: translate(-50%, 0) rotate(var(--angle)); }
+  100% { transform: translate(-50%, 0) rotate(calc(var(--angle) + 360deg)); }
+}
+
+@keyframes auraRingPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes energyPulseExpand {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes fireParticleRise {
+  0% {
+    opacity: 0.8;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0.5);
+  }
+}
+
+@keyframes comboRingRotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes comboGlowPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes lightningFlash {
+  0%, 90%, 100% { opacity: 0; }
+  5%, 85% { opacity: 1; }
+}
+
+@keyframes stormCenterPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes stormRingExpand {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes warningPulseExpand {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes criticalVignetteFlash {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes pauseParticleFloat {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+@keyframes patternDotPulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .aura-ring.primary {
+    width: 200px;
+    height: 200px;
+    margin: -100px 0 0 -100px;
+  }
+
+  .aura-ring.secondary {
+    width: 300px;
+    height: 300px;
+    margin: -150px 0 0 -150px;
+  }
+
+  .aura-ring.tertiary {
+    width: 400px;
+    height: 400px;
+    margin: -200px 0 0 -200px;
+  }
+
+  .combo-ring {
+    width: 250px;
+    height: 250px;
+    margin: -125px 0 0 -125px;
+  }
+
+  .combo-glow {
+    width: 350px;
+    height: 350px;
+    margin: -175px 0 0 -175px;
+  }
+
+  .lightning-bolt {
+    height: 150px;
+  }
+
+  .corner-decoration {
+    width: 60px;
+    height: 60px;
+  }
+
+  .pattern-grid {
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .aura-ring.primary {
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+  }
+
+  .aura-ring.secondary {
+    width: 200px;
+    height: 200px;
+    margin: -100px 0 0 -100px;
+  }
+
+  .aura-ring.tertiary {
+    width: 250px;
+    height: 250px;
+    margin: -125px 0 0 -125px;
+  }
+
+  .combo-ring {
+    width: 180px;
+    height: 180px;
+    margin: -90px 0 0 -90px;
+  }
+
+  .combo-glow {
+    width: 250px;
+    height: 250px;
+    margin: -125px 0 0 -125px;
+  }
+
+  .lightning-bolt {
+    height: 100px;
+  }
+
+  .corner-decoration {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pattern-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: var(--space-2);
+    padding: var(--space-2);
+  }
+
+  .pattern-dot {
+    width: 3px;
+    height: 3px;
+  }
+}

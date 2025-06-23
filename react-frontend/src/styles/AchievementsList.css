@@ -1,19 +1,19 @@
 /* Achievements List Styles */
 
 .achievements {
-  margin-bottom: 20px;
   flex-shrink: 0;
 }
 
 .achievements h3 {
   color: #fff;
-  text-align: center;
-  margin-bottom: 15px;
-  border-bottom: 3px solid #ffbaba;
+  text-align: left;
+  margin: 0 0 12px 0;
   padding-bottom: 8px;
-  font-family: 'Sirin Stencil';
-  font-size: 2.5rem;
-  text-shadow: 3px 3px rgb(165, 66);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-gaming);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
@@ -28,7 +28,7 @@
 
 .achievements-list {
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 
 .achievement {
@@ -36,65 +36,74 @@
   align-items: center;
   gap: 10px;
   padding: 10px;
-  margin: 8px 0;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  transition: transform 0.3s ease, background 0.3s ease;
-  font-size: 0.9em;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .achievement:hover {
-  transform: scale(1.05);
+  transform: translateY(-1px);
+  border-color: rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .achievement.unlocked {
-  background: linear-gradient(135deg, #ffcc00, #ff8c00);
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.3), rgba(255, 107, 53, 0.1));
+  border-color: rgba(255, 107, 53, 0.5);
   color: white;
-  transform: scale(1.05);
-  box-shadow: 0 3px 10px rgba(255, 140, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.2);
 }
 
-.achievement.unlocked:nth-child(2) {
-  background: linear-gradient(135deg, #28a745, #218838);
-}
-
-.achievement.unlocked:nth-child(3) {
-  background: linear-gradient(135deg, #007bff, #0056b3);
+.achievement.unlocked:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
 }
 
 .achievement-icon {
-  font-size: 1.2rem;
-  min-width: 30px;
+  font-size: 1.1rem;
+  min-width: 28px;
   text-align: center;
+  opacity: 0.9;
 }
 
 .achievement-content {
   flex: 1;
+  min-width: 0;
 }
 
 .achievement-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 5px;
+  gap: 8px;
+  margin-bottom: 4px;
 }
 
-.achievement-text {
-  font-size: 0.95rem;
+.achievement-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.achievement-description {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.3;
+  margin-bottom: 6px;
 }
 
 .nft-badge {
-  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.8), rgba(255, 107, 53, 0.6));
   color: white;
   padding: 2px 6px;
-  border-radius: 8px;
-  font-size: 10px;
-  font-weight: bold;
-  margin-left: 8px;
-}
-
-.achievement.unlocked .nft-badge {
-  display: inline-block !important;
+  border-radius: 6px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .achievement-progress {
