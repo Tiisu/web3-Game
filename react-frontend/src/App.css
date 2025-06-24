@@ -7,6 +7,10 @@
 /* Import existing game styles */
 @import './styles/mole.css';
 @import './styles/web3-styles.css';
+<<<<<<< HEAD
+=======
+@import './styles/layout-utilities.css';
+>>>>>>> master
 
 /* === MAIN APPLICATION STYLES === */
 .App {
@@ -16,17 +20,37 @@
   font-family: var(--font-primary);
 }
 
+<<<<<<< HEAD
 /* Landing page gets its own background */
+=======
+/* Modern gradient background for all views */
+.App {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+  background-attachment: fixed;
+}
+
+/* Landing page gets a slightly different gradient */
+>>>>>>> master
 .App:has(.landing-page) {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
 }
 
+<<<<<<< HEAD
 /* Game view gets the original background */
 .App:has(.game-container) {
   background: url("../public/images/mario-bg.jpg") no-repeat center center/cover;
 }
 
 /* === ANIMATED BACKGROUND === */
+=======
+/* Game view gets a clean, modern gradient */
+.App:has(.game-container) {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+  background-attachment: fixed;
+}
+
+/* === SUBTLE ANIMATED BACKGROUND === */
+>>>>>>> master
 .App::before {
   content: '';
   position: fixed;
@@ -35,10 +59,17 @@
   width: 100%;
   height: 100%;
   background:
+<<<<<<< HEAD
     radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.3) 0%, transparent 50%),
     radial-gradient(circle at 40% 40%, rgba(108, 92, 231, 0.2) 0%, transparent 50%);
   animation: backgroundFloat 20s ease-in-out infinite;
+=======
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+  animation: backgroundFloat 30s ease-in-out infinite;
+>>>>>>> master
   z-index: -1;
 }
 

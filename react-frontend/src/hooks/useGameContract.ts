@@ -16,7 +16,14 @@ export const useGameContract = (account: string | null) => {
 
   // Get contract instance
   const gameContract = useMemo(() => {
+<<<<<<< HEAD
     if (!account || !isMetaMaskInstalled()) return null;
+=======
+    if (!account || !isMetaMaskInstalled()) {
+      console.log('Game contract not available: account or MetaMask not available');
+      return null;
+    }
+>>>>>>> master
 
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -28,13 +35,31 @@ export const useGameContract = (account: string | null) => {
         return null;
       }
 
+<<<<<<< HEAD
       return new ethers.Contract(
+=======
+      console.log('Creating game contract instance:', {
+        address: addresses.GAME_CONTRACT,
+        account: account
+      });
+
+      const contract = new ethers.Contract(
+>>>>>>> master
         addresses.GAME_CONTRACT,
         CONTRACT_ABIS.GAME_CONTRACT,
         signer
       );
+<<<<<<< HEAD
     } catch (err) {
       console.error('Failed to create game contract instance:', err);
+=======
+
+      console.log('Game contract instance created successfully');
+      return contract;
+    } catch (err) {
+      console.error('Failed to create game contract instance:', err);
+      setError(`Failed to initialize game contract: ${err instanceof Error ? err.message : 'Unknown error'}`);
+>>>>>>> master
       return null;
     }
   }, [account]);
@@ -146,9 +171,18 @@ export const useGameContract = (account: string | null) => {
     }
 
     try {
+<<<<<<< HEAD
       const playerData = await gameContract.getPlayer(address);
       
       return {
+=======
+      console.log('Fetching player data for address:', address);
+      const playerData = await gameContract.getPlayer(address);
+      
+      console.log('Raw player data from contract:', playerData);
+      
+      const result = {
+>>>>>>> master
         address: playerData.playerAddress,
         username: playerData.username,
         totalGamesPlayed: playerData.totalGamesPlayed.toNumber(),
@@ -158,8 +192,35 @@ export const useGameContract = (account: string | null) => {
         registrationTime: new Date(playerData.registrationTime.toNumber() * 1000),
         isRegistered: playerData.isRegistered
       };
+<<<<<<< HEAD
     } catch (err: any) {
       console.error('Failed to get player data:', err);
+=======
+      
+      console.log('Processed player data:', result);
+      return result;
+    } catch (err: any) {
+      console.error('Failed to get player data:', err);
+      
+      // Check for specific error types
+      if (err.message.includes('execution reverted') || 
+          err.message.includes('Player does not exist') ||
+          err.message.includes('not registered')) {
+        // Return default data for unregistered player
+        console.log('Player not registered, returning default data');
+        return {
+          address: address,
+          username: '',
+          totalGamesPlayed: 0,
+          totalScore: 0,
+          highestScore: 0,
+          totalMolesHit: 0,
+          registrationTime: new Date(),
+          isRegistered: false
+        };
+      }
+      
+>>>>>>> master
       throw new Error(err.message || 'Failed to fetch player data');
     }
   }, [gameContract]);
@@ -171,16 +232,40 @@ export const useGameContract = (account: string | null) => {
     }
 
     try {
+<<<<<<< HEAD
       const leaderboardData = await gameContract.getLeaderboard();
       
       return leaderboardData.map((entry: any) => ({
+=======
+      console.log('Fetching leaderboard data...');
+      const leaderboardData = await gameContract.getLeaderboard();
+      
+      console.log('Raw leaderboard data:', leaderboardData);
+      
+      const result = leaderboardData.map((entry: any) => ({
+>>>>>>> master
         player: entry.player,
         username: entry.username,
         score: entry.score.toNumber(),
         timestamp: new Date(entry.timestamp.toNumber() * 1000)
       }));
+<<<<<<< HEAD
     } catch (err: any) {
       console.error('Failed to get leaderboard:', err);
+=======
+      
+      console.log('Processed leaderboard data:', result);
+      return result;
+    } catch (err: any) {
+      console.error('Failed to get leaderboard:', err);
+      
+      // Return empty array for leaderboard errors (non-critical)
+      if (err.message.includes('execution reverted')) {
+        console.log('Leaderboard empty or contract error, returning empty array');
+        return [];
+      }
+      
+>>>>>>> master
       throw new Error(err.message || 'Failed to fetch leaderboard');
     }
   }, [gameContract]);

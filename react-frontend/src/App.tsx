@@ -3,6 +3,10 @@ import { Web3Provider, useWeb3 } from './contexts/Web3Context';
 import { GameProvider } from './contexts/GameContext';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { AppProvider, useAppContext } from './contexts/AppContext';
+<<<<<<< HEAD
+=======
+import { ThemeProvider } from './contexts/ThemeContext';
+>>>>>>> master
 import LandingPage from './components/LandingPage';
 import GameContainer from './components/GameContainer';
 import AccessControl from './components/AccessControl';
@@ -63,6 +67,7 @@ const AppRouter: React.FC = () => {
 function App() {
   return (
     <div className="App">
+<<<<<<< HEAD
       <Web3Provider>
         <GameProvider>
           <NotificationProvider>
@@ -72,6 +77,19 @@ function App() {
           </NotificationProvider>
         </GameProvider>
       </Web3Provider>
+=======
+      <ThemeProvider>
+        <Web3Provider>
+          <GameProvider>
+            <NotificationProvider>
+              <AppProvider>
+                <AppRouter />
+              </AppProvider>
+            </NotificationProvider>
+          </GameProvider>
+        </Web3Provider>
+      </ThemeProvider>
+>>>>>>> master
     </div>
   );
 }

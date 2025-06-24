@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Landing Page Styles - Inspired by Legend of Werewolf */
 
 .landing-page {
@@ -5,6 +6,36 @@
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   color: #ffffff;
   font-family: 'Arial', sans-serif;
+=======
+/* Enhanced Landing Page Styles with Modern UI */
+
+.landing-page {
+  min-height: 100vh;
+  background: var(--bg-game);
+  color: var(--ui-text-primary);
+  font-family: var(--font-primary);
+  overflow-x: hidden;
+  position: relative;
+}
+
+.landing-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.landing-page > * {
+  position: relative;
+  z-index: 1;
+>>>>>>> master
 }
 
 /* Navigation */
@@ -530,3 +561,85 @@
     max-width: 300px;
   }
 }
+<<<<<<< HEAD
+=======
+
+/* Enhanced Responsive Design for Modern UI */
+
+/* Mobile First Approach */
+@media (max-width: 640px) {
+  .landing-page {
+    font-size: 14px;
+  }
+
+  .nav-container {
+    padding: 0 1rem;
+  }
+
+  .nav-links {
+    gap: 0.5rem;
+  }
+
+  .nav-link {
+    display: none;
+  }
+
+  .hero-section {
+    padding: 6rem 1rem 2rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-container {
+    padding: 0 1rem;
+  }
+}
+
+/* Tablet */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .nft-showcase {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1440px) {
+  .section-container,
+  .nav-container,
+  .hero-container {
+    max-width: 1400px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .preview-mole {
+    animation: none;
+  }
+}
+>>>>>>> master

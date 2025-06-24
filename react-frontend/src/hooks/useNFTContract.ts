@@ -16,7 +16,14 @@ export const useNFTContract = (account: string | null): UseNFTContractReturn => 
 
   // Get contract instance
   const nftContract = useMemo(() => {
+<<<<<<< HEAD
     if (!account || !isMetaMaskInstalled()) return null;
+=======
+    if (!account || !isMetaMaskInstalled()) {
+      console.log('NFT contract not available: account or MetaMask not available');
+      return null;
+    }
+>>>>>>> master
 
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -28,13 +35,31 @@ export const useNFTContract = (account: string | null): UseNFTContractReturn => 
         return null;
       }
 
+<<<<<<< HEAD
       return new ethers.Contract(
+=======
+      console.log('Creating NFT contract instance:', {
+        address: addresses.NFT_CONTRACT,
+        account: account
+      });
+
+      const contract = new ethers.Contract(
+>>>>>>> master
         addresses.NFT_CONTRACT,
         CONTRACT_ABIS.NFT_CONTRACT,
         signer
       );
+<<<<<<< HEAD
     } catch (err) {
       console.error('Failed to create NFT contract instance:', err);
+=======
+
+      console.log('NFT contract instance created successfully');
+      return contract;
+    } catch (err) {
+      console.error('Failed to create NFT contract instance:', err);
+      setError(`Failed to initialize NFT contract: ${err instanceof Error ? err.message : 'Unknown error'}`);
+>>>>>>> master
       return null;
     }
   }, [account]);
@@ -42,18 +67,41 @@ export const useNFTContract = (account: string | null): UseNFTContractReturn => 
   // Get player achievements
   const getPlayerAchievements = useCallback(async (address: string): Promise<string[]> => {
     if (!nftContract) {
+<<<<<<< HEAD
       throw new Error(ERROR_MESSAGES.CONTRACT_INTERACTION_FAILED);
+=======
+      console.log('NFT contract not available for achievements');
+      return [];
+>>>>>>> master
     }
 
     setIsLoading(true);
     setError(null);
 
     try {
+<<<<<<< HEAD
       const achievements = await nftContract.getPlayerAchievements(address);
       console.log('Player achievements loaded:', achievements);
       return achievements;
     } catch (err: any) {
       console.error('Failed to get player achievements:', err);
+=======
+      console.log('Fetching achievements for address:', address);
+      const achievements = await nftContract.getPlayerAchievements(address);
+      console.log('Player achievements loaded:', achievements);
+      return achievements || [];
+    } catch (err: any) {
+      console.error('Failed to get player achievements:', err);
+      
+      // For achievements, we can gracefully handle errors by returning empty array
+      if (err.message.includes('execution reverted') || 
+          err.message.includes('Player has no achievements') ||
+          err.message.includes('not found')) {
+        console.log('No achievements found or contract error, returning empty array');
+        return [];
+      }
+      
+>>>>>>> master
       setError(err.message || 'Failed to fetch achievements');
       return [];
     } finally {

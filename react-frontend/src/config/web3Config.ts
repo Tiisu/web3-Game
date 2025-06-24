@@ -40,7 +40,11 @@ export const CONTRACT_ADDRESSES: Web3Config = {
   }
 };
 
+<<<<<<< HEAD
 // Contract ABIs (simplified for frontend use)
+=======
+// Contract ABIs (updated to match deployed contracts)
+>>>>>>> master
 export const CONTRACT_ABIS = {
   GAME_CONTRACT: [
     // Player registration
@@ -62,6 +66,16 @@ export const CONTRACT_ABIS = {
     // Username update
     "function updateUsername(string memory _newUsername) external",
     
+<<<<<<< HEAD
+=======
+    // Constants
+    "function GAME_DURATION() external view returns (uint256)",
+    "function MIN_SCORE_FOR_LEADERBOARD() external view returns (uint256)",
+    "function BEGINNER_THRESHOLD() external view returns (uint256)",
+    "function PRO_THRESHOLD() external view returns (uint256)",
+    "function MASTER_THRESHOLD() external view returns (uint256)",
+    
+>>>>>>> master
     // Events
     "event PlayerRegistered(address indexed player, string username)",
     "event GameStarted(address indexed player, uint256 indexed gameId)",
@@ -115,31 +129,51 @@ export const ACHIEVEMENT_DATA = {
   BEGINNER: {
     name: 'Beginner',
     description: 'Score 1,000+ points in a single game',
+<<<<<<< HEAD
     icon: '🎯',
+=======
+    icon: 'target',
+>>>>>>> master
     rarity: 'Common'
   },
   PRO: {
     name: 'Pro Player',
     description: 'Score 5,000+ points in a single game',
+<<<<<<< HEAD
     icon: '🏆',
+=======
+    icon: 'trophy',
+>>>>>>> master
     rarity: 'Epic'
   },
   MASTER: {
     name: 'Master',
     description: 'Score 10,000+ points in a single game',
+<<<<<<< HEAD
     icon: '👑',
+=======
+    icon: 'crown',
+>>>>>>> master
     rarity: 'Legendary'
   },
   REGULAR: {
     name: 'Regular Player',
     description: 'Play 10+ games',
+<<<<<<< HEAD
     icon: '🎮',
+=======
+    icon: 'gamepad',
+>>>>>>> master
     rarity: 'Common'
   },
   VETERAN: {
     name: 'Veteran',
     description: 'Play 100+ games',
+<<<<<<< HEAD
     icon: '⭐',
+=======
+    icon: 'star',
+>>>>>>> master
     rarity: 'Rare'
   }
 };
@@ -229,4 +263,8 @@ export const formatTime = (seconds: number): string => {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
   return `${mins}:${secs.toString().padStart(2, '0')}`;
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> master

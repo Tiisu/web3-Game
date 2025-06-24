@@ -26,6 +26,7 @@ function updateFrontendConfig(network = 'testnet') {
     console.log(`Game Contract: ${contracts.WhacAMoleGame}`);
     console.log(`NFT Contract: ${contracts.WhacAMoleNFT}`);
     
+<<<<<<< HEAD
     // Read current web3-config.js
     const configFile = path.join(__dirname, 'frontend', 'web3-config.js');
     let configContent = fs.readFileSync(configFile, 'utf8');
@@ -37,6 +38,34 @@ function updateFrontendConfig(network = 'testnet') {
     
     configContent = configContent.replace(gameAddressPattern, `$1${contracts.WhacAMoleGame}$3`);
     configContent = configContent.replace(nftAddressPattern, `$1${contracts.WhacAMoleNFT}$3`);
+=======
+    // Read current web3Config.ts
+    const configFile = path.join(__dirname, 'react-frontend', 'src', 'config', 'web3Config.ts');
+    let configContent = fs.readFileSync(configFile, 'utf8');
+    
+    // Update contract addresses for the specified network
+    const networkKey = network.toUpperCase();
+    
+    if (network === 'testnet') {
+      // Update TESTNET addresses
+      const gameAddressPattern = /TESTNET:\s*{\s*GAME_CONTRACT:\s*['"]([^'"]*)['"]/;
+      const nftAddressPattern = /TESTNET:\s*{[^}]*NFT_CONTRACT:\s*['"]([^'"]*)['"]/;
+      
+      configContent = configContent.replace(gameAddressPattern, `TESTNET: {\n    GAME_CONTRACT: '${contracts.WhacAMoleGame}'`);
+      configContent = configContent.replace(nftAddressPattern, (match) => {
+        return match.replace(/NFT_CONTRACT:\s*['"][^'"]*['"]/, `NFT_CONTRACT: '${contracts.WhacAMoleNFT}'`);
+      });
+    } else {
+      // Update MAINNET addresses
+      const gameAddressPattern = /MAINNET:\s*{\s*GAME_CONTRACT:\s*['"]([^'"]*)['"]/;
+      const nftAddressPattern = /MAINNET:\s*{[^}]*NFT_CONTRACT:\s*['"]([^'"]*)['"]/;
+      
+      configContent = configContent.replace(gameAddressPattern, `MAINNET: {\n    GAME_CONTRACT: '${contracts.WhacAMoleGame}'`);
+      configContent = configContent.replace(nftAddressPattern, (match) => {
+        return match.replace(/NFT_CONTRACT:\s*['"][^'"]*['"]/, `NFT_CONTRACT: '${contracts.WhacAMoleNFT}'`);
+      });
+    }
+>>>>>>> master
     
     // Write updated config
     fs.writeFileSync(configFile, configContent);
@@ -46,13 +75,21 @@ function updateFrontendConfig(network = 'testnet') {
       network: network,
       chainId: network === 'testnet' ? 33111 : 33139,
       contracts: contracts,
+<<<<<<< HEAD
       timestamp: deploymentData.timestamp,
+=======
+      timestamp: deploymentData.timestamp || new Date().toISOString(),
+>>>>>>> master
       blockExplorer: network === 'testnet' ? 
         'https://curtis.explorer.caldera.xyz/' : 
         'https://apechain.calderaexplorer.xyz/'
     };
     
+<<<<<<< HEAD
     const frontendInfoFile = path.join(__dirname, 'frontend', 'deployment-info.json');
+=======
+    const frontendInfoFile = path.join(__dirname, 'react-frontend', 'public', 'deployment-info.json');
+>>>>>>> master
     fs.writeFileSync(frontendInfoFile, JSON.stringify(frontendDeploymentInfo, null, 2));
     
     console.log('✅ Frontend configuration updated successfully!');

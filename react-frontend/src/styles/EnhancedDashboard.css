@@ -12,11 +12,19 @@
 
 /* === ENHANCED DASHBOARD HEADER === */
 .dashboard-header.enhanced {
+<<<<<<< HEAD
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
   border-radius: var(--radius-xl);
   padding: var(--space-4);
   border: 2px solid rgba(255, 107, 53, 0.3);
   backdrop-filter: blur(10px);
+=======
+  background: var(--bg-glass);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  border: 2px solid var(--gaming-primary);
+  backdrop-filter: blur(20px);
+>>>>>>> master
   box-shadow: var(--shadow-lg);
 }
 
@@ -34,7 +42,11 @@
   font-family: var(--font-gaming);
   font-size: var(--text-xl);
   font-weight: var(--font-bold);
+<<<<<<< HEAD
   color: var(--neutral-darker);
+=======
+  color: var(--ui-text-primary);
+>>>>>>> master
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -77,15 +89,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
   background: rgba(255, 255, 255, 0.8);
   border: 2px solid rgba(255, 107, 53, 0.2);
+=======
+  background: var(--bg-glass);
+  border: 2px solid var(--gaming-primary);
+>>>>>>> master
   border-radius: var(--radius-lg);
   cursor: pointer;
   transition: all var(--transition-normal);
 }
 
 .collapse-all-btn:hover {
+<<<<<<< HEAD
   background: rgba(255, 107, 53, 0.1);
+=======
+  background: var(--bg-glass-strong);
+  border-color: var(--gaming-accent);
+>>>>>>> master
   transform: scale(1.05);
 }
 
@@ -280,7 +302,11 @@
   width: 16px;
   height: 16px;
   border-radius: var(--radius-full);
+<<<<<<< HEAD
   background: white;
+=======
+  background: var(--bg-glass);
+>>>>>>> master
   display: flex;
   align-items: center;
   justify-content: center;

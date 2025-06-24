@@ -5,6 +5,7 @@
   width: 550px;
   height: 550px;
   margin: 0 auto;
+<<<<<<< HEAD
   background: url("../../public/images/soil.png") no-repeat center center/cover;
   border-radius: 25px;
   padding: 0;
@@ -16,6 +17,37 @@
 .game-board:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-xl), 0 0 60px rgba(255, 107, 53, 0.2);
+=======
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-2xl);
+  border: 2px solid var(--ui-border);
+  transition: all var(--transition-normal);
+  overflow: hidden;
+}
+
+.game-board::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 107, 53, 0.05) 0%, 
+    rgba(108, 92, 231, 0.05) 50%, 
+    rgba(0, 206, 201, 0.05) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.game-board:hover {
+  transform: translateY(-4px);
+  background: var(--bg-glass-strong);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+>>>>>>> master
 }
 
 /* Time's up flash effect */
@@ -43,16 +75,29 @@
 }
 
 .board-grid {
+<<<<<<< HEAD
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   height: 100%;
   position: relative;
+=======
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--space-3);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: var(--space-3);
+  z-index: 1;
+>>>>>>> master
 }
 
 .board-cell {
   position: relative;
   cursor: pointer;
+<<<<<<< HEAD
   width: 180px;
   height: 180px;
   background: url("../../public/images/pipe.png") no-repeat center center/cover;
@@ -63,6 +108,28 @@
   transform: scale(1.05) translateY(-2px);
   box-shadow: var(--shadow-lg), 0 0 20px rgba(255, 107, 53, 0.3);
   border-color: rgba(255, 107, 53, 0.4);
+=======
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-hole);
+  border-radius: 50%;
+  border: 2px solid var(--ui-border);
+  transition: all var(--transition-normal);
+  box-shadow:
+    inset 0 4px 12px rgba(0, 0, 0, 0.7),
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.board-cell:hover {
+  transform: scale(1.08) translateY(-4px);
+  border-color: var(--gaming-accent);
+  box-shadow:
+    inset 0 4px 12px rgba(0, 0, 0, 0.7),
+    0 8px 24px rgba(0, 206, 201, 0.4),
+    0 0 0 2px var(--gaming-accent);
+>>>>>>> master
 }
 
 .board-cell.has-mole {
@@ -72,6 +139,7 @@
 
 @keyframes cellGlow {
   0%, 100% {
+<<<<<<< HEAD
     box-shadow: var(--shadow-md);
   }
   50% {
@@ -80,6 +148,20 @@
 }
 
 /* === MOLE HOLES (Simplified to match original) === */
+=======
+    box-shadow:
+      inset 0 4px 8px rgba(0, 0, 0, 0.6),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow:
+      inset 0 4px 8px rgba(0, 0, 0, 0.6),
+      0 4px 16px rgba(59, 130, 246, 0.5);
+  }
+}
+
+/* === MOLE HOLES === */
+>>>>>>> master
 .hole {
   width: 100%;
   height: 100%;
@@ -87,6 +169,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
+=======
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.hole-inner {
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(circle, #000000 0%, #1f2937 70%, #374151 100%);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(255, 255, 255, 0.1);
+>>>>>>> master
 }
 
 /* === MOLE CHARACTERS === */
@@ -192,6 +289,100 @@
   50% { transform: scale(1.1); }
 }
 
+<<<<<<< HEAD
+=======
+/* === ENHANCED CLICK EFFECTS === */
+.board-cell.clicked {
+  animation: clickRipple 0.6s ease-out;
+}
+
+@keyframes clickRipple {
+  0% {
+    box-shadow:
+      inset 0 4px 8px rgba(0, 0, 0, 0.6),
+      0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  70% {
+    box-shadow:
+      inset 0 4px 8px rgba(0, 0, 0, 0.6),
+      0 0 0 20px rgba(59, 130, 246, 0);
+  }
+  100% {
+    box-shadow:
+      inset 0 4px 8px rgba(0, 0, 0, 0.6),
+      0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+/* Hit effect for successful mole hits */
+.board-cell.hit-success {
+  animation: hitSuccess 0.5s ease-out;
+}
+
+@keyframes hitSuccess {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.8);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 15px rgba(76, 175, 80, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 30px rgba(76, 175, 80, 0);
+  }
+}
+
+/* Miss effect for clicking empty holes */
+.board-cell.hit-miss {
+  animation: hitMiss 0.4s ease-out;
+}
+
+@keyframes hitMiss {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.6);
+  }
+  50% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 10px rgba(231, 76, 60, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 20px rgba(231, 76, 60, 0);
+  }
+}
+
+/* Plant hit effect (negative points) */
+.board-cell.hit-plant {
+  animation: hitPlant 0.6s ease-out;
+}
+
+@keyframes hitPlant {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(156, 39, 176, 0.8);
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 8px rgba(156, 39, 176, 0.6);
+    filter: hue-rotate(90deg);
+  }
+  50% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 15px rgba(156, 39, 176, 0.4);
+    filter: hue-rotate(180deg);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 25px rgba(156, 39, 176, 0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+>>>>>>> master
 .game-overlay {
   position: absolute;
   top: 0;
@@ -223,7 +414,11 @@
   opacity: 0.9;
 }
 
+<<<<<<< HEAD
 /* Responsive Design */
+=======
+/* === ENHANCED MOBILE RESPONSIVENESS === */
+>>>>>>> master
 @media (max-width: 785px) {
   .game-board {
     width: 100%;
@@ -231,6 +426,7 @@
     height: auto;
     margin-bottom: 2.3rem;
     margin-top: 1.5rem;
+<<<<<<< HEAD
   }
 
   .board-cell {
@@ -239,6 +435,21 @@
     padding-bottom: 33.33%;
     position: relative;
     background-size: 100% 100%;
+=======
+    padding: 15px;
+  }
+
+  .board-cell {
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .board-cell:hover {
+    transform: scale(1.02) translateY(-1px);
+>>>>>>> master
   }
 
   .board-cell .mole {
@@ -252,6 +463,21 @@
     animation: mobile-pop 0.3s ease-out;
   }
 
+<<<<<<< HEAD
+=======
+  .board-cell .mole:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+
+  .points-indicator {
+    width: 25px;
+    height: 25px;
+    font-size: 10px;
+    top: -8px;
+    right: -8px;
+  }
+
+>>>>>>> master
   @keyframes mobile-pop {
     0% {
       transform: scale(0) translate(-50%, -50%);
@@ -266,3 +492,86 @@
     }
   }
 }
+<<<<<<< HEAD
+=======
+
+/* === TOUCH DEVICE OPTIMIZATIONS === */
+@media (hover: none) and (pointer: coarse) {
+  .board-cell {
+    cursor: default;
+  }
+
+  .board-cell:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  .board-cell.clicked {
+    animation: touchFeedback 0.3s ease-out;
+  }
+
+  @keyframes touchFeedback {
+    0% {
+      background-color: rgba(255, 107, 53, 0.2);
+      transform: scale(1);
+    }
+    50% {
+      background-color: rgba(255, 107, 53, 0.4);
+      transform: scale(1.05);
+    }
+    100% {
+      background-color: transparent;
+      transform: scale(1);
+    }
+  }
+
+  /* Enhanced touch targets */
+  .mole {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* === SMALL MOBILE DEVICES === */
+@media (max-width: 480px) {
+  .game-board {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .board-cell .mole {
+    width: 65%;
+    height: 65%;
+  }
+
+  .points-indicator {
+    width: 20px;
+    height: 20px;
+    font-size: 9px;
+    top: -6px;
+    right: -6px;
+  }
+}
+
+/* === ACCESSIBILITY IMPROVEMENTS === */
+@media (prefers-reduced-motion: reduce) {
+  .board-cell,
+  .mole,
+  .points-indicator {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .board-cell:hover {
+    transform: none;
+  }
+}
+
+/* === HIGH DPI DISPLAYS === */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .mole-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+>>>>>>> master

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Web3 Context for managing blockchain state and interactions
+=======
+// Enhanced Web3 Context for managing blockchain state and interactions
+>>>>>>> master
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { ethers } from 'ethers';
@@ -8,6 +12,10 @@ import { useGameContract } from '../hooks/useGameContract';
 import { useNFTContract } from '../hooks/useNFTContract';
 import { useNotifications } from '../hooks/useNotifications';
 import { SUCCESS_MESSAGES, getCurrentContractAddresses, CONTRACT_ABIS } from '../config/web3Config';
+<<<<<<< HEAD
+=======
+import { debugWeb3Connection } from '../utils/web3Debug';
+>>>>>>> master
 
 const Web3Context = createContext<Web3ContextType | undefined>(undefined);
 
@@ -47,6 +55,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     try {
       const success = await connectWallet();
       if (success) {
+<<<<<<< HEAD
         addSuccessNotification(SUCCESS_MESSAGES.WALLET_CONNECTED);
         return true;
       }
@@ -78,6 +87,33 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     console.log('🧹 Cleared current game ID');
   }, []);
 
+=======
+        console.log('Wallet connected successfully');
+      }
+      return success;
+    } catch (err: any) {
+      console.error('Failed to connect wallet:', err);
+      setError(err.message);
+      return false;
+    }
+  }, [connectWallet]);
+
+  // Disconnect wallet
+  const disconnect = useCallback(async (): Promise<void> => {
+    try {
+      await disconnectWallet();
+      setPlayerData(null);
+      setAchievements([]);
+      setLeaderboard([]);
+      setCurrentGameId(null);
+      setError(null);
+      console.log('Wallet disconnected successfully');
+    } catch (err: any) {
+      console.error('Failed to disconnect wallet:', err);
+    }
+  }, [disconnectWallet]);
+
+>>>>>>> master
   // Register player
   const registerPlayer = useCallback(async (username: string): Promise<void> => {
     if (!web3State.account) {
@@ -88,15 +124,24 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     setError(null);
     setPendingTransaction({
       type: 'registration',
+<<<<<<< HEAD
       message: 'Please sign the transaction to register your player profile...'
+=======
+      message: 'Please sign the transaction to register your player...'
+>>>>>>> master
     });
 
     try {
       await gameContract.registerPlayer(username);
       setPendingTransaction(null);
       addSuccessNotification(SUCCESS_MESSAGES.PLAYER_REGISTERED);
+<<<<<<< HEAD
 
       // Refresh player data
+=======
+      
+      // Refresh data to get updated player info
+>>>>>>> master
       await refreshData();
     } catch (err: any) {
       setPendingTransaction(null);
@@ -137,15 +182,29 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     }
   }, [gameContract, addSuccessNotification, addErrorNotification]);
 
+<<<<<<< HEAD
   // Enhanced refresh with retry mechanism
   const refreshData = useCallback(async (retryCount: number = 0): Promise<void> => {
     if (!web3State.account) {
+=======
+  // Enhanced refresh with improved error handling and contract validation
+  const refreshData = useCallback(async (retryCount: number = 0): Promise<void> => {
+    if (!web3State.account) {
+      console.log('No account connected, skipping data refresh');
+      return;
+    }
+
+    if (!gameContract.isContractReady) {
+      console.log('Contracts not ready, skipping data refresh');
+      setError('Contracts not initialized. Please check your network connection.');
+>>>>>>> master
       return;
     }
 
     const maxRetries = 3;
     const retryDelay = 1000 * (retryCount + 1); // Exponential backoff
 
+<<<<<<< HEAD
     setIsLoading(true);
     setError(null);
 
@@ -184,10 +243,72 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
         console.log('✅ Achievements loaded successfully:', achievementsResult);
       } catch (achievementErr: any) {
         console.log('Failed to load achievements:', achievementErr.message);
+=======
+    if (retryCount === 0) {
+      setIsLoading(true);
+      setError(null);
+    }
+
+    try {
+      console.log(`Refreshing Web3 data (attempt ${retryCount + 1}/${maxRetries + 1})...`);
+      console.log(`Account: ${web3State.account}`);
+      console.log(`Game Contract Ready: ${gameContract.isContractReady}`);
+
+      // Load player data with improved error handling
+      let playerDataLoaded = false;
+      try {
+        console.log('Loading player data...');
+        const playerDataResult = await gameContract.getPlayerData(web3State.account);
+        setPlayerData(playerDataResult);
+        playerDataLoaded = true;
+        console.log('Player data loaded successfully:', {
+          username: playerDataResult.username,
+          isRegistered: playerDataResult.isRegistered,
+          totalGamesPlayed: playerDataResult.totalGamesPlayed,
+          totalScore: playerDataResult.totalScore,
+          highestScore: playerDataResult.highestScore
+        });
+      } catch (playerErr: any) {
+        console.log('Player data error:', playerErr.message);
+        
+        // Check if it's a "player not registered" error vs a contract error
+        if (playerErr.message.includes('not registered') || 
+            playerErr.message.includes('Player does not exist') ||
+            playerErr.message.includes('execution reverted')) {
+          console.log('Player not registered, setting default data');
+          setPlayerData({
+            address: web3State.account,
+            username: '',
+            totalGamesPlayed: 0,
+            totalScore: 0,
+            highestScore: 0,
+            totalMolesHit: 0,
+            registrationTime: new Date(),
+            isRegistered: false
+          });
+          playerDataLoaded = true;
+        } else {
+          console.error('Contract error loading player data:', playerErr);
+          throw new Error(`Player data error: ${playerErr.message}`);
+        }
+      }
+
+      // Load achievements with improved error handling
+      let achievementsLoaded = false;
+      try {
+        console.log('Loading achievements...');
+        const achievementsResult = await nftContract.getPlayerAchievements(web3State.account);
+        setAchievements(achievementsResult || []);
+        achievementsLoaded = true;
+        console.log('Achievements loaded successfully:', achievementsResult?.length || 0, 'achievements');
+      } catch (achievementErr: any) {
+        console.log('Achievements error:', achievementErr.message);
+>>>>>>> master
         setAchievements([]);
         achievementsLoaded = true; // Consider this successful (empty array)
       }
 
+<<<<<<< HEAD
       // Load leaderboard with retry logic
       let leaderboardLoaded = false;
       try {
@@ -197,34 +318,67 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
         console.log('✅ Leaderboard loaded successfully:', leaderboardResult.length, 'entries');
       } catch (leaderboardErr: any) {
         console.log('Failed to load leaderboard:', leaderboardErr.message);
+=======
+      // Load leaderboard with improved error handling
+      let leaderboardLoaded = false;
+      try {
+        console.log('Loading leaderboard...');
+        const leaderboardResult = await gameContract.getLeaderboard();
+        setLeaderboard(leaderboardResult || []);
+        leaderboardLoaded = true;
+        console.log('Leaderboard loaded successfully:', leaderboardResult?.length || 0, 'entries');
+      } catch (leaderboardErr: any) {
+        console.log('Leaderboard error:', leaderboardErr.message);
+>>>>>>> master
         setLeaderboard([]);
         leaderboardLoaded = true; // Consider this successful (empty array)
       }
 
       // Check if all data was loaded successfully
       if (playerDataLoaded && achievementsLoaded && leaderboardLoaded) {
+<<<<<<< HEAD
         console.log('✅ All Web3 data refreshed successfully');
+=======
+        console.log('All Web3 data refreshed successfully');
+        setError(null); // Clear any previous errors
+>>>>>>> master
       } else {
         throw new Error('Some data failed to load');
       }
 
     } catch (err: any) {
+<<<<<<< HEAD
       console.error(`❌ Failed to refresh Web3 data (attempt ${retryCount + 1}):`, err);
 
       // Retry logic
       if (retryCount < maxRetries) {
         console.log(`⏳ Retrying in ${retryDelay}ms...`);
+=======
+      console.error(`Failed to refresh Web3 data (attempt ${retryCount + 1}):`, err);
+
+      // Retry logic
+      if (retryCount < maxRetries) {
+        console.log(`Retrying in ${retryDelay}ms...`);
+>>>>>>> master
         setTimeout(() => {
           refreshData(retryCount + 1);
         }, retryDelay);
         return; // Don't set loading to false yet
       } else {
+<<<<<<< HEAD
         console.error('❌ Max retries reached, giving up');
+=======
+        console.error('Max retries reached, giving up');
+>>>>>>> master
         setError(`Failed to refresh data after ${maxRetries + 1} attempts: ${err.message}`);
       }
     } finally {
       // Only set loading to false if we're not retrying
+<<<<<<< HEAD
       if (retryCount >= maxRetries) {
+=======
+      if (retryCount >= maxRetries || retryCount === 0) {
+>>>>>>> master
         setIsLoading(false);
       }
     }
@@ -255,20 +409,31 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
       addSuccessNotification(SUCCESS_MESSAGES.GAME_SESSION_COMPLETED);
 
       // Refresh data to get updated stats and achievements
+<<<<<<< HEAD
       console.log('🔄 Refreshing data after game completion...');
       await refreshData();
       console.log('✅ Data refresh completed after game completion');
+=======
+      console.log('Refreshing data after game completion...');
+      await refreshData();
+      console.log('Data refresh completed after game completion');
+>>>>>>> master
     } catch (err: any) {
       setPendingTransaction(null);
       setError(err.message);
       addErrorNotification(err.message);
+<<<<<<< HEAD
       console.error('❌ Failed to complete game session:', err);
+=======
+      console.error('Failed to complete game session:', err);
+>>>>>>> master
       throw err;
     } finally {
       setIsLoading(false);
     }
   }, [gameContract, addSuccessNotification, addErrorNotification, refreshData]);
 
+<<<<<<< HEAD
   // Load data when wallet connects
   useEffect(() => {
     if (web3State.isConnected && web3State.account) {
@@ -408,6 +573,64 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
       leaderboard,
       currentGameId
     },
+=======
+  // Clear pending transaction
+  const clearPendingTransaction = useCallback(() => {
+    setPendingTransaction(null);
+  }, []);
+
+  // Clear current game ID
+  const clearCurrentGameId = useCallback(() => {
+    setCurrentGameId(null);
+  }, []);
+
+  // Load data when wallet connects
+  useEffect(() => {
+    if (web3State.isConnected && web3State.account && gameContract.isContractReady) {
+      console.log('Wallet connected, loading data...');
+      
+      // Run debug check first
+      debugWeb3Connection().then(() => {
+        refreshData();
+      }).catch(err => {
+        console.error('Debug check failed:', err);
+        refreshData(); // Still try to refresh data
+      });
+    }
+  }, [web3State.isConnected, web3State.account, gameContract.isContractReady, refreshData]);
+
+  // Periodic refresh mechanism for real-time updates (disabled for now to prevent spam)
+  // useEffect(() => {
+  //   if (!web3State.isConnected || !web3State.account || !playerData?.isRegistered) {
+  //     return;
+  //   }
+
+  //   console.log('Setting up periodic refresh for real-time updates...');
+
+  //   // Refresh every 30 seconds for registered users
+  //   const refreshInterval = setInterval(() => {
+  //     console.log('Periodic refresh triggered...');
+  //     refreshData();
+  //   }, 30000);
+
+  //   return () => {
+  //     console.log('Cleaning up periodic refresh...');
+  //     clearInterval(refreshInterval);
+  //   };
+  // }, [web3State.isConnected, web3State.account, playerData?.isRegistered, refreshData]);
+
+  // Create enhanced web3State with additional data
+  const enhancedWeb3State = {
+    ...web3State,
+    playerData,
+    achievements,
+    leaderboard,
+    currentGameId
+  };
+
+  const contextValue: Web3ContextType = {
+    web3State: enhancedWeb3State,
+>>>>>>> master
     connect,
     disconnect,
     registerPlayer,
@@ -416,8 +639,13 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     refreshData,
     clearPendingTransaction,
     clearCurrentGameId,
+<<<<<<< HEAD
     isLoading: combinedLoading,
     error: combinedError,
+=======
+    isLoading: isLoading || walletLoading,
+    error: error || walletError,
+>>>>>>> master
     pendingTransaction
   };
 
@@ -427,3 +655,8 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     </Web3Context.Provider>
   );
 };
+<<<<<<< HEAD
+=======
+
+export default Web3Provider;
+>>>>>>> master
