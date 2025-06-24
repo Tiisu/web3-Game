@@ -1,0 +1,375 @@
+/* === LAYOUT UTILITIES === */
+/* Enhanced layout system for better UI organization */
+
+/* === CONTAINER UTILITIES === */
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 var(--layout-gap);
+}
+
+.container-sm {
+  max-width: 640px;
+}
+
+.container-md {
+  max-width: 768px;
+}
+
+.container-lg {
+  max-width: 1024px;
+}
+
+.container-xl {
+  max-width: 1280px;
+}
+
+/* === GRID UTILITIES === */
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-auto {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-rows-auto {
+  grid-template-rows: auto;
+}
+
+/* === FLEX UTILITIES === */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+/* === GAP UTILITIES === */
+.gap-1 {
+  gap: var(--space-1);
+}
+
+.gap-2 {
+  gap: var(--space-2);
+}
+
+.gap-3 {
+  gap: var(--space-3);
+}
+
+.gap-4 {
+  gap: var(--space-4);
+}
+
+.gap-6 {
+  gap: var(--space-6);
+}
+
+.gap-8 {
+  gap: var(--space-8);
+}
+
+.gap-element {
+  gap: var(--element-gap);
+}
+
+.gap-component {
+  gap: var(--component-gap);
+}
+
+.gap-layout {
+  gap: var(--layout-gap);
+}
+
+.gap-section {
+  gap: var(--section-gap);
+}
+
+/* === SPACING UTILITIES === */
+.p-0 {
+  padding: 0;
+}
+
+.p-1 {
+  padding: var(--space-1);
+}
+
+.p-2 {
+  padding: var(--space-2);
+}
+
+.p-3 {
+  padding: var(--space-3);
+}
+
+.p-4 {
+  padding: var(--space-4);
+}
+
+.p-6 {
+  padding: var(--space-6);
+}
+
+.p-8 {
+  padding: var(--space-8);
+}
+
+.p-layout {
+  padding: var(--layout-gap);
+}
+
+.p-component {
+  padding: var(--component-gap);
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* === POSITIONING UTILITIES === */
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+}
+
+/* === SIZE UTILITIES === */
+.w-full {
+  width: 100%;
+}
+
+.w-auto {
+  width: auto;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.max-w-none {
+  max-width: none;
+}
+
+.max-w-full {
+  max-width: 100%;
+}
+
+/* === OVERFLOW UTILITIES === */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+/* === GAMING LAYOUT COMPONENTS === */
+.game-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-xl);
+  padding: var(--layout-gap);
+  box-shadow: var(--shadow-xl);
+  transition: all var(--transition-normal);
+}
+
+.game-panel:hover {
+  background: var(--bg-glass-strong);
+  border-color: var(--ui-border-hover);
+  transform: translateY(-2px);
+}
+
+.game-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--component-gap);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--component-gap);
+  border-bottom: 1px solid var(--ui-border);
+}
+
+.game-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--element-gap);
+}
+
+.game-footer {
+  padding-top: var(--component-gap);
+  border-top: 1px solid var(--ui-border);
+}
+
+/* === CARD LAYOUTS === */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--component-gap);
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--element-gap);
+}
+
+.card-horizontal {
+  display: flex;
+  gap: var(--component-gap);
+  align-items: center;
+}
+
+/* === RESPONSIVE LAYOUT UTILITIES === */
+@media (max-width: 1024px) {
+  .lg\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  .lg\:flex-col {
+    flex-direction: column;
+  }
+  
+  .lg\:gap-section {
+    gap: var(--section-gap);
+  }
+}
+
+@media (max-width: 768px) {
+  .md\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  .md\:flex-col {
+    flex-direction: column;
+  }
+  
+  .md\:p-component {
+    padding: var(--component-gap);
+  }
+  
+  .md\:gap-component {
+    gap: var(--component-gap);
+  }
+}
+
+@media (max-width: 480px) {
+  .sm\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  .sm\:flex-col {
+    flex-direction: column;
+  }
+  
+  .sm\:p-element {
+    padding: var(--element-gap);
+  }
+  
+  .sm\:gap-element {
+    gap: var(--element-gap);
+  }
+}

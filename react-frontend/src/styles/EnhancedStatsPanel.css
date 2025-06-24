@@ -1,0 +1,492 @@
+/* === ENHANCED STATS PANEL STYLES === */
+
+/* === STATS PANEL HEADER === */
+.stats-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid rgba(255, 107, 53, 0.2);
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-gaming);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--neutral-darker);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.panel-icon {
+  font-size: var(--text-2xl);
+  animation: panelIconFloat 3s ease-in-out infinite;
+}
+
+.panel-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.panel-action-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 107, 53, 0.1);
+  border: 2px solid rgba(255, 107, 53, 0.2);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(10px);
+}
+
+.panel-action-btn:hover {
+  background: rgba(255, 107, 53, 0.2);
+  border-color: rgba(255, 107, 53, 0.4);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+/* === ENHANCED STATS GRID === */
+.stats-grid.enhanced {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.stat-card.animated {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-xl);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card.animated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.stat-card.animated:hover::before {
+  left: 100%;
+}
+
+.stat-card.animated:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-xl), 0 0 25px rgba(255, 107, 53, 0.2);
+}
+
+/* === STAT CARD COMPONENTS === */
+.stat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-icon.pulse {
+  font-size: var(--text-2xl);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 107, 53, 0.1));
+  border-radius: var(--radius-full);
+  animation: statIconPulse 2s ease-in-out infinite;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-icon.warning-pulse {
+  animation: warningPulse 1s ease-in-out infinite;
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(231, 76, 60, 0.1));
+}
+
+.stat-icon.fire-animation {
+  animation: fireAnimation 0.8s ease-in-out infinite alternate;
+}
+
+.stat-icon.level-icon {
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.2), rgba(108, 92, 231, 0.1));
+}
+
+.stat-trend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+}
+
+.stat-trend.positive {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.trend-icon {
+  font-size: var(--text-sm);
+  animation: trendBounce 1s ease-in-out infinite;
+}
+
+/* === PROGRESS COMPONENTS === */
+.stat-progress {
+  margin-top: var(--space-2);
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--space-1);
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.8s ease-out;
+}
+
+.score-progress {
+  background: linear-gradient(90deg, var(--primary-orange), var(--accent-yellow));
+  box-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+}
+
+.timer-progress-fill {
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+}
+
+.progress-text {
+  font-size: var(--text-xs);
+  color: var(--neutral-gray);
+  font-weight: var(--font-medium);
+}
+
+/* === TIMER SPECIFIC STYLES === */
+.timer-card .timer-status {
+  display: flex;
+  align-items: center;
+}
+
+.status-badge {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+}
+
+.status-badge.warning {
+  background: rgba(255, 152, 0, 0.2);
+  color: #ff9800;
+  border: 1px solid rgba(255, 152, 0, 0.3);
+  animation: warningBlink 1s ease-in-out infinite;
+}
+
+.timer-display {
+  font-family: 'Courier New', monospace;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  letter-spacing: 0.1em;
+}
+
+.timer-progress {
+  margin-top: var(--space-2);
+}
+
+/* === STREAK SPECIFIC STYLES === */
+.streak-card .streak-multiplier {
+  display: flex;
+  align-items: center;
+}
+
+.multiplier-badge {
+  padding: var(--space-1) var(--space-2);
+  background: linear-gradient(135deg, var(--primary-orange), var(--accent-yellow));
+  color: white;
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  box-shadow: var(--shadow-sm);
+  animation: multiplierPulse 1s ease-in-out infinite;
+}
+
+.streak-progress {
+  margin-top: var(--space-2);
+}
+
+.streak-indicators {
+  display: flex;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.streak-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 107, 53, 0.2);
+  transition: all var(--transition-normal);
+}
+
+.streak-dot.active {
+  background: var(--primary-orange);
+  box-shadow: 0 0 8px rgba(255, 107, 53, 0.6);
+}
+
+.streak-dot.fire {
+  animation: fireDot 0.5s ease-in-out infinite alternate;
+}
+
+.streak-text {
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.streak-lightning {
+  margin-left: var(--space-1);
+  animation: lightningFlicker 0.3s ease-in-out infinite;
+}
+
+/* === LEVEL SPECIFIC STYLES === */
+.level-card .level-badge {
+  display: flex;
+  align-items: center;
+}
+
+.badge-text {
+  padding: var(--space-1) var(--space-2);
+  background: linear-gradient(135deg, var(--secondary-purple), var(--accent-blue));
+  color: white;
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.level-display {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--secondary-purple);
+}
+
+.level-info {
+  margin-top: var(--space-2);
+}
+
+.level-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--neutral-gray);
+  font-weight: var(--font-medium);
+}
+
+.benefit-icon {
+  font-size: var(--text-sm);
+}
+
+/* === ENHANCED ANIMATIONS === */
+@keyframes panelIconFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(5deg);
+  }
+}
+
+@keyframes statIconPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: var(--shadow-sm);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(255, 107, 53, 0.4);
+  }
+}
+
+@keyframes warningPulse {
+  0%, 100% {
+    transform: scale(1);
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(231, 76, 60, 0.1));
+  }
+  50% {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.4), rgba(231, 76, 60, 0.2));
+  }
+}
+
+@keyframes fireAnimation {
+  0% {
+    transform: scale(1) rotate(-2deg);
+    filter: brightness(1);
+  }
+  100% {
+    transform: scale(1.05) rotate(2deg);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes trendBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes warningBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes multiplierPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: var(--shadow-sm);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md), 0 0 10px rgba(255, 107, 53, 0.4);
+  }
+}
+
+@keyframes fireDot {
+  0% {
+    background: var(--primary-orange);
+    box-shadow: 0 0 8px rgba(255, 107, 53, 0.6);
+  }
+  100% {
+    background: var(--accent-yellow);
+    box-shadow: 0 0 12px rgba(253, 203, 110, 0.8);
+  }
+}
+
+@keyframes lightningFlicker {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+/* === RESPONSIVE ENHANCEMENTS === */
+@media (max-width: 1024px) {
+  .stats-grid.enhanced {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+  }
+
+  .stat-card.animated {
+    padding: var(--space-3);
+  }
+
+  .stat-icon.pulse {
+    width: 40px;
+    height: 40px;
+    font-size: var(--text-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-panel-header {
+    flex-direction: column;
+    gap: var(--space-3);
+    text-align: center;
+  }
+
+  .stats-grid.enhanced {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .stat-card.animated {
+    padding: var(--space-3);
+  }
+
+  .panel-title {
+    font-size: var(--text-lg);
+  }
+
+  .panel-icon {
+    font-size: var(--text-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid.enhanced {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .stat-card.animated {
+    padding: var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .stat-icon.pulse {
+    width: 36px;
+    height: 36px;
+    font-size: var(--text-base);
+  }
+
+  .timer-display {
+    font-size: var(--text-xl);
+  }
+
+  .level-display {
+    font-size: var(--text-2xl);
+  }
+
+  .streak-indicators {
+    gap: 2px;
+  }
+
+  .streak-dot {
+    width: 6px;
+    height: 6px;
+  }
+}

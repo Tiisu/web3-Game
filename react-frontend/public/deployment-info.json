@@ -1,0 +1,12 @@
+{
+  "network": "testnet",
+  "chainId": 33111,
+  "contracts": {
+    "WhacAMoleGame": "0x46C2F2E4AcA4048ad1E05D9B5569B5634d04B039",
+    "WhacAMoleNFT": "0x8FE458859F01eAcb7dfB40d2B44eF6Ae24cA907F"
+  },
+  "timestamp": "2025-06-20T01:17:20.331Z",
+  "blockExplorer": "https://curtis.explorer.caldera.xyz/",
+  "rpcUrl": "https://curtis.rpc.caldera.xyz/http",
+  "networkName": "Curtis (Ape Chain Testnet)"
+}

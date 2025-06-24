@@ -1,0 +1,100 @@
+/* Floating Points Styles */
+
+.floating-points-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.floating-point {
+  position: absolute;
+  font-family: var(--font-gaming);
+  font-weight: var(--font-bold);
+  font-size: var(--text-xl);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  animation: floatUp 2s ease-out forwards;
+  pointer-events: none;
+  
+  /* Position based on grid */
+  left: calc((var(--grid-position) % 3) * 33.33% + 16.66%);
+  top: calc(floor(var(--grid-position) / 3) * 33.33% + 16.66%);
+  transform: translate(-50%, -50%);
+}
+
+.normal-points {
+  color: #4CAF50;
+  text-shadow: 0 0 10px rgba(76, 175, 80, 0.6), 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.bonus-points {
+  color: var(--primary-orange);
+  text-shadow: 0 0 15px rgba(255, 107, 53, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-size: var(--text-2xl);
+  animation: floatUpBonus 2s ease-out forwards;
+}
+
+.bonus-indicator {
+  margin-left: var(--space-1);
+  animation: bonusFlicker 0.3s ease-in-out infinite alternate;
+}
+
+/* Animations */
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -60%) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -120%) scale(0.8);
+  }
+}
+
+@keyframes floatUpBonus {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -55%) scale(1.3) rotate(-5deg);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -65%) scale(1.4) rotate(5deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -140%) scale(0.6) rotate(0deg);
+  }
+}
+
+@keyframes bonusFlicker {
+  0% {
+    transform: scale(1) rotate(-3deg);
+    filter: brightness(1);
+  }
+  100% {
+    transform: scale(1.1) rotate(3deg);
+    filter: brightness(1.3);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .floating-point {
+    font-size: var(--text-lg);
+  }
+  
+  .bonus-points {
+    font-size: var(--text-xl);
+  }
+}

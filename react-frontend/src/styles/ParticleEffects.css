@@ -1,0 +1,276 @@
+/* === PARTICLE EFFECTS SYSTEM === */
+/* Modern gaming particle effects for enhanced visual feedback */
+
+/* === PARTICLE CONTAINERS === */
+.particle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: var(--z-tooltip);
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation-fill-mode: forwards;
+}
+
+/* === SCORE PARTICLE EFFECTS === */
+.score-particle {
+  width: 4px;
+  height: 4px;
+  background: var(--particle-success);
+  box-shadow: 0 0 6px var(--particle-success);
+}
+
+.score-burst {
+  animation: scoreBurst 0.8s ease-out forwards;
+}
+
+@keyframes scoreBurst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.5) rotate(360deg) translateY(-50px);
+    opacity: 0;
+  }
+}
+
+/* === MOLE HIT EXPLOSION === */
+.hit-explosion {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+}
+
+.explosion-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--particle-explosion);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--particle-explosion);
+}
+
+.explosion-particle:nth-child(1) { animation: explode 0.6s ease-out forwards; animation-delay: 0s; }
+.explosion-particle:nth-child(2) { animation: explode 0.6s ease-out forwards; animation-delay: 0.1s; }
+.explosion-particle:nth-child(3) { animation: explode 0.6s ease-out forwards; animation-delay: 0.05s; }
+.explosion-particle:nth-child(4) { animation: explode 0.6s ease-out forwards; animation-delay: 0.15s; }
+.explosion-particle:nth-child(5) { animation: explode 0.6s ease-out forwards; animation-delay: 0.08s; }
+
+@keyframes explode {
+  0% {
+    transform: scale(0) translate(0, 0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) translate(var(--dx, 30px), var(--dy, -30px));
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.3) translate(var(--dx, 60px), var(--dy, -60px));
+    opacity: 0;
+  }
+}
+
+/* === WEB3 TRANSACTION PARTICLES === */
+.web3-particle {
+  width: 3px;
+  height: 3px;
+  background: var(--particle-secondary);
+  box-shadow: 0 0 8px var(--particle-secondary);
+}
+
+.web3-connecting {
+  animation: web3Flow 2s linear infinite;
+}
+
+@keyframes web3Flow {
+  0% {
+    transform: translateX(-100px) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(-80px) scale(1);
+    opacity: 1;
+  }
+  90% {
+    transform: translateX(80px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100px) scale(0);
+    opacity: 0;
+  }
+}
+
+.web3-success {
+  animation: web3Success 1s ease-out forwards;
+}
+
+@keyframes web3Success {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+    background: var(--particle-success);
+    box-shadow: 0 0 10px var(--particle-success);
+  }
+  50% {
+    transform: scale(2) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.5) rotate(360deg) translateY(-30px);
+    opacity: 0;
+  }
+}
+
+/* === ACHIEVEMENT UNLOCK PARTICLES === */
+.achievement-particle {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-yellow-neon);
+  box-shadow: 0 0 12px var(--accent-yellow-neon);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.achievement-burst {
+  animation: achievementBurst 1.2s ease-out forwards;
+}
+
+@keyframes achievementBurst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1.5) rotate(120deg);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.2) rotate(240deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.3) rotate(360deg) translateY(-80px);
+    opacity: 0;
+  }
+}
+
+/* === LEVEL UP PARTICLES === */
+.levelup-particle {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-orange-neon);
+  box-shadow: 0 0 15px var(--primary-orange-neon);
+}
+
+.levelup-fountain {
+  animation: levelupFountain 1.5s ease-out forwards;
+}
+
+@keyframes levelupFountain {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-100px) scale(0.8);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-150px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* === COMBO MULTIPLIER PARTICLES === */
+.combo-particle {
+  width: 5px;
+  height: 5px;
+  background: var(--accent-blue-neon);
+  box-shadow: 0 0 10px var(--accent-blue-neon);
+}
+
+.combo-spiral {
+  animation: comboSpiral 1s ease-out forwards;
+}
+
+@keyframes comboSpiral {
+  0% {
+    transform: rotate(0deg) translateX(0) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) translateX(30px) scale(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg) translateX(60px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* === UTILITY CLASSES FOR PARTICLE GENERATION === */
+.generate-particles {
+  position: relative;
+}
+
+.generate-particles::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-tooltip);
+}
+
+/* === PARTICLE PERFORMANCE OPTIMIZATIONS === */
+.particle-layer {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* === RESPONSIVE PARTICLE SCALING === */
+@media (max-width: 768px) {
+  .particle {
+    transform: scale(0.8);
+  }
+  
+  .explosion-particle,
+  .achievement-particle {
+    transform: scale(0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .particle,
+  .explosion-particle,
+  .achievement-particle,
+  .web3-particle,
+  .score-particle,
+  .levelup-particle,
+  .combo-particle {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}

@@ -1,0 +1,641 @@
+/* === GAME PROGRESS INDICATORS === */
+
+.game-progress-indicators {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1500;
+  overflow: hidden;
+}
+
+/* === LEVEL PROGRESS === */
+.level-progress-container {
+  position: absolute;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+  border-radius: var(--radius-2xl);
+  padding: var(--space-4) var(--space-6);
+  box-shadow: var(--shadow-xl), 0 0 30px rgba(255, 107, 53, 0.2);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  backdrop-filter: blur(15px);
+  pointer-events: auto;
+  min-width: 300px;
+}
+
+.level-progress-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--primary-orange), var(--secondary-purple), var(--accent-yellow));
+  z-index: -1;
+  margin: -3px;
+  border-radius: var(--radius-2xl);
+}
+
+.level-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.level-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, var(--primary-orange), var(--accent-yellow));
+  color: white;
+  padding: var(--space-2);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  min-width: 60px;
+}
+
+.level-number {
+  font-family: var(--font-gaming);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  line-height: 1;
+}
+
+.level-label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.9;
+}
+
+.level-details {
+  flex: 1;
+}
+
+.level-title {
+  font-family: var(--font-gaming);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--neutral-darker);
+  margin-bottom: var(--space-1);
+}
+
+.level-subtitle {
+  font-size: var(--text-sm);
+  color: var(--neutral-gray);
+  font-weight: var(--font-medium);
+}
+
+.level-progress-bar {
+  position: relative;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.level-progress-fill {
+  position: relative;
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-orange), var(--accent-yellow));
+  border-radius: var(--radius-full);
+  transition: width 0.8s ease-out;
+  overflow: hidden;
+}
+
+.progress-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: progressShine 2s ease-in-out infinite;
+}
+
+.progress-particles {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.progress-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  animation: progressParticleFloat 3s ease-in-out infinite;
+  animation-delay: var(--delay);
+  left: calc(var(--delay) * 20%);
+}
+
+/* === EXPERIENCE INDICATOR === */
+.experience-indicator {
+  position: absolute;
+  top: var(--space-20);
+  right: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 193, 7, 0.95));
+  color: white;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(255, 215, 0, 0.4);
+  backdrop-filter: blur(10px);
+  animation: expIndicatorFloat 2s ease-out forwards;
+  pointer-events: auto;
+}
+
+.exp-icon {
+  font-size: var(--text-lg);
+  animation: expIconSpin 2s ease-out;
+}
+
+.exp-value {
+  font-family: var(--font-gaming);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* === ACHIEVEMENT NOTIFICATIONS === */
+.achievement-notification {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 193, 7, 0.95));
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(255, 215, 0, 0.5);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  animation: achievementSlideIn 0.8s ease-out;
+  pointer-events: auto;
+  max-width: 300px;
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-content {
+  position: relative;
+  z-index: 2;
+}
+
+.achievement-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.achievement-icon {
+  font-size: var(--text-2xl);
+  animation: achievementIconBounce 1s ease-out;
+}
+
+.achievement-badge {
+  font-family: var(--font-gaming);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: rgba(255, 255, 255, 0.2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+.achievement-details {
+  color: white;
+}
+
+.achievement-title {
+  font-family: var(--font-gaming);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  margin-bottom: var(--space-1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.achievement-description {
+  font-size: var(--text-sm);
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.achievement-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(255, 215, 0, 0.3), transparent 70%);
+  border-radius: var(--radius-xl);
+  animation: achievementGlowPulse 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* === ACHIEVEMENT SIDEBAR === */
+.achievement-sidebar {
+  position: absolute;
+  top: var(--space-6);
+  left: var(--space-6);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+  border-radius: var(--radius-xl);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  pointer-events: auto;
+  min-width: 200px;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid rgba(255, 107, 53, 0.2);
+}
+
+.sidebar-icon {
+  font-size: var(--text-lg);
+}
+
+.sidebar-title {
+  font-family: var(--font-gaming);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--neutral-darker);
+  flex: 1;
+}
+
+.sidebar-count {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--primary-orange);
+  background: rgba(255, 107, 53, 0.1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+.achievement-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+}
+
+.achievement-item.unlocked {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.achievement-item.locked {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  opacity: 0.6;
+}
+
+.achievement-item-icon {
+  font-size: var(--text-base);
+  width: 24px;
+  text-align: center;
+}
+
+.achievement-item.locked .achievement-item-icon {
+  filter: grayscale(100%);
+}
+
+.achievement-item-info {
+  flex: 1;
+}
+
+.achievement-item-title {
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--neutral-darker);
+  margin-bottom: var(--space-1);
+}
+
+.achievement-progress-mini {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.progress-mini-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-orange), var(--accent-yellow));
+  border-radius: var(--radius-sm);
+  transition: width 0.5s ease-out;
+}
+
+/* === GAME STATE ENHANCEMENTS === */
+.game-state-enhancement {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.game-state-enhancement.combo-mode {
+  z-index: 100;
+}
+
+.enhancement-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.enhancement-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, var(--primary-orange), var(--accent-yellow));
+  border-radius: 50%;
+  animation: enhancementParticleOrbit 3s linear infinite;
+  animation-delay: var(--delay);
+  transform-origin: 0 200px;
+  transform: rotate(var(--angle));
+}
+
+.game-state-enhancement.time-critical {
+  z-index: 50;
+}
+
+.critical-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, transparent 40%, rgba(231, 76, 60, 0.2) 100%);
+  animation: criticalVignettePulse 1s ease-in-out infinite;
+}
+
+/* === ANIMATIONS === */
+@keyframes progressShine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes progressParticleFloat {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateY(-50%) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.2);
+  }
+}
+
+@keyframes expIndicatorFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0) scale(1.1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+  }
+}
+
+@keyframes expIconSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes achievementSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(100px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes achievementIconBounce {
+  0% { transform: scale(0.5) rotate(0deg); }
+  50% { transform: scale(1.3) rotate(180deg); }
+  100% { transform: scale(1) rotate(360deg); }
+}
+
+@keyframes achievementGlowPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes enhancementParticleOrbit {
+  0% {
+    transform: rotate(var(--angle)) translateX(200px) rotate(calc(-1 * var(--angle)));
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(calc(var(--angle) + 360deg)) translateX(200px) rotate(calc(-1 * (var(--angle) + 360deg)));
+    opacity: 0.8;
+  }
+}
+
+@keyframes criticalVignettePulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .level-progress-container {
+    bottom: var(--space-4);
+    left: var(--space-4);
+    right: var(--space-4);
+    transform: none;
+    min-width: auto;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .level-info {
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .level-badge {
+    min-width: 50px;
+    padding: var(--space-1);
+  }
+
+  .level-number {
+    font-size: var(--text-xl);
+  }
+
+  .level-title {
+    font-size: var(--text-base);
+  }
+
+  .level-subtitle {
+    font-size: var(--text-xs);
+  }
+
+  .experience-indicator {
+    top: var(--space-16);
+    right: var(--space-4);
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .exp-icon {
+    font-size: var(--text-base);
+  }
+
+  .exp-value {
+    font-size: var(--text-sm);
+  }
+
+  .achievement-notification {
+    top: var(--space-4);
+    right: var(--space-4);
+    left: var(--space-4);
+    max-width: none;
+    padding: var(--space-3);
+  }
+
+  .achievement-icon {
+    font-size: var(--text-xl);
+  }
+
+  .achievement-title {
+    font-size: var(--text-base);
+  }
+
+  .achievement-description {
+    font-size: var(--text-xs);
+  }
+
+  .achievement-sidebar {
+    top: var(--space-4);
+    left: var(--space-4);
+    min-width: 180px;
+    padding: var(--space-2);
+  }
+
+  .sidebar-header {
+    margin-bottom: var(--space-2);
+    padding-bottom: var(--space-1);
+  }
+
+  .sidebar-title {
+    font-size: var(--text-sm);
+  }
+
+  .sidebar-count {
+    font-size: var(--text-xs);
+    padding: 2px var(--space-1);
+  }
+
+  .achievement-item {
+    padding: var(--space-1);
+    gap: var(--space-1);
+  }
+
+  .achievement-item-icon {
+    font-size: var(--text-sm);
+    width: 20px;
+  }
+
+  .achievement-item-title {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .level-progress-container {
+    bottom: var(--space-3);
+    left: var(--space-3);
+    right: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .level-badge {
+    min-width: 40px;
+  }
+
+  .level-number {
+    font-size: var(--text-lg);
+  }
+
+  .level-title {
+    font-size: var(--text-sm);
+  }
+
+  .experience-indicator {
+    top: var(--space-12);
+    right: var(--space-3);
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .achievement-notification {
+    top: var(--space-3);
+    right: var(--space-3);
+    left: var(--space-3);
+    padding: var(--space-2);
+  }
+
+  .achievement-sidebar {
+    top: var(--space-3);
+    left: var(--space-3);
+    min-width: 160px;
+  }
+
+  .enhancement-particle {
+    width: 6px;
+    height: 6px;
+    transform-origin: 0 150px;
+  }
+}

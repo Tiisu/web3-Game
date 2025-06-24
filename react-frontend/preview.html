@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whac-A-Mole Web3 - UI Preview</title>
+    <style>
+        /* Import design system styles */
+        :root {
+            /* Enhanced Gaming Colors */
+            --gaming-primary: #ff6b35;
+            --gaming-secondary: #6c5ce7;
+            --gaming-accent: #00cec9;
+            --gaming-success: #00b894;
+            --gaming-warning: #fdcb6e;
+            --gaming-danger: #e17055;
+            
+            /* UI Colors */
+            --ui-text-primary: #ffffff;
+            --ui-text-secondary: #e2e8f0;
+            --ui-border: rgba(255, 255, 255, 0.1);
+            --bg-glass: rgba(255, 255, 255, 0.1);
+            --bg-game: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            
+            /* Spacing */
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --layout-gap: 1.5rem;
+            --component-gap: 1rem;
+            
+            /* Border Radius */
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            
+            /* Fonts */
+            --font-gaming: 'Audiowide', cursive;
+            --font-primary: 'Inter', sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-game);
+            color: var(--ui-text-primary);
+            min-height: 100vh;
+            padding: var(--layout-gap);
+        }
+        
+        .preview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: var(--layout-gap);
+        }
+        
+        .game-panel {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--ui-border);
+            border-radius: var(--radius-xl);
+            padding: var(--layout-gap);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .game-title {
+            font-family: var(--font-gaming);
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gaming-primary), var(--gaming-secondary), var(--gaming-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-2);
+        }
+        
+        .game-subtitle {
+            font-size: 1.2rem;
+            color: var(--ui-text-secondary);
+            font-weight: 500;
+        }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--component-gap);
+            margin-bottom: var(--space-8);
+        }
+        
+        .stat-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--ui-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gaming-accent);
+            margin-bottom: var(--space-2);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--ui-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .game-board-preview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+            max-width: 400px;
+            margin: 0 auto var(--space-6);
+        }
+        
+        .board-cell {
+            aspect-ratio: 1;
+            background: radial-gradient(circle, #2d3748 0%, #1a202c 100%);
+            border: 2px solid var(--ui-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.7);
+        }
+        
+        .board-cell:hover {
+            transform: scale(1.08) translateY(-4px);
+            border-color: var(--gaming-accent);
+            box-shadow: 0 8px 24px rgba(0, 206, 201, 0.4);
+        }
+        
+        .controls-section {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background: linear-gradient(135deg, var(--gaming-primary), var(--gaming-warning));
+            border: 2px solid var(--gaming-primary);
+            color: var(--ui-text-primary);
+            font-size: 1.125rem;
+            font-weight: 700;
+            padding: var(--space-4) var(--space-8);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            min-width: 120px;
+            font-family: var(--font-gaming);
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--component-gap);
+            margin-top: var(--space-8);
+        }
+        
+        .feature-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--ui-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-4);
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+            color: var(--gaming-accent);
+        }
+        
+        .feature-description {
+            color: var(--ui-text-secondary);
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .game-title {
+                font-size: 2rem;
+            }
+            
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .controls-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-btn {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <!-- Game Header -->
+        <div class="game-panel">
+            <div class="game-header">
+                <h1 class="game-title">Whac-A-Mole Web3</h1>
+                <p class="game-subtitle">Test your reflexes and earn rewards!</p>
+            </div>
+            
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="stat-value">1,250</div>
+                    <div class="stat-label">Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2:45</div>
+                    <div class="stat-label">Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Level</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2,890</div>
+                    <div class="stat-label">Best Score</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Game Board Preview -->
+        <div class="game-panel">
+            <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--gaming-accent);">Enhanced Game Board</h3>
+            <div class="game-board-preview">
+                <div class="board-cell">🕳️</div>
+                <div class="board-cell">🐹</div>
+                <div class="board-cell">🕳️</div>
+                <div class="board-cell">🕳️</div>
+                <div class="board-cell">🕳️</div>
+                <div class="board-cell">🌱</div>
+                <div class="board-cell">🐹</div>
+                <div class="board-cell">🕳️</div>
+                <div class="board-cell">🕳️</div>
+            </div>
+            
+            <!-- Game Controls -->
+            <div class="controls-section">
+                <button class="control-btn">START</button>
+                <button class="control-btn">PAUSE</button>
+                <button class="control-btn">QUIT</button>
+            </div>
+        </div>
+        
+        <!-- Features -->
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">Modern Design</h3>
+                <p class="feature-description">Glass morphism effects, enhanced colors, and smooth animations create an immersive gaming experience.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Responsive Layout</h3>
+                <p class="feature-description">Optimized for all devices with adaptive layouts that work perfectly on desktop, tablet, and mobile.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Enhanced UX</h3>
+                <p class="feature-description">Improved visual hierarchy, better spacing, and intuitive interactions make the game more enjoyable.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3 class="feature-title">Gaming Aesthetics</h3>
+                <p class="feature-description">Gaming-themed colors, typography, and effects create an authentic gaming atmosphere.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

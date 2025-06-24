@@ -1,0 +1,613 @@
+/* === ENHANCED NFT ACHIEVEMENTS STYLES === */
+
+.achievements-section {
+  background: var(--bg-glass);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-xl);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.achievements-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 107, 53, 0.03) 0%, 
+    rgba(108, 92, 231, 0.03) 50%, 
+    rgba(0, 206, 201, 0.03) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === HEADER STYLES === */
+.achievements-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-6);
+  position: relative;
+  z-index: 1;
+  gap: var(--space-4);
+}
+
+.header-content {
+  flex: 1;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.header-title h3 {
+  color: var(--ui-text-primary);
+  font-family: var(--font-gaming);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, var(--gaming-primary), var(--gaming-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.achievement-count {
+  margin-left: auto;
+}
+
+.count-badge {
+  background: var(--gaming-accent);
+  color: white;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-gaming);
+}
+
+.header-subtitle {
+  color: var(--ui-text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.view-controls {
+  display: flex;
+  gap: var(--space-1);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: var(--space-1);
+}
+
+.view-btn {
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  background: transparent;
+  color: var(--ui-text-secondary);
+  border-radius: var(--radius-lg);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.view-btn.active {
+  background: var(--gaming-accent);
+  color: white;
+}
+
+.view-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ui-text-primary);
+}
+
+/* === LOADING STYLES === */
+.achievements-loading {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-8);
+  position: relative;
+  z-index: 1;
+}
+
+.loading-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--gaming-accent);
+  font-weight: 500;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(0, 206, 201, 0.3);
+  border-top: 2px solid var(--gaming-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* === CONTAINER STYLES === */
+.achievements-container {
+  position: relative;
+  z-index: 1;
+}
+
+.achievements-container.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-4);
+}
+
+.achievements-container.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* === ACHIEVEMENT CARD STYLES === */
+.achievement-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.achievement-card:hover {
+  background: var(--bg-glass-strong);
+  border-color: var(--ui-border-hover);
+  box-shadow: var(--shadow-xl);
+}
+
+.achievement-card.unlocked {
+  border-color: var(--gaming-success);
+  background: linear-gradient(135deg, var(--bg-glass), rgba(16, 185, 129, 0.1));
+}
+
+.achievement-card.locked {
+  opacity: 0.7;
+}
+
+.achievement-card.locked:hover {
+  opacity: 1;
+}
+
+/* === RARITY BORDERS === */
+.rarity-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.rarity-border.rarity-common {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.rarity-border.rarity-uncommon {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.rarity-border.rarity-rare {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+}
+
+.rarity-border.rarity-epic {
+  background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+}
+
+.rarity-border.rarity-legendary {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+/* === UNLOCK EFFECT === */
+.unlock-effect {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  color: var(--gaming-success);
+  z-index: 2;
+}
+
+/* === CARD CONTENT === */
+.card-content {
+  display: flex;
+  gap: var(--space-4);
+  position: relative;
+  z-index: 1;
+}
+
+/* === ACHIEVEMENT ICON === */
+.achievement-icon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.icon-container {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  border: 2px solid currentColor;
+  transition: all var(--transition-normal);
+}
+
+.achievement-icon.unlocked .icon-container {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: var(--gaming-success);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.achievement-icon.locked .icon-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--ui-border);
+  opacity: 0.6;
+}
+
+.unlock-indicator,
+.lock-indicator {
+  color: var(--gaming-success);
+}
+
+.lock-indicator {
+  color: var(--ui-text-secondary);
+}
+
+/* === ACHIEVEMENT INFO === */
+.achievement-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.achievement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.achievement-name {
+  color: var(--ui-text-primary);
+  font-family: var(--font-gaming);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.achievement-badges {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.rarity-badge {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rarity-badge.rarity-common {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.rarity-badge.rarity-uncommon {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.rarity-badge.rarity-rare {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.rarity-badge.rarity-epic {
+  background: rgba(139, 92, 246, 0.2);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.rarity-badge.rarity-legendary {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.nft-badge {
+  background: var(--gaming-accent);
+  color: white;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.achievement-description {
+  color: var(--ui-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* === PROGRESS SECTION === */
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-label {
+  color: var(--ui-text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.progress-percentage {
+  color: var(--ui-text-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-gaming);
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.progress-text {
+  color: var(--ui-text-secondary);
+  font-size: 0.8rem;
+  text-align: center;
+  font-family: var(--font-gaming);
+}
+
+/* === UNLOCK STATUS === */
+.unlock-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--gaming-success);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.unlock-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* === ACHIEVEMENT DETAILS === */
+.achievement-details {
+  border-top: 1px solid var(--ui-border);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+}
+
+.details-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+}
+
+.detail-label {
+  color: var(--ui-text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.detail-value {
+  color: var(--ui-text-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.detail-value.unlocked {
+  color: var(--gaming-success);
+}
+
+/* === PLACEHOLDER === */
+.achievements-placeholder {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-8);
+  position: relative;
+  z-index: 1;
+}
+
+.placeholder-content {
+  text-align: center;
+  color: var(--ui-text-secondary);
+}
+
+.placeholder-content h4 {
+  color: var(--ui-text-primary);
+  font-family: var(--font-gaming);
+  font-size: 1.2rem;
+  margin: var(--space-4) 0 var(--space-2) 0;
+}
+
+.placeholder-content p {
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* === SUMMARY STATS === */
+.achievements-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--ui-border);
+  position: relative;
+  z-index: 1;
+}
+
+.summary-item {
+  text-align: center;
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--ui-border);
+}
+
+.summary-label {
+  display: block;
+  color: var(--ui-text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+.summary-value {
+  display: block;
+  color: var(--gaming-accent);
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: var(--font-gaming);
+}
+
+/* === ANIMATIONS === */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* === RESPONSIVE DESIGN === */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .achievements-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
+  .view-controls {
+    align-self: center;
+  }
+
+  .achievements-container.grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+/* Mobile Large */
+@media (max-width: 768px) {
+  .achievements-section {
+    padding: var(--space-4);
+  }
+
+  .card-content {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .achievement-icon {
+    flex-direction: row;
+    align-self: flex-start;
+  }
+
+  .icon-container {
+    width: 50px;
+    height: 50px;
+  }
+
+  .achievements-container.grid {
+    grid-template-columns: 1fr;
+  }
+
+  .achievements-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .achievements-section {
+    padding: var(--space-3);
+  }
+
+  .header-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .achievement-count {
+    margin-left: 0;
+  }
+
+  .view-controls {
+    width: 100%;
+  }
+
+  .achievement-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .achievements-summary {
+    grid-template-columns: 1fr;
+  }
+}

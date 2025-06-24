@@ -1,0 +1,355 @@
+/* === SEAMLESS TRANSACTION FLOW STYLES === */
+/* Game-integrated blockchain transaction experience */
+
+.transaction-game-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: var(--z-modal);
+  overflow: hidden;
+}
+
+/* === GAME PARTICLES SYSTEM === */
+.game-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat 4s ease-in-out infinite;
+}
+
+.particle-0 {
+  background: var(--primary-orange);
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.particle-1 {
+  background: var(--web3-success);
+  left: 30%;
+  animation-delay: 0.5s;
+}
+
+.particle-2 {
+  background: var(--web3-blockchain);
+  left: 60%;
+  animation-delay: 1s;
+}
+
+.particle-3 {
+  background: var(--accent-yellow);
+  left: 80%;
+  animation-delay: 1.5s;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(10vh) scale(1);
+  }
+  100% {
+    transform: translateY(-10vh) scale(0);
+    opacity: 0;
+  }
+}
+
+/* === ACHIEVEMENT CELEBRATION === */
+.achievement-celebration {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.celebration-burst {
+  position: absolute;
+  font-size: 3rem;
+  animation: celebrationBurst 2s ease-out infinite;
+}
+
+.celebration-burst:nth-child(1) {
+  top: -50px;
+  left: -50px;
+  animation-delay: 0s;
+}
+
+.celebration-burst:nth-child(2) {
+  top: -50px;
+  right: -50px;
+  animation-delay: 0.2s;
+}
+
+.celebration-burst:nth-child(3) {
+  bottom: -50px;
+  left: -50px;
+  animation-delay: 0.4s;
+}
+
+.celebration-burst:nth-child(4) {
+  bottom: -50px;
+  right: -50px;
+  animation-delay: 0.6s;
+}
+
+@keyframes celebrationBurst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(1.2) rotate(90deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: scale(1.1) rotate(270deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* === SCORE CELEBRATION === */
+.score-celebration {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.floating-score {
+  font-size: 4rem;
+  font-weight: var(--font-extrabold);
+  color: var(--web3-success);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: floatingScore 3s ease-out;
+  font-family: var(--font-gaming);
+}
+
+.floating-text {
+  font-size: 1.5rem;
+  font-weight: var(--font-bold);
+  color: var(--primary-orange);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  animation: floatingText 3s ease-out;
+  margin: var(--space-2) 0;
+  font-family: var(--font-gaming);
+}
+
+.floating-text:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.floating-text:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes floatingScore {
+  0% {
+    transform: translateY(50px) scale(0.5);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0) scale(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes floatingText {
+  0% {
+    transform: translateY(30px) scale(0.8);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0) scale(1.1);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(-5px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* === TRANSACTION TYPE SPECIFIC STYLES === */
+.transaction-game-overlay.registration {
+  background: radial-gradient(circle at center, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
+}
+
+.transaction-game-overlay.gameStart {
+  background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+}
+
+.transaction-game-overlay.gameComplete {
+  background: radial-gradient(circle at center, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+}
+
+.transaction-game-overlay.achievement {
+  background: radial-gradient(circle at center, rgba(253, 203, 110, 0.15) 0%, transparent 70%);
+}
+
+/* === ENHANCED TRANSACTION PROGRESS OVERLAY === */
+.web3-confirmation-overlay {
+  background: var(--bg-overlay);
+  backdrop-filter: blur(12px);
+  animation: web3FadeInUp 0.4s ease-out;
+}
+
+.web3-confirmation-content {
+  position: relative;
+  animation: gameEnter 0.5s var(--ease-game);
+}
+
+.web3-confirmation-content::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    var(--primary-orange), 
+    var(--web3-success), 
+    var(--web3-blockchain), 
+    var(--primary-orange)
+  );
+  background-size: 400% 400%;
+  border-radius: var(--radius-2xl);
+  z-index: -1;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* === TRANSACTION STEPS ENHANCEMENT === */
+.transaction-steps {
+  position: relative;
+  padding: var(--space-6) 0;
+}
+
+.transaction-steps::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    var(--neutral-light-gray) 0%, 
+    var(--primary-orange) 50%, 
+    var(--neutral-light-gray) 100%
+  );
+  z-index: 0;
+  animation: progressPulse 2s ease-in-out infinite;
+}
+
+@keyframes progressPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.transaction-step {
+  position: relative;
+  z-index: 1;
+}
+
+.step-icon.active {
+  animation: web3Processing 2s linear infinite;
+  box-shadow: 0 0 15px var(--primary-orange-glow);
+}
+
+.step-icon.completed {
+  animation: successGlow 1s ease-out;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .floating-score {
+    font-size: 3rem;
+  }
+  
+  .floating-text {
+    font-size: 1.2rem;
+  }
+  
+  .celebration-burst {
+    font-size: 2rem;
+  }
+  
+  .particle {
+    width: 4px;
+    height: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .score-celebration {
+    top: 25%;
+  }
+  
+  .floating-score {
+    font-size: 2.5rem;
+  }
+  
+  .floating-text {
+    font-size: 1rem;
+  }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  .particle,
+  .celebration-burst,
+  .floating-score,
+  .floating-text {
+    animation: none;
+  }
+  
+  .transaction-game-overlay {
+    display: none;
+  }
+}

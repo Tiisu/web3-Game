@@ -1,0 +1,348 @@
+/* Authentication Flow Styles */
+
+.authentication-flow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.auth-container {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 2px solid #4CAF50;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.auth-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  color: #b0b0b0;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Step Indicator */
+.auth-step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.step.active {
+  opacity: 1;
+  color: #4CAF50;
+}
+
+.step.completed {
+  opacity: 1;
+  color: #4CAF50;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+  background: #4CAF50;
+  border-color: #4CAF50;
+  color: white;
+}
+
+.step.completed .step-number {
+  background: #4CAF50;
+  border-color: #4CAF50;
+  color: white;
+}
+
+.step.completed .step-number::before {
+  content: '✓';
+}
+
+.step-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.step-connector {
+  width: 60px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 1rem;
+}
+
+/* Step Content */
+.auth-content {
+  color: #ffffff;
+}
+
+.auth-step-content {
+  text-align: center;
+}
+
+.auth-step-header {
+  margin-bottom: 2rem;
+}
+
+.auth-step-title {
+  font-size: 1.8rem;
+  color: #4CAF50;
+  margin-bottom: 0.5rem;
+}
+
+.auth-step-description {
+  color: #b0b0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.success-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Benefits */
+.auth-benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #4CAF50;
+}
+
+.benefit-icon {
+  font-size: 1.5rem;
+  width: 2rem;
+  text-align: center;
+}
+
+.benefit-text {
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+/* Player Summary */
+.player-summary {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  color: #b0b0b0;
+  font-size: 0.9rem;
+}
+
+.summary-value {
+  color: #4CAF50;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Actions */
+.auth-action {
+  margin-bottom: 1.5rem;
+}
+
+.auth-primary-btn {
+  background: linear-gradient(45deg, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.auth-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.auth-primary-btn.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Help */
+.auth-help {
+  text-align: center;
+}
+
+.help-text {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.help-text a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.help-text a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .auth-step-indicator {
+    padding: 0;
+  }
+  
+  .step-connector {
+    width: 40px;
+    margin: 0 0.5rem;
+  }
+  
+  .step-label {
+    font-size: 0.75rem;
+  }
+  
+  .auth-step-title {
+    font-size: 1.5rem;
+  }
+  
+  .auth-benefits {
+    grid-template-columns: 1fr;
+  }
+  
+  .benefit-item {
+    padding: 0.75rem;
+  }
+  
+  .benefit-text {
+    font-size: 0.85rem;
+  }
+}

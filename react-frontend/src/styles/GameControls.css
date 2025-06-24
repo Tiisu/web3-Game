@@ -1,0 +1,210 @@
+/* Game Controls Styles */
+
+.game-controls {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--component-gap);
+  width: 100%;
+  max-width: 600px;
+  padding: var(--layout-gap);
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.control-buttons {
+  display: flex;
+  gap: var(--element-gap);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.control-btn {
+  position: relative;
+  background: linear-gradient(135deg, var(--gaming-primary) 0%, var(--accent-orange) 50%, var(--gaming-warning) 100%);
+  border: 2px solid var(--gaming-primary);
+  color: var(--ui-text-primary);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  padding: var(--space-4) var(--space-8);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  min-width: 120px;
+  text-align: center;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  font-family: var(--font-gaming);
+  letter-spacing: 0.05em;
+}
+
+.control-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.control-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:
+    0 8px 25px rgba(255, 107, 53, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #ff7849 0%, #ff9500 50%, #ffa500 100%);
+}
+
+.control-btn:hover::before {
+  left: 100%;
+}
+
+.control-btn:active {
+  transform: translateY(0) scale(0.98);
+  transition: all 0.1s ease;
+  box-shadow:
+    0 2px 8px rgba(255, 107, 53, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.control-btn:disabled {
+  background: linear-gradient(135deg, #9e9e9e 0%, #757575 50%, #616161 100%);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0.6;
+}
+
+.control-btn:disabled::before {
+  display: none;
+}
+
+/* Button variants */
+.control-btn.start-btn {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 50%, #388e3c 100%);
+  box-shadow:
+    0 4px 15px rgba(76, 175, 80, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.control-btn.start-btn:hover {
+  background: linear-gradient(135deg, #66bb6a 0%, #4caf50 50%, #43a047 100%);
+  box-shadow:
+    0 8px 25px rgba(76, 175, 80, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.control-btn.pause-btn {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 50%, #ef6c00 100%);
+  box-shadow:
+    0 4px 15px rgba(255, 152, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.control-btn.pause-btn:hover {
+  background: linear-gradient(135deg, #ffb74d 0%, #ff9800 50%, #f57c00 100%);
+  box-shadow:
+    0 8px 25px rgba(255, 152, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.control-btn.stop-btn {
+  background: linear-gradient(135deg, #f44336 0%, #d32f2f 50%, #c62828 100%);
+  box-shadow:
+    0 4px 15px rgba(244, 67, 54, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.control-btn.stop-btn:hover {
+  background: linear-gradient(135deg, #ef5350 0%, #f44336 50%, #e53935 100%);
+  box-shadow:
+    0 8px 25px rgba(244, 67, 54, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Loading state */
+.control-btn.loading {
+  pointer-events: none;
+  position: relative;
+}
+
+.control-btn.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: buttonSpin 1s linear infinite;
+}
+
+@keyframes buttonSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.connection-status {
+  display: flex;
+  justify-content: center;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.status-indicator.connected {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.status-indicator.pending {
+  background: rgba(255, 152, 0, 0.2);
+  color: #ff9800;
+  border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.status-indicator.local {
+  background: rgba(158, 158, 158, 0.2);
+  color: #9e9e9e;
+  border: 1px solid rgba(158, 158, 158, 0.3);
+}
+
+.status-icon {
+  font-size: 16px;
+}
+
+.status-text {
+  font-size: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 785px) {
+  .game-controls {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 400px;
+    gap: 10px;
+  }
+
+  .control-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}

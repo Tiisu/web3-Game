@@ -1,0 +1,590 @@
+/* Enhanced Dashboard Styles */
+
+.dashboard-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-family: var(--font-primary);
+}
+
+.dashboard {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-xl);
+  padding: var(--layout-gap);
+  box-shadow: var(--shadow-xl);
+  text-align: left;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--component-gap);
+  animation: fadeIn 0.8s ease-in-out;
+  transition: all var(--transition-normal);
+}
+
+.dashboard:hover {
+  background: var(--bg-glass-strong);
+  border-color: var(--ui-border-hover);
+  transform: translateY(-2px);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-header h2 {
+  color: #fff;
+  text-align: left;
+  margin: 0;
+  font-family: var(--font-gaming);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.refresh-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.refresh-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(180deg);
+}
+
+.refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Dashboard Sections */
+.current-game-section,
+.player-profile-section,
+.overall-stats-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 8px;
+}
+
+.current-game-section h3,
+.player-profile-section h3,
+.overall-stats-section h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+  padding-bottom: 8px;
+  font-family: var(--font-gaming);
+}
+
+/* Current Game Stats */
+.current-game-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.current-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.current-stat:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.current-stat .stat-label {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.current-stat .stat-value {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 700;
+  font-family: var(--font-gaming);
+}
+
+.web3-player-info {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 107, 53, 0.1));
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  color: white;
+  padding: 16px;
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+}
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.player-username {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.edit-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.player-rank {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.rank-value {
+  font-weight: 600;
+  color: #fff;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--component-gap);
+}
+
+.stat-item {
+  background: var(--bg-glass);
+  border: 1px solid var(--ui-border);
+  backdrop-filter: blur(10px);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+  color: var(--ui-text-primary);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 80px;
+}
+
+.stat-item.highlight {
+  border-color: var(--gaming-accent);
+  background: linear-gradient(135deg, var(--bg-glass), rgba(0, 206, 201, 0.1));
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--gaming-accent);
+  background: var(--bg-glass-strong);
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 206, 201, 0.1);
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+}
+
+.stat-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--ui-text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ui-text-primary);
+  font-family: var(--font-gaming);
+  transition: all var(--transition-normal);
+  margin: 0;
+}
+
+.stat-value.member-date {
+  font-size: 0.9rem;
+  font-family: var(--font-primary);
+}
+
+.stat-value.time-display {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.stat-value.time-display.warning {
+  color: var(--gaming-danger);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Animated counter effect */
+.stat-value.updating {
+  animation: statUpdate 0.6s ease-out;
+}
+
+@keyframes statUpdate {
+  0% {
+    transform: scale(1);
+    color: #fff;
+  }
+  50% {
+    transform: scale(1.2);
+    color: #4CAF50;
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    color: #fff;
+  }
+}
+
+/* Special effects for high scores */
+.stat-value.high-score {
+  background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShimmer 2s ease-in-out infinite;
+}
+
+@keyframes goldShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Achievement unlock effect */
+.stat-item.achievement-unlocked {
+  animation: achievementPulse 1s ease-out;
+}
+
+@keyframes achievementPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 20px rgba(255, 215, 0, 0);
+  }
+}
+
+.stat-source {
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: var(--space-1);
+  align-self: flex-start;
+}
+
+.stat-source.blockchain {
+  background: rgba(0, 184, 148, 0.2);
+  color: var(--gaming-success);
+  border: 1px solid rgba(0, 184, 148, 0.3);
+}
+
+.stat-source.local {
+  background: rgba(253, 203, 110, 0.2);
+  color: var(--gaming-warning);
+  border: 1px solid rgba(253, 203, 110, 0.3);
+}
+
+.stat-source.calculated {
+  background: rgba(108, 92, 231, 0.2);
+  color: var(--gaming-secondary);
+  border: 1px solid rgba(108, 92, 231, 0.3);
+}
+
+/* === SECTION HEADERS === */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--component-gap);
+}
+
+.section-header h3 {
+  margin: 0;
+  color: var(--gaming-accent);
+  font-family: var(--font-gaming);
+  font-size: 1.1rem;
+}
+
+.data-source-indicator {
+  display: flex;
+  align-items: center;
+}
+
+.data-source {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.data-source.blockchain {
+  background: rgba(0, 184, 148, 0.2);
+  color: var(--gaming-success);
+  border: 1px solid rgba(0, 184, 148, 0.3);
+}
+
+.data-source.local {
+  background: rgba(253, 203, 110, 0.2);
+  color: var(--gaming-warning);
+  border: 1px solid rgba(253, 203, 110, 0.3);
+}
+
+.source-icon {
+  font-size: 0.8rem;
+}
+
+/* === DATA LOADING INDICATOR === */
+.data-loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(0, 206, 201, 0.1);
+  border: 1px solid rgba(0, 206, 201, 0.3);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--component-gap);
+  font-size: 0.9rem;
+  color: var(--gaming-accent);
+  font-weight: 500;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 206, 201, 0.3);
+  border-top: 2px solid var(--gaming-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* === CURRENT GAME STATS === */
+.current-game-section {
+  background: var(--bg-glass);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--component-gap);
+}
+
+.current-game-section h3 {
+  color: var(--gaming-accent);
+  font-family: var(--font-gaming);
+  margin-bottom: var(--space-4);
+  font-size: 1.1rem;
+}
+
+.current-game-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.current-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+}
+
+.current-stat:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.current-stat .stat-icon {
+  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 206, 201, 0.1);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.current-stat .stat-content {
+  flex: 1;
+}
+
+.current-stat .stat-label {
+  font-size: 0.7rem;
+  color: var(--ui-text-secondary);
+  margin-bottom: 2px;
+}
+
+.current-stat .stat-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ui-text-primary);
+}
+
+.game-status-indicator {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-2);
+}
+
+.status-badge {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-badge.playing {
+  background: rgba(0, 184, 148, 0.2);
+  color: var(--gaming-success);
+  border: 1px solid rgba(0, 184, 148, 0.3);
+}
+
+.status-badge.paused {
+  background: rgba(253, 203, 110, 0.2);
+  color: var(--gaming-warning);
+  border: 1px solid rgba(253, 203, 110, 0.3);
+}
+
+.status-badge.stopped {
+  background: rgba(225, 112, 85, 0.2);
+  color: var(--gaming-danger);
+  border: 1px solid rgba(225, 112, 85, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard-container {
+    width: 100%;
+    height: auto;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .stat-item {
+    padding: 10px;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .stat-value {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .player-username {
+    font-size: 1rem;
+  }
+}

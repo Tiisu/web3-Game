@@ -1,0 +1,411 @@
+/* === ENHANCED WEB3 FEEDBACK SYSTEM === */
+/* Cohesive visual feedback for blockchain interactions that matches game aesthetics */
+
+/* === TRANSACTION PROGRESS INDICATOR === */
+.web3-transaction-progress {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: var(--z-modal);
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-xl), 0 0 40px var(--primary-orange-glow);
+  border: 2px solid var(--primary-orange);
+  min-width: 320px;
+  text-align: center;
+  animation: web3FadeInUp 0.4s ease-out;
+}
+
+.web3-transaction-progress.success {
+  border-color: var(--web3-success);
+  box-shadow: var(--shadow-xl), 0 0 40px var(--web3-success-glow);
+  animation: web3Success 0.6s ease-out;
+}
+
+.web3-transaction-progress.error {
+  border-color: var(--web3-error);
+  box-shadow: var(--shadow-xl), 0 0 40px var(--web3-error-glow);
+  animation: web3Error 0.5s ease-out;
+}
+
+.transaction-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-4);
+  display: block;
+}
+
+.transaction-icon.pending {
+  animation: web3Pulse 2s infinite;
+}
+
+.transaction-icon.success {
+  color: var(--web3-success);
+  animation: web3Bounce 0.8s ease-out;
+}
+
+.transaction-icon.error {
+  color: var(--web3-error);
+  animation: web3Error 0.5s ease-out;
+}
+
+.transaction-title {
+  font-family: var(--font-gaming);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--neutral-darker);
+  margin-bottom: var(--space-2);
+}
+
+.transaction-message {
+  font-size: var(--text-base);
+  color: var(--neutral-gray);
+  margin-bottom: var(--space-6);
+  line-height: 1.5;
+}
+
+.transaction-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--space-6) 0;
+  padding: 0 var(--space-4);
+}
+
+.transaction-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  position: relative;
+}
+
+.transaction-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background: var(--neutral-light-gray);
+  z-index: -1;
+}
+
+.transaction-step.active:not(:last-child)::after {
+  background: linear-gradient(90deg, var(--primary-orange), var(--neutral-light-gray));
+}
+
+.transaction-step.completed:not(:last-child)::after {
+  background: var(--web3-success);
+}
+
+.step-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  background: var(--neutral-light-gray);
+  color: var(--neutral-gray);
+  transition: all var(--transition-web3);
+}
+
+.step-icon.active {
+  background: var(--primary-orange);
+  color: white;
+  animation: web3Pulse 2s infinite;
+}
+
+.step-icon.completed {
+  background: var(--web3-success);
+  color: white;
+}
+
+.step-label {
+  font-size: var(--text-xs);
+  color: var(--neutral-gray);
+  text-align: center;
+  font-weight: var(--font-medium);
+}
+
+.step-label.active {
+  color: var(--primary-orange);
+  font-weight: var(--font-semibold);
+}
+
+.step-label.completed {
+  color: var(--web3-success);
+  font-weight: var(--font-semibold);
+}
+
+/* === ENHANCED LOADING SPINNER === */
+.web3-loading-spinner {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto var(--space-4);
+}
+
+.web3-loading-spinner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 3px solid var(--neutral-light-gray);
+  border-top: 3px solid var(--primary-orange);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.web3-loading-spinner::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 28px;
+  height: 28px;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--primary-orange-light);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite reverse;
+}
+
+/* === WEB3 STATUS BADGES === */
+.web3-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  transition: all var(--transition-web3);
+  border: 1px solid transparent;
+}
+
+.web3-status-badge.connected {
+  background: linear-gradient(135deg, var(--web3-success), var(--web3-success-light));
+  color: white;
+  box-shadow: 0 2px 8px var(--web3-success-glow);
+}
+
+.web3-status-badge.pending {
+  background: linear-gradient(135deg, var(--web3-pending), var(--web3-pending-light));
+  color: white;
+  box-shadow: 0 2px 8px var(--web3-pending-glow);
+  animation: web3Pending 2s infinite;
+}
+
+.web3-status-badge.error {
+  background: linear-gradient(135deg, var(--web3-error), var(--web3-error-light));
+  color: white;
+  box-shadow: 0 2px 8px var(--web3-error-glow);
+}
+
+.web3-status-badge.blockchain {
+  background: linear-gradient(135deg, var(--web3-blockchain), var(--web3-blockchain-light));
+  color: white;
+  box-shadow: 0 2px 8px var(--web3-blockchain-glow);
+}
+
+.web3-status-badge.local {
+  background: var(--neutral-light);
+  color: var(--neutral-gray);
+  border-color: var(--neutral-light-gray);
+}
+
+.status-badge-icon {
+  font-size: var(--text-base);
+}
+
+.status-badge-text {
+  font-size: var(--text-sm);
+}
+
+/* === TRANSACTION CONFIRMATION OVERLAY === */
+.web3-confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(8px);
+  z-index: var(--z-modal-backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  animation: web3FadeInUp 0.3s ease-out;
+}
+
+.web3-confirmation-content {
+  background: var(--bg-card);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+  border: 2px solid var(--primary-orange);
+  position: relative;
+  overflow: hidden;
+}
+
+.web3-confirmation-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* === WEB3 ONBOARDING STYLES === */
+.web3-onboarding-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg,
+    rgba(26, 26, 46, 0.95) 0%,
+    rgba(22, 33, 62, 0.95) 50%,
+    rgba(15, 52, 96, 0.95) 100%
+  );
+  backdrop-filter: blur(10px);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  animation: web3FadeInUp 0.5s ease-out;
+}
+
+.onboarding-container {
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  background: var(--bg-card);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl), 0 0 50px rgba(255, 107, 53, 0.2);
+  border: 2px solid var(--primary-orange);
+  overflow: hidden;
+}
+
+.onboarding-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-mole,
+.floating-achievement,
+.floating-chain {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.1;
+  animation: floatAround 8s ease-in-out infinite;
+}
+
+.floating-mole:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-mole:nth-child(2) {
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.floating-mole:nth-child(3) {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+.floating-achievement:nth-child(4) {
+  top: 30%;
+  right: 30%;
+  animation-delay: 1s;
+}
+
+.floating-achievement:nth-child(5) {
+  bottom: 40%;
+  right: 10%;
+  animation-delay: 3s;
+}
+
+.floating-chain {
+  top: 70%;
+  left: 60%;
+  animation-delay: 5s;
+}
+
+@keyframes floatAround {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-30px) rotate(270deg);
+  }
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 480px) {
+  .web3-transaction-progress {
+    min-width: 280px;
+    padding: var(--space-6);
+  }
+
+  .transaction-steps {
+    padding: 0 var(--space-2);
+  }
+
+  .step-icon {
+    width: 24px;
+    height: 24px;
+    font-size: var(--text-xs);
+  }
+
+  .step-label {
+    font-size: 10px;
+  }
+
+  .web3-confirmation-content {
+    padding: var(--space-6);
+    margin: var(--space-4);
+  }
+
+  .onboarding-container {
+    margin: var(--space-2);
+    max-width: none;
+  }
+}

@@ -1,0 +1,348 @@
+/* Game Over Modal Styles */
+
+.game-over-overlay {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.game-over-modal {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(255, 107, 53, 0.3);
+  backdrop-filter: blur(20px);
+  border: 2px solid var(--primary-orange);
+  padding: var(--space-8);
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalSlideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Header Section */
+.game-over-header {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.game-over-title {
+  font-family: var(--font-gaming);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-extrabold);
+  color: transparent;
+  background: linear-gradient(135deg, var(--primary-orange), var(--secondary-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: var(--space-4);
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+.performance-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-full);
+  border: 2px solid currentColor;
+  font-family: var(--font-gaming);
+  font-weight: var(--font-bold);
+  font-size: var(--text-lg);
+  animation: badgeBounce 0.6s ease-out 0.5s both;
+}
+
+.performance-emoji {
+  font-size: var(--text-xl);
+}
+
+/* Final Score Section */
+.final-score-section {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  padding: var(--space-6);
+  background: linear-gradient(135deg, var(--primary-orange-glow), rgba(108, 92, 231, 0.1));
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.final-score-label {
+  font-size: var(--text-lg);
+  color: var(--neutral-dark-gray);
+  font-weight: var(--font-medium);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.final-score-value {
+  font-family: var(--font-gaming);
+  font-size: var(--text-5xl);
+  font-weight: var(--font-extrabold);
+  color: var(--primary-orange);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: scoreCountUp 1s ease-out 0.3s both;
+}
+
+/* Game Statistics Grid */
+.game-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.stat-item {
+  text-align: center;
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: all var(--transition-normal);
+  animation: statSlideIn 0.4s ease-out both;
+}
+
+.stat-item:nth-child(1) { animation-delay: 0.1s; }
+.stat-item:nth-child(2) { animation-delay: 0.2s; }
+.stat-item:nth-child(3) { animation-delay: 0.3s; }
+.stat-item:nth-child(4) { animation-delay: 0.4s; }
+.stat-item:nth-child(5) { animation-delay: 0.5s; }
+.stat-item:nth-child(6) { animation-delay: 0.6s; }
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-icon {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-2);
+}
+
+.stat-value {
+  font-family: var(--font-gaming);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--neutral-darker);
+  margin-bottom: var(--space-1);
+}
+
+.stat-label {
+  font-size: var(--text-sm);
+  color: var(--neutral-gray);
+  font-weight: var(--font-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Web3 Status */
+.web3-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-medium);
+  margin-bottom: var(--space-6);
+  animation: statusSlideIn 0.4s ease-out 0.7s both;
+}
+
+.web3-status.web3-connected {
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.web3-status.web3-local {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.web3-status-icon {
+  font-size: var(--text-lg);
+}
+
+/* Action Buttons */
+.game-over-actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+
+.game-over-btn {
+  padding: var(--space-4) var(--space-8);
+  font-family: var(--font-gaming);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-normal);
+  animation: buttonSlideIn 0.4s ease-out both;
+}
+
+.play-again-btn {
+  background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-dark));
+  color: white;
+  border: 2px solid var(--primary-orange-dark);
+  animation-delay: 0.8s;
+}
+
+.play-again-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 20px var(--primary-orange-glow);
+}
+
+.close-btn {
+  background: linear-gradient(135deg, var(--neutral-gray), var(--neutral-dark-gray));
+  color: white;
+  border: 2px solid var(--neutral-dark-gray);
+  animation-delay: 0.9s;
+}
+
+.close-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-icon {
+  margin-right: var(--space-2);
+}
+
+/* New Record Badge */
+.new-record-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #b7791f;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  border: 2px solid #b7791f;
+  animation: recordBadge 0.6s ease-out 1s both;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.record-icon {
+  margin-right: var(--space-1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes titlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes badgeBounce {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes scoreCountUp {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes statSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes statusSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes buttonSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes recordBadge {
+  from {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .game-over-modal {
+    padding: var(--space-6);
+    margin: var(--space-4);
+  }
+  
+  .game-over-title {
+    font-size: var(--text-3xl);
+  }
+  
+  .final-score-value {
+    font-size: var(--text-4xl);
+  }
+  
+  .game-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .game-over-actions {
+    flex-direction: column;
+  }
+  
+  .game-over-btn {
+    width: 100%;
+  }
+}
