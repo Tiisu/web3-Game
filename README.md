@@ -209,7 +209,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - **Documentation**: Check the `/Contract/DEPLOYMENT.md` for detailed deployment instructions
 - **Issues**: Report bugs and feature requests via GitHub Issues
-- **Community**: Join the ApeChain Discord for community support
 
 ## 🎉 Acknowledgments
 
